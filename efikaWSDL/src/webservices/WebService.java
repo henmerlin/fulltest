@@ -7,7 +7,7 @@ import javax.jws.WebParam;
 public class WebService {
 
 	@WebMethod(operationName = "hello")
-	public String hello(@WebParam(name = "name") String txt) {
+	public String hello2(@WebParam(name = "name") String txt) {
 		return "Hello " + txt + " !";
 	}
 	
