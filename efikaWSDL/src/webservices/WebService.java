@@ -8,7 +8,7 @@ public class WebService {
 
 	@WebMethod(operationName = "hello")
 	public String hello(@WebParam(name = "name") String txt) {
-		return "Hello 2" + txt + " !";
+		return "Oi mundo!";
 	}
 	
 	
