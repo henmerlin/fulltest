@@ -1,4 +1,4 @@
-package entidades.banda.gpon;
+package entidades.banda.gpon.keymile;
 
 public class Keymile {
 	

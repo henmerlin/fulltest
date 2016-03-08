@@ -1,4 +1,4 @@
-package entidades.banda.gpon;
+package entidades.banda.gpon.alcatel;
 
 public class Alcatel{
 	
