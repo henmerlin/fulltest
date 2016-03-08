@@ -1,6 +1,6 @@
 package entidades.linha.ims;
 
-public class Sip {
+public class Sip extends Ims{
 
 	public Sip() {
 		
