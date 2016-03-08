@@ -1,6 +1,7 @@
 package model.factory;
 
 import entidades.credenciais.Credencial;
+import entidades.linha.Linha;
 import entidades.linha.metalico.LinhaNortel;
 import entidades.linha.metalico.Nortel;
 
@@ -20,14 +21,14 @@ public final class LinhaFactory {
 	 * @return Objeto filho de Linha
  	 * @throws Exception
 	 */
-	public Nortel criar(String tecnologia) throws Exception{
+	/*public Nortel criar(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
-			return new LinhaNortel();
+			return new Linha();
 		}else{
 			throw new Exception("Técnologia de voz não implementada.");
 		}
-	}
+	}*/
 	
 
 	/**
