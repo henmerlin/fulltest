@@ -1,4 +1,4 @@
-package linha.metalico;
+package entidades.linha.metalico;
 
 public class LinhaNortel implements Nortel{
 	
