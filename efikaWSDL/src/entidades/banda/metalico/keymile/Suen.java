@@ -1,6 +1,6 @@
 package entidades.banda.metalico.keymile;
 
-public class Suen {
+public class Suen extends Keymile {
 	
 	public Suen() {
 		
