@@ -1,6 +1,6 @@
-package entidades.linha;
+package entidades.linha.metalico;
 
-public class LinhaNortel implements Linha{
+public class LinhaNortel implements Nortel{
 	
 	private String instancia;
 	

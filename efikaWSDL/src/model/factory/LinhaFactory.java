@@ -1,8 +1,8 @@
 package model.factory;
 
 import entidades.credenciais.Credencial;
-import entidades.linha.Linha;
-import entidades.linha.LinhaNortel;
+import entidades.linha.metalico.Nortel;
+import entidades.linha.metalico.LinhaNortel;
 
 /**
  * 
@@ -20,7 +20,7 @@ public final class LinhaFactory {
 	 * @return Objeto filho de Linha
  	 * @throws Exception
 	 */
-	public Linha criar(String tecnologia) throws Exception{
+	public Nortel criar(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new LinhaNortel();
