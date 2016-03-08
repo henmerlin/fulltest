@@ -1,8 +1,8 @@
 package model.factory;
 
 import entidades.credenciais.Credencial;
-import entidades.linha.metalico.Nortel;
-import entidades.linha.metalico.LinhaNortel;
+import linha.metalico.LinhaNortel;
+import linha.metalico.Nortel;
 
 /**
  * 
