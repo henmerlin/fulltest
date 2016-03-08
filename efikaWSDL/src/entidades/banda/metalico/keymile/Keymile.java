@@ -1,6 +1,8 @@
 package entidades.banda.metalico.keymile;
 
-public class Keymile {
+import entidades.banda.Banda;
+
+public class Keymile implements Banda{
 	
 	public Keymile() {
 		

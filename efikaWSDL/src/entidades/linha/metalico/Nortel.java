@@ -1,5 +1,11 @@
 package entidades.linha.metalico;
 
-public interface Nortel {
+import entidades.linha.Linha;
+
+public class Nortel implements Linha{
+
+	public Nortel() {
+		
+	}
 
 }

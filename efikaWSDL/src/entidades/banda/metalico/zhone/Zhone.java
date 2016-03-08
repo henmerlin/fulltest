@@ -1,6 +1,8 @@
 package entidades.banda.metalico.zhone;
 
-public class Zhone {
+import entidades.banda.Banda;
+
+public class Zhone implements Banda{
 	
 	public Zhone() {
 		

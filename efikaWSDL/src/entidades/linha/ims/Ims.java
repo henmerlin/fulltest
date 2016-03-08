@@ -1,6 +1,8 @@
 package entidades.linha.ims;
 
-public class Ims {
+import entidades.linha.Linha;
+
+public class Ims implements Linha{
 
 	public Ims() {
 		
