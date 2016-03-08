@@ -1,4 +1,4 @@
-package entidades.linha.metalico;
+package entidades.linha.tdm;
 
 public class LinhaNortel{
 	
