@@ -1,6 +1,7 @@
 package controllers;
 
-import java.rmi.RemoteException;
+
+import java.io.IOException;
 
 import model.linha.fulltest.LinhaService;
 
@@ -8,19 +9,25 @@ public class Teste {
 	
 	public static void main(String[] args) {
 		
-		
-		
-		
 		LinhaService service = new LinhaService();
-		
+
 		try {
-			String instancia = "4136791564";
-			String oi = service.consultarCentral(instancia);
-			System.out.println(oi);
-		} catch (RemoteException e) {
+			
+			String instancia = "4130222839";
+			String equipamento = service.consultarNrEquipamento(instancia);
+			
+			System.out.println(equipamento);
+
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+			
+		
+
 	}
 
 }

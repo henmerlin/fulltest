@@ -26,6 +26,19 @@ public class Telnet {
 
 	}
 	
+	public static void main(String[] args) {
+		
+		try {
+			keymileTest();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 	public String getIp() {
 		return ip;
 	}
