@@ -14,7 +14,7 @@ public class Teste {
 		LinhaService service = new LinhaService();
 		
 		try {
-			String instancia = "4130222839";
+			String instancia = "4136791564";
 			String oi = service.consultarCentral(instancia);
 			System.out.println(oi);
 		} catch (RemoteException e) {
