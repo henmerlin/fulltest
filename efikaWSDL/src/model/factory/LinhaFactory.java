@@ -2,7 +2,6 @@ package model.factory;
 
 import entidades.credenciais.Credencial;
 import entidades.linha.LinhaInterface;
-import entidades.linha.tdm.LinhaNortel;
 import entidades.linha.tdm.Nortel;
 
 /**
