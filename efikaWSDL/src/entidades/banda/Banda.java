@@ -1,7 +1,5 @@
 package entidades.banda;
 
-public interface Banda {
-	
-	
+public class Banda {
 
 }

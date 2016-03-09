@@ -1,6 +1,9 @@
 package entidades.banda.gpon.keymile;
 
-public class Keymile {
+import entidades.banda.Banda;
+import entidades.banda.BandaInterface;
+
+public class Keymile extends Banda implements BandaInterface{
 	
 	public Keymile() {
 		

@@ -1,31 +1,32 @@
 package entidades;
 
-import entidades.banda.Banda;
-import entidades.linha.Linha;
+import entidades.banda.BandaInterface;
+import entidades.linha.LinhaInterface;
 
 public class Cliente {
 	
-	private Banda banda;
+	private LinhaInterface linha;
+
+	private BandaInterface banda;
 	
-	private Linha linha;
 
 	public Cliente() {
 		
 	}
 
-	public Banda getBanda() {
+	public BandaInterface getBanda() {
 		return banda;
 	}
 
-	public void setBanda(Banda banda) {
+	public void setBanda(BandaInterface banda) {
 		this.banda = banda;
 	}
 
-	public Linha getLinha() {
+	public LinhaInterface getLinha() {
 		return linha;
 	}
 
-	public void setLinha(Linha linha) {
+	public void setLinha(LinhaInterface linha) {
 		this.linha = linha;
 	}
 	
