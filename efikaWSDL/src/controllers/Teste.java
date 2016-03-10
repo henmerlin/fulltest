@@ -25,12 +25,6 @@ public class Teste {
 			LinhaInterface linha = fabrica.criar(central);
 
 			
-			
-			System.out.println(equipamento);
-			System.out.println(central);
-
-			
-			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

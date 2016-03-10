@@ -39,6 +39,15 @@ public class Telnet {
 	}
 	
 	
+	
+	public Credencial getAuth() {
+		return auth;
+	}
+
+	public void setAuth(Credencial auth) {
+		this.auth = auth;
+	}
+
 	public String getIp() {
 		return ip;
 	}

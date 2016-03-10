@@ -43,7 +43,7 @@ public class DslamFactory {
 	 * Gera credencial Keymile
 	 * @return Credencial
 	 */
-	public Credencial keymileCredencial(){
+	public static Credencial keymileCredencial(){
 
 		Credencial credencial = new Credencial();
 
