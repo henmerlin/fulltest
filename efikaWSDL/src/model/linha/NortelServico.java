@@ -3,7 +3,7 @@ package model.linha;
 
 import model.telnet.Telnet;
 
-public class NortelServico extends LinhaServico{
+public class NortelServico extends LinhaServico implements LinhaServicoInterface{
 	
 	private Telnet telnet;
 		

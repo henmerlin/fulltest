@@ -3,6 +3,8 @@ package model.factory;
 import entidades.credenciais.Credencial;
 import entidades.linha.LinhaInterface;
 import entidades.linha.tdm.Nortel;
+import model.linha.LinhaServicoInterface;
+import model.linha.NortelServico;
 
 /**
  * 
@@ -20,16 +22,23 @@ public final class LinhaFactory {
 	 * @return Objeto filho de Linha
  	 * @throws Exception
 	 */
-	/*public Nortel criar(String tecnologia) throws Exception{
+	public LinhaInterface criar(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
-			return new Linha();
+			return new Nortel();
 		}else{
 			throw new Exception("Técnologia de voz não implementada.");
 		}
-	}*/
+	}
 	
-
+	public LinhaServicoInterface criarServico(String tecnologia) throws Exception{
+		
+		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
+			return new NortelServico();
+		}else{
+			throw new Exception("Técnologia de voz não implementada.");
+		}
+	}
 	/**
 	 * Método utilizado para criar entidade Credencial de acordo com tipo
 	 * @param tipo
@@ -61,5 +70,4 @@ public final class LinhaFactory {
 		return credencial;
 		
 	}
-	
 }

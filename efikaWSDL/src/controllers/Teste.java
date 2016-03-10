@@ -3,6 +3,8 @@ package controllers;
 
 import java.io.IOException;
 
+import entidades.linha.LinhaInterface;
+import model.factory.LinhaFactory;
 import model.linha.fulltest.LinhaService;
 
 public class Teste {
@@ -16,7 +18,19 @@ public class Teste {
 			String instancia = "4130222839";
 			String equipamento = service.consultarNrEquipamento(instancia);
 			
+			String central = service.consultarCentral(equipamento);
+			
+			LinhaFactory fabrica = new LinhaFactory();
+			
+			LinhaInterface linha = fabrica.criar(central);
+
+			
+			
 			System.out.println(equipamento);
+			System.out.println(central);
+
+			
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
