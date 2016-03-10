@@ -1,6 +1,9 @@
+/bean/
 /br/
 /com/
 /controllers/
 /entidades/
+/exception/
 /model/
+/rpc/
 /webservices/
