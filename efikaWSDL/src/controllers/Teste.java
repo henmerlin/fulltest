@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import entidades.linha.LinhaInterface;
 import model.factory.LinhaFactory;
-import model.linha.fulltest.LinhaService;
+import model.linha.LinhaServico;
 
 public class Teste {
 	
 	public static void main(String[] args) {
 		
-		LinhaService service = new LinhaService();
+		LinhaServico service = new LinhaServico();
 
 		try {
 			

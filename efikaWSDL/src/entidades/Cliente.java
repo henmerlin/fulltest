@@ -5,15 +5,23 @@ import entidades.linha.LinhaInterface;
 
 public class Cliente {
 	
+	private String instancia;
+	
 	private LinhaInterface linha;
 
 	private BandaInterface banda;
-	
 
 	public Cliente() {
 		
 	}
 
+	public String getInstancia() {
+		return instancia;
+	}
+
+	public void setInstancia(String instancia) {
+		this.instancia = instancia;
+	}
 	public BandaInterface getBanda() {
 		return banda;
 	}

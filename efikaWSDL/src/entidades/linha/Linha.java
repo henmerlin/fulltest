@@ -2,10 +2,13 @@ package entidades.linha;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import entidades.servicos.ServicoLinha;
 
 public class Linha {
 	
+	@NotEmpty
 	private String instancia;
 	
 	private List<ServicoLinha> servicos;

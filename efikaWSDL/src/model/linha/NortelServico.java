@@ -26,17 +26,5 @@ public class NortelServico extends LinhaServico implements LinhaServicoInterface
 		this.telnet = telnet;
 	}
 	
-	/**
-	 * 
-	 * @param instancia
-	 */
-	public void consultar(String instancia){
-		
-		String comando = "qdn " + instancia;
-		
-		
-	
-		
-	}
-	
+
 }

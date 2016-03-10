@@ -31,7 +31,7 @@ public final class LinhaFactory {
 		}
 	}
 	
-	public LinhaServicoInterface criarServico(String tecnologia) throws Exception{
+	public static LinhaServicoInterface criarServico(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new NortelServico();

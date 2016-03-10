@@ -11,15 +11,23 @@
 		 Início
 	</ui:define>
 	<ui:define name="tituloPrincipal">
-		<i class="fa fa-home"> </i> Início</ui:define>
+		<i class="fa fa-wrench"> </i> Atendimento</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
 
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="conteudo">
 		<h:form>
-		
-		
+			<p:fieldset legend="Consulte a instância:" style="margin-bottom:20px">
+				<h:panelGrid columns="3" cellpadding="5">
+
+					<p:outputLabel for="instancia"/>
+					<p:inputText id="instancia" value="#{operacionalBean.cliente.instancia}" placeholder="Instância ou Designador"/>
+					<p:commandButton action="#{operacionalBean.consultar()}" value="Consultar"/>
+
+				</h:panelGrid>
+			</p:fieldset>
+
 		</h:form>
 	</ui:define>
 </ui:composition>
