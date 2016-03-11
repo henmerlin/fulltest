@@ -1,5 +1,8 @@
 package model.banda.metalico.keymile;
 
+import java.sql.Array;
+import java.util.List;
+
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import model.factory.DslamFactory;
@@ -56,9 +59,9 @@ public class SuadServico {
 		return null;
 	}
 	/*
-	 * Retorna o estado operacional da porta 	
+	 * Retorna a lista de vccs do canal 	
 	 */
-	public String chanSrvcs(GetInfoOut cadastro){
+	public List<Array> chanVccs(GetInfoOut cadastro){
 		
 		InfoTBS tbs = cadastro.getInfoTBS();
 		
@@ -66,6 +69,30 @@ public class SuadServico {
 		
 		return null;
 	}
+	/*
+	 * Retorna o perfil do canal (profile) 	
+	 */
+	public String chanProfile(GetInfoOut cadastro){
+		
+		InfoTBS tbs = cadastro.getInfoTBS();
+		
+		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/profilename";
+		
+		return null;
+	}
+	/*
+	 * Retorna o perfil da porta (modulação) 	
+	 */
+	public String portProfile(GetInfoOut cadastro){
+		
+		InfoTBS tbs = cadastro.getInfoTBS();
+		
+		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
+		
+		return null;
+	}
+	
+	
 	
 	
 }
