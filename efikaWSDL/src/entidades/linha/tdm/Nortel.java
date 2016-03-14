@@ -16,6 +16,7 @@ public class Nortel extends Linha implements LinhaInterface{
 	public Nortel() {
 		
 	}
+	
 
 	public String getDn() {
 		return dn;
@@ -47,5 +48,10 @@ public class Nortel extends Linha implements LinhaInterface{
 
 	public void setCustGroup(String custGroup) {
 		this.custGroup = custGroup;
+	}
+	
+	@Override
+	public String getNome() {
+		return "TDM-H248";
 	}
 }

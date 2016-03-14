@@ -2,6 +2,7 @@ package model.factory;
 
 import entidades.credenciais.Credencial;
 import entidades.linha.LinhaInterface;
+import entidades.linha.ims.Sip;
 import entidades.linha.tdm.Nortel;
 import model.linha.LinhaServicoInterface;
 import model.linha.NortelServico;
@@ -14,6 +15,7 @@ import model.linha.NortelServico;
 public final class LinhaFactory {
 
 	private final static String NORTEL = "TDM-H248";
+	private final static String SIP = "IMS-SIP";
 	
 	
 	/**
@@ -22,10 +24,12 @@ public final class LinhaFactory {
 	 * @return Objeto filho de Linha
  	 * @throws Exception
 	 */
-	public LinhaInterface criar(String tecnologia) throws Exception{
+	public static LinhaInterface criar(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new Nortel();
+		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP)) {
+			return new Sip();
 		}else{
 			throw new Exception("Técnologia de voz não implementada.");
 		}
@@ -34,6 +38,8 @@ public final class LinhaFactory {
 	public static LinhaServicoInterface criarServico(String tecnologia) throws Exception{
 		
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
+			return new NortelServico();
+		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP)) {
 			return new NortelServico();
 		}else{
 			throw new Exception("Técnologia de voz não implementada.");

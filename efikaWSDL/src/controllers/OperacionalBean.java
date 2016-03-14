@@ -2,8 +2,9 @@ package controllers;
 
 import javax.faces.bean.ManagedBean;
 
-import entidades.Cliente;
+import entidades.cliente.Cliente;
 import model.modulos.OperacionalServico;
+import util.JSFUtil;
 
 @ManagedBean
 public class OperacionalBean {
@@ -19,6 +20,12 @@ public class OperacionalBean {
 
 	public void consultar(){
 		
+		
+		try {
+			this.cliente.setLinha(this.servico.construirLinha(this.cliente.getInstancia()));
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());
+		}
 	}
 
 	public Cliente getCliente() {
