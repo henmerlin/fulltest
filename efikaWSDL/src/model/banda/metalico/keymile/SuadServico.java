@@ -5,7 +5,7 @@ import java.util.List;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
-import model.factory.DslamFactory;
+import model.factory.BandaFactory;
 import model.telnet.Telnet;
 
 public class SuadServico {
@@ -26,7 +26,7 @@ public class SuadServico {
 
 		Telnet telnet = new Telnet();
 		
-		telnet.setAuth(DslamFactory.keymileCredencial());
+		telnet.setAuth(BandaFactory.keymileCredencial());
 		telnet.setIp(tbs.getIpDslam());
 		
 		String comando1 = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";

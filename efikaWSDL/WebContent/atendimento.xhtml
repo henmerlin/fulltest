@@ -52,14 +52,12 @@
 				<p:panelGrid columns="2">
 
 					<h:outputText value="Instância:" />
-					<h:outputText id="instancia" value="#{operacionalBean.cliente.linha.instancia}" />
+					<h:outputText id="instancia"
+						value="#{operacionalBean.cliente.linha.instancia}" />
 
 					<h:outputText value="Tipo da Central:" />
 					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
-					
 
-					<h:outputText value="Position:" />
-					<h:outputText value="Shooting Guard" />
 				</p:panelGrid>
 			</p:panel>
 		</h:form>
@@ -67,20 +65,27 @@
 
 		<h:form id="infoBanda">
 			<p:panel header="Detalhes Banda Larga" style="margin-top: 15px;"
-				rendered="#{not empty operacionalBean.cliente.linha.nome}">
+				rendered="#{not empty operacionalBean.cliente.downloadCrm}">
 				<p:panelGrid columns="2">
 
 					<h:outputText value="Designador:" />
-					<h:outputText id="produtoBanda" value="#{operacionalBean.cliente.designador}" />
+					<h:outputText id="produtoBanda"
+						value="#{operacionalBean.cliente.designador}" />
 
-					<h:outputText value="Tipo da Central:" />
-					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
-					
+					<h:outputText value="Produto Contratado: " />
+					<h:outputText
+						value="#{operacionalBean.cliente.downloadCrm}/#{operacionalBean.cliente.uploadCrm}" />
 
 					<h:outputText value="Position:" />
 					<h:outputText value="Shooting Guard" />
 				</p:panelGrid>
 			</p:panel>
+
+			<p:panel header="Detalhes Banda Larga" style="margin-top: 15px;"
+				rendered="#{empty operacionalBean.cliente.downloadCrm and not empty operacionalBean.cliente.instancia}">
+				<h:outputText value="Cliente não possui produto banda larga." />
+			</p:panel>
+
 		</h:form>
 
 	</ui:define>

@@ -1,11 +1,14 @@
 package model;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 import entidades.cliente.Cliente;
-//import model.banda.BandaServico;
+import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
+import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
+import model.banda.BandaServico;
 import model.cliente.ClienteServico;
-//import model.linha.LinhaServico;
+import model.linha.LinhaServico;
 
 public class Teste {
 	
@@ -13,23 +16,46 @@ public class Teste {
 
 		Cliente cliente = new Cliente();
 		
-		//LinhaServico servicoLinha = new LinhaServico();
-		//BandaServico servicoBanda = new BandaServico();
+		LinhaServico servicoLinha = new LinhaServico();
+		BandaServico servicoBanda = new BandaServico();
 		ClienteServico servicoCliente = new ClienteServico();
 		
-		cliente.setInstancia("4130222839");
-		cliente.setDesignador("CTA-811C0EFT9-013");
+		String instancia = "1530232072";
 		
+		cliente.setInstancia(instancia);
+		
+
+		
+		String designador;
 		try {
-			cliente = servicoCliente.consultar(cliente);
-			System.out.println(cliente.getUploadCrm());
+			designador = servicoBanda.getDesignatorByAccessDesignator(instancia);
 			
+			System.out.println(designador);
+//			
+//			cliente.setDesignador(designador);
+//			
+//			cliente = servicoCliente.consultar(cliente);
+//			
+//			cliente.setLinha(servicoLinha.consultar(cliente.getInstancia()));
+			
+			
+		} catch (DataNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OSSTurbonetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (RemoteException e) {
-			System.out.println(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 
 }

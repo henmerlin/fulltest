@@ -5,9 +5,11 @@ import java.rmi.RemoteException;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import entidades.banda.BandaInterface;
 import entidades.cliente.Cliente;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
+import model.factory.BandaFactory;
 
 public class BandaServico {
 
@@ -16,7 +18,21 @@ public class BandaServico {
 	public BandaServico() {
 		this.osstbService = new OSSTurbonetProxy();
 	}
+	
+	public BandaInterface consultar(String designador){
+		
+		
+		return null;
+	}
 
+	public BandaInterface construirBanda(String modeloDslam) throws Exception{
+
+		BandaInterface banda = BandaFactory.criar(modeloDslam);
+		return banda;
+	}	
+	
+	
+	
 	/**
 	 * Função referente ao informações TBS - WiseTool
 	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico

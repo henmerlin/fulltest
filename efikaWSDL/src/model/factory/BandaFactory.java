@@ -1,24 +1,32 @@
 package model.factory;
 
+import entidades.banda.BandaInterface;
 import entidades.credenciais.Credencial;
 
-public class DslamFactory {
+public class BandaFactory {
 
 
 	private final static String ZHONE = "ZHONE";
 	private final static String KEYMILE = "KEYMILE";
 
 
-	public DslamFactory() {
+	public BandaFactory() {
 
 	}
+	
+	public static BandaInterface criar(String modeloDslam){
+		
 
-	public Credencial createCredencial(String dslam) throws Exception{
+		
+		return null;
+	}
 
-		if(dslam.equalsIgnoreCase(DslamFactory.ZHONE)){
-			return this.zhoneCredencial();
-		}else if (dslam.equalsIgnoreCase(DslamFactory.KEYMILE)) {
-			return this.keymileCredencial();
+	public Credencial createCredencial(String modeloDslam) throws Exception{
+
+		if(modeloDslam.equalsIgnoreCase(BandaFactory.ZHONE)){
+			return BandaFactory.zhoneCredencial();
+		}else if (modeloDslam.equalsIgnoreCase(BandaFactory.KEYMILE)) {
+			return BandaFactory.keymileCredencial();
 		}else{
 			throw new Exception("DSLAM não implementado.");
 		}
@@ -29,7 +37,7 @@ public class DslamFactory {
 	 * Gera credencial Zhone
 	 * @return Credencial
 	 */
-	public Credencial zhoneCredencial(){
+	public static Credencial zhoneCredencial(){
 
 		Credencial credencial = new Credencial();
 

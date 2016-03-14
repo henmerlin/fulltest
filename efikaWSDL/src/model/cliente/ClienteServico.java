@@ -21,7 +21,7 @@ public class ClienteServico {
 
 	public Cliente consultar(Cliente cliente) throws RemoteException{
 
-		InventoryAccountResponse inventario = this.getAccountItems(cliente.getDesignador());
+		InventoryAccountResponse inventario = this.getAccountItems(cliente.getInstancia());
 
 		return cliente =  this.tratarProdutos(cliente, inventario);
 	}
@@ -44,8 +44,6 @@ public class ClienteServico {
 			Item[] itens = address.getItems();
 
 			for (Item itemExterno : itens) {
-
-				//Integer tipoDesignador = item.getDesignator().getDesignatorType();
 
 				Item[] itensInternos = itemExterno.getItems();
 
@@ -70,8 +68,6 @@ public class ClienteServico {
 					}
 
 				}
-				// Desenvolver para demais tipos
-
 			}
 		}
 
@@ -81,6 +77,6 @@ public class ClienteServico {
 
 	public InventoryAccountResponse getAccountItems(String designador) throws RemoteException{
 
-		return this.invService.getAccountItems(null, null, designador, null, true);
+		return this.invService.getAccountItems(null, null, designador, null, false);
 	}
 }
