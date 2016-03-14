@@ -56,14 +56,6 @@ public class InventoryImplProxy implements br.com.gvt.oss.inventory.service.impl
     return inventoryImpl.getAccountItems(accountId, addressId, designator, networkOwnerId, inactiveCancelled);
   }
   
-  
-  public com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse getAssociatedDesignators(java.lang.String designator, com.gvt.www.ws.eai.oss.inventory.api.Filter filter) throws java.rmi.RemoteException{
-    if (inventoryImpl == null)
-      _initInventoryImplProxy();
-    return inventoryImpl.getAssociatedDesignators(designator, filter);
-  }
-  
- 
   public com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse generateNetworkOwnerId(java.lang.String cnl, java.lang.String prefix, java.lang.String sufix) throws java.rmi.RemoteException{
     if (inventoryImpl == null)
       _initInventoryImplProxy();

@@ -1,13 +1,14 @@
-package model.linha;
+package model.linha.ims;
 
 
+import model.linha.LinhaServico;
 import model.telnet.Telnet;
 
-public class NortelServico extends LinhaServico implements LinhaServicoInterface{
+public class ImsServico extends LinhaServico{
 	
 	private Telnet telnet;
 		
-	public NortelServico() {
+	public ImsServico() {
 		this.telnet = new Telnet();
 	}
 	
@@ -25,6 +26,5 @@ public class NortelServico extends LinhaServico implements LinhaServicoInterface
 	public void setTelnet(Telnet telnet) {
 		this.telnet = telnet;
 	}
-	
 
 }

@@ -12,6 +12,12 @@ public class Cliente {
 	@Length(min=10, max=12, message="Instância inválida!")
 	private String instancia;
 	
+	private String designador;
+	
+	private String downloadCrm;
+	
+	private String uploadCrm;
+	
 	private LinhaInterface linha;
 
 	private BandaInterface banda;
@@ -42,7 +48,28 @@ public class Cliente {
 	public void setLinha(LinhaInterface linha) {
 		this.linha = linha;
 	}
-	
-	
 
+	public String getDesignador() {
+		return designador;
+	}
+
+	public void setDesignador(String designador) {
+		this.designador = designador;
+	}
+
+	public String getDownloadCrm() {
+		return downloadCrm;
+	}
+
+	public void setDownloadCrm(String downloadCrm) {
+		this.downloadCrm = downloadCrm;
+	}
+
+	public String getUploadCrm() {
+		return uploadCrm;
+	}
+
+	public void setUploadCrm(String uploadCrm) {
+		this.uploadCrm = uploadCrm;
+	}
 }

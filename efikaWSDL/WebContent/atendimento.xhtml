@@ -26,13 +26,13 @@
 					<p:inputText id="instancia"
 						value="#{operacionalBean.cliente.instancia}"
 						placeholder="Instância..." />
-						
+
 					<p:commandButton action="#{operacionalBean.consultar()}"
 						value="Consultar" update="@all">
 						<p:ajaxStatus onstart="PF('statusDialog').show()"
 							onsuccess="PF('statusDialog').hide()" />
 					</p:commandButton>
-					
+
 					<p:message for="instancia" />
 
 					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
@@ -46,19 +46,42 @@
 		</h:form>
 
 
-		<h:form id="info">
-			<p:panel header="Detalhes" style="margin-top: 15px;" rendered="#{not empty operacionalBean.cliente.linha.nome}">
-				<h:panelGrid columns="3" cellpadding="5">
+		<h:form id="infoLinha">
+			<p:panel header="Detalhes Linha" style="margin-top: 15px;"
+				rendered="#{not empty operacionalBean.cliente.linha.nome}">
+				<p:panelGrid columns="2">
 
-					<p:outputLabel for="central" value="Técnologia:" />
-					<p:outputLabel id="central"
-						value="#{operacionalBean.cliente.linha.nome}" />
+					<h:outputText value="Instância:" />
+					<h:outputText id="instancia" value="#{operacionalBean.cliente.linha.instancia}" />
 
-				</h:panelGrid>
+					<h:outputText value="Tipo da Central:" />
+					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
+					
 
+					<h:outputText value="Position:" />
+					<h:outputText value="Shooting Guard" />
+				</p:panelGrid>
 			</p:panel>
 		</h:form>
 
+
+		<h:form id="infoBanda">
+			<p:panel header="Detalhes Banda Larga" style="margin-top: 15px;"
+				rendered="#{not empty operacionalBean.cliente.linha.nome}">
+				<p:panelGrid columns="2">
+
+					<h:outputText value="Designador:" />
+					<h:outputText id="produtoBanda" value="#{operacionalBean.cliente.designador}" />
+
+					<h:outputText value="Tipo da Central:" />
+					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
+					
+
+					<h:outputText value="Position:" />
+					<h:outputText value="Shooting Guard" />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
 
 	</ui:define>
 </ui:composition>

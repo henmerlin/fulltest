@@ -11,11 +11,12 @@ import java.rmi.RemoteException;
 import com.gvt.www.uraservices.GetSwitchInfoOut;
 import com.gvt.www.uraservices.UraServicesProxy;
 
+import entidades.linha.LinhaInterface;
 import model.factory.LinhaFactory;
 
 
 public class LinhaServico {
-	
+
 	private UraServicesProxy uraService;
 
 	public LinhaServico() {
@@ -29,18 +30,26 @@ public class LinhaServico {
 	public void setUraservice(UraServicesProxy uraservice) {
 		this.uraService = uraservice;
 	}
-	
-	public String consultar(String instancia) throws IOException, Exception{
 
-		String equip = this.consultarNrEquipamento(instancia);
-		String central = this.consultarCentral(equip);
-		
-		
+	public LinhaInterface construirLinha(String instancia) throws Exception{
 
-		System.out.println(equip);
-		System.out.println(central);
+		try {
 
-		return null;
+			String equip = this.consultarNrEquipamento(instancia);
+			String central = this.consultarCentral(equip);
+
+			LinhaInterface linha = LinhaFactory.criar(central);
+			linha.setInstancia(equip);
+			return linha;
+		} catch (RemoteException e) {
+			throw new Exception(e.getMessage());
+		}
+
+	}
+
+	public LinhaInterface consultar(String instancia) throws IOException, Exception{
+
+		return this.construirLinha(instancia);
 	}
 
 	/**
@@ -52,6 +61,7 @@ public class LinhaServico {
 	public String consultarCentral(String instancia) throws RemoteException {
 
 		GetSwitchInfoOut oi = uraService.getInfoSwitch(instancia);
+
 		return oi.getResultMessage();
 	}
 
@@ -81,9 +91,9 @@ public class LinhaServico {
 		BufferedReader in = new BufferedReader(new InputStreamReader(pn.openStream()));
 
 		String inputLine;
-		
+
 		Integer i = 0;
-		
+
 		while ((inputLine = in.readLine()) != null){
 
 			i++;
@@ -95,9 +105,9 @@ public class LinhaServico {
 		}
 
 		in.close();
-		
+
 		// Caso não tenha equipamento - retorna Instância;
 		return instancia;
 	}
-	
+
 }

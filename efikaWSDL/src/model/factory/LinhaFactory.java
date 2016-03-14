@@ -5,7 +5,7 @@ import entidades.linha.LinhaInterface;
 import entidades.linha.ims.Sip;
 import entidades.linha.tdm.Nortel;
 import model.linha.LinhaServicoInterface;
-import model.linha.NortelServico;
+import model.linha.tdm.NortelServico;
 
 /**
  * 

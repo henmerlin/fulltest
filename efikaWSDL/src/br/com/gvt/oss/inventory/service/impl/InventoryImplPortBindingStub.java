@@ -65,14 +65,12 @@ public class InventoryImplPortBindingStub extends org.apache.axis.client.Stub im
 		oper.setUse(org.apache.axis.constants.Use.LITERAL);
 		_operations[1] = oper;
 
-		oper.setName("generateNetworkOwnerId");
-		param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "cnl"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+		oper = new org.apache.axis.description.OperationDesc();
+		oper.setName("getAssociatedDesignators");
+		param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "designator"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
 		param.setOmittable(true);
 		oper.addParameter(param);
-		param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "prefix"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
-		param.setOmittable(true);
-		oper.addParameter(param);
-		param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "sufix"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+		param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "filter"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.gvt.com/ws/eai/oss/inventory/api", "Filter"), com.gvt.www.ws.eai.oss.inventory.api.Filter.class, false, false);
 		param.setOmittable(true);
 		oper.addParameter(param);
 		oper.setReturnType(new javax.xml.namespace.QName("http://www.gvt.com/ws/eai/oss/inventory/api", "InventoryDesignatorsResponse"));
@@ -80,7 +78,7 @@ public class InventoryImplPortBindingStub extends org.apache.axis.client.Stub im
 		oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
 		oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
 		oper.setUse(org.apache.axis.constants.Use.LITERAL);
-		_operations[18] = oper;
+		_operations[2] = oper;
 
 	}
 
@@ -333,6 +331,7 @@ public class InventoryImplPortBindingStub extends org.apache.axis.client.Stub im
 			throw axisFaultException;
 		}
 	}
+	
 	public com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse getAssociatedDesignators(java.lang.String designator, com.gvt.www.ws.eai.oss.inventory.api.Filter filter) throws java.rmi.RemoteException {
 		if (super.cachedEndpoint == null) {
 			throw new org.apache.axis.NoEndPointException();
@@ -364,6 +363,7 @@ public class InventoryImplPortBindingStub extends org.apache.axis.client.Stub im
 			throw axisFaultException;
 		}
 	}
+	
 
 	public com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse generateNetworkOwnerId(java.lang.String cnl, java.lang.String prefix, java.lang.String sufix) throws java.rmi.RemoteException {
 		if (super.cachedEndpoint == null) {
