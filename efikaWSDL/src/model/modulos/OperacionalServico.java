@@ -1,6 +1,7 @@
 package model.modulos;
 
 import entidades.cliente.Cliente;
+import entidades.linha.LinhaInterface;
 import model.banda.BandaServico;
 import model.cliente.ClienteServico;
 import model.factory.LinhaFactory;
@@ -17,7 +18,7 @@ public class OperacionalServico {
 	private ClienteServico servicoCliente;
 
 	// Serviço FullTest
-	private LinhaServicoInterface srcLinha;
+	private LinhaServicoInterface servicoVoz;
 
 	public OperacionalServico() {
 		this.servicoLinha = new LinhaServico();
@@ -45,15 +46,18 @@ public class OperacionalServico {
 		cliente.setDesignadorAcesso(designadorAcesso);
 
 		// Inicializa cria as Entidades e Servicos 
-		this.srcLinha = LinhaFactory.criarServico(central);
-
-		cliente.setLinha(LinhaFactory.criar(central));
+		this.servicoVoz = LinhaFactory.criarServico(central);
+		
+		LinhaInterface linha = this.servicoLinha.construirLinha(instancia);
+		
+		
+		cliente.setLinha(linha);
 		
 		cliente.getLinha().setInstancia(instancia);
 
 		cliente = this.servicoCliente.consultar(cliente);
 		
-		cliente.setLinha(this.servicoLinha.consultar(cliente.getInstancia()));
+		cliente.setLinha(this.servicoLinha.consultar(instancia));
 
 		return cliente;
 	}
