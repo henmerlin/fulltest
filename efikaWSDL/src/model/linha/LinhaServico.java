@@ -15,7 +15,7 @@ import entidades.linha.LinhaInterface;
 import model.factory.LinhaFactory;
 
 
-public class LinhaServico {
+public class LinhaServico{
 
 	private UraServicesProxy uraService;
 
@@ -33,18 +33,14 @@ public class LinhaServico {
 
 	public LinhaInterface construirLinha(String instancia) throws Exception{
 
-		try {
+		String equip = this.consultarNrEquipamento(instancia);
+		String central = this.getCentral(equip);
 
-			String equip = this.consultarNrEquipamento(instancia);
-			String central = this.consultarCentral(equip);
+		LinhaInterface linha = LinhaFactory.criar(central);
 
-			LinhaInterface linha = LinhaFactory.criar(central);
-			linha.setInstancia(equip);
-			return linha;
-		} catch (RemoteException e) {
-			throw new Exception(e.getMessage());
-		}
+		linha.setInstancia(equip);
 
+		return linha;
 	}
 
 	public LinhaInterface consultar(String instancia) throws IOException, Exception{
@@ -58,11 +54,11 @@ public class LinhaServico {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public String consultarCentral(String instancia) throws RemoteException {
+	public String getCentral(String instancia) throws RemoteException {
 
-		GetSwitchInfoOut oi = uraService.getInfoSwitch(instancia);
+		GetSwitchInfoOut result = uraService.getInfoSwitch(instancia);
 
-		return oi.getResultMessage();
+		return result.getResultMessage();
 	}
 
 

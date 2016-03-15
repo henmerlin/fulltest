@@ -1,9 +1,11 @@
 package entidades.linha;
 
+
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import entidades.parametros.Configuracao;
 import entidades.servicos.ServicoLinha;
 
 public class Linha {
@@ -13,11 +15,11 @@ public class Linha {
 	
 	private List<ServicoLinha> servicos;
 	
+	private List<Configuracao> configuracoes;
 	
 	public Linha() {
 
 	}
-
 
 	public String getInstancia() {
 		return instancia;
@@ -28,7 +30,6 @@ public class Linha {
 		this.instancia = instancia;
 	}
 
-
 	public List<ServicoLinha> getServicos() {
 		return servicos;
 	}
@@ -36,6 +37,16 @@ public class Linha {
 
 	public void setServicos(List<ServicoLinha> servicos) {
 		this.servicos = servicos;
+	}
+
+
+	public List<Configuracao> getConfiguracoes() {
+		return configuracoes;
+	}
+
+
+	public void setConfiguracoes(List<Configuracao> configuracoes) {
+		this.configuracoes = configuracoes;
 	}
 
 }

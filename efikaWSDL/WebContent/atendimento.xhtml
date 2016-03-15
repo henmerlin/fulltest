@@ -58,6 +58,13 @@
 					<h:outputText value="Tipo da Central:" />
 					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
 
+
+					<p:dataTable var="conf" value="#{operacionalBean.cliente.linha.configuracoes}">
+						<p:column headerText="Year">
+							<h:outputText value="#{conf}" />
+						</p:column>
+					</p:dataTable>
+
 				</p:panelGrid>
 			</p:panel>
 		</h:form>

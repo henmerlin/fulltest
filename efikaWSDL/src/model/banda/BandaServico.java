@@ -45,7 +45,11 @@ public class BandaServico {
 	 */
 	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 
-		return this.osstbService.getInfo(cliente.getDesignador(), cliente.getDesignador(), "URA", "URA", cliente.getDesignador(), "URA", cliente.getDownloadCrm(), cliente.getUploadCrm());
+		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getDownloadCrm(), cliente.getUploadCrm());
+	}
+	
+	public String getAccessDesignator(String designador) throws DataNotFoundException, OSSTurbonetException, RemoteException{
+		return this.osstbService.getAccessDesignator(designador);
 	}
 
 	/**

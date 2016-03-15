@@ -19,6 +19,7 @@ public final class LinhaFactory {
 
 	private final static String NORTEL = "TDM-H248";
 	private final static String SIP = "IMS-SIP";
+	private final static String SIP_GPON = "IMS-SIP(GPON)";	
 	private final static String V52 = "IMS-V5.2";
 
 	/**
@@ -28,10 +29,14 @@ public final class LinhaFactory {
  	 * @throws Exception
 	 */
 	public static LinhaInterface criar(String tecnologia) throws Exception{
+		
+		//System.out.println(tecnologia);
 				
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new Nortel();
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP)) {
+			return new Sip();
+		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP_GPON)) {
 			return new Sip();
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.V52)) {
 			return new V52();
@@ -46,6 +51,8 @@ public final class LinhaFactory {
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new NortelServico();
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP)) {
+			return new SipServico();
+		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP_GPON)) {
 			return new SipServico();
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.V52)) {
 			return new V52Servico();

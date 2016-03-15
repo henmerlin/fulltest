@@ -1,6 +1,12 @@
 package model.linha.tdm;
 
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+
+import entidades.cliente.Cliente;
+import entidades.parametros.Configuracao;
 import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
 import model.telnet.Telnet;
@@ -26,6 +32,13 @@ public class NortelServico extends LinhaServico implements LinhaServicoInterface
 
 	public void setTelnet(Telnet telnet) {
 		this.telnet = telnet;
+	}
+
+
+	@Override
+	public List<Configuracao> getConfiguracao(Cliente cliente) throws RemoteException {
+		// TODO Auto-generated method stub
+		return new ArrayList<Configuracao>();
 	}
 	
 

@@ -26,6 +26,12 @@ public class ClienteServico {
 		return cliente =  this.tratarProdutos(cliente, inventario);
 	}
 	
+	public void getProdutosContratados(String instancia){
+		
+		
+		
+	}
+	
 	/**
 	 * Método resposável pelo tratamento do Retorno do servico getAccountItems
 	 * @param cliente
@@ -77,6 +83,6 @@ public class ClienteServico {
 
 	public InventoryAccountResponse getAccountItems(String designador) throws RemoteException{
 
-		return this.invService.getAccountItems(null, null, designador, null, false);
+		return this.invService.getAccountItems(null, null, designador, null, true);
 	}
 }

@@ -14,6 +14,8 @@ public class Cliente {
 	
 	private String designador;
 	
+	private String designadorAcesso;
+	
 	private String downloadCrm;
 	
 	private String uploadCrm;
@@ -71,5 +73,13 @@ public class Cliente {
 
 	public void setUploadCrm(String uploadCrm) {
 		this.uploadCrm = uploadCrm;
+	}
+
+	public String getDesignadorAcesso() {
+		return designadorAcesso;
+	}
+
+	public void setDesignadorAcesso(String designadorAcesso) {
+		this.designadorAcesso = designadorAcesso;
 	}
 }
