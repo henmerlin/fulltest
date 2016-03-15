@@ -1,63 +1,145 @@
 package model.linha.ims;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
+import com.gvt.www.metaData.smarttool.Credenciais;
+import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ElementoDiagnosticoSIP;
 
+import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
-import entidades.parametros.Configuracao;
+import entidades.configuracoes.ModemSip;
+
+import entidades.linha.ims.Sip;
 import model.linha.LinhaServicoInterface;
 
 public class SipServico extends ImsServico implements LinhaServicoInterface {
-	
+
 	private ConfiguradorOnlineDeviceManagementProxy codService;
-	
+
 	public SipServico() {
 		this.codService = new ConfiguradorOnlineDeviceManagementProxy();
 	}
-	
+
 	public DiagnosticoSIPOut executarDiagnosticoSIP(String instancia, String designador) throws RemoteException {
-		
+
 		DiagnosticoSIPIn in = new DiagnosticoSIPIn();
-		
+
+		Credenciais credencial = new Credenciais("URA", "URA", "URA");
+
 		in.setInstancia(instancia);
 		in.setDesignadorTurbonet(designador);
-		in.getCredencial().setLogin("URA");
-		in.getCredencial().setSistemaOrigem("URA");
-		in.getCredencial().setUsername("URA");
-		
+		in.setCredencial(credencial);
+
 		return this.codService.executarDiagnosticoSIP(in);
 	}
-	
-	@Override
-	public List<Configuracao> getConfiguracao(Cliente cliente) throws RemoteException {
-		
+
+//	public List<Configuracao> getConfiguracao(Cliente cliente) throws RemoteException{
+//
+//		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
+//
+//		ElementoDiagnosticoSIP modem = diag.getHomegateway();
+//
+//		List<Configuracao> retorno = new ArrayList<Configuracao>();
+//
+//		retorno.add(new Configuracao("Tipo Modem", modem.getTipo(), ""));
+//
+//		retorno.add(new Configuracao("Serial Number", modem.getSerialNumber(), ""));
+//
+//		retorno.add(new Configuracao("Mac Address", modem.getMacAddress(), ""));	
+//
+//		retorno.add(new Configuracao("CPE", modem.getStatusCPE(), ""));		
+//
+//		if(diag.getCodigo() == 0){
+//
+//			DiagnosticoSIP[] diagSip = modem.getDiagnosticosSIP();
+//
+//			for (DiagnosticoSIP diagnosticoSIP : diagSip) {
+//
+//				String instancia = diagnosticoSIP.getInstancia();
+//
+//				retorno.add(new Configuracao("Instância", instancia, cliente.getInstancia()));	
+//
+//				DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
+//
+//				for (DiagnosticoParam param : parametros) {
+//					retorno.add(new Configuracao(param.getNome(), param.getValor(), param.getValorReferencia()));
+//				}
+//			}
+//		}
+//
+//		return retorno;
+//	}
+
+	public Cliente getConfiguracao(Cliente cliente) throws RemoteException{
+
 		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
 		
-		ElementoDiagnosticoSIP modem = diag.getHomegateway();
+
+		ElementoDiagnosticoSIP device = diag.getHomegateway();
+
+
+		ModemSip modem = new ModemSip();
+
+		modem.setTipo(device.getTipo());
+		modem.setSerialNumber(device.getSerialNumber());
+		modem.setMac(device.getMacAddress());
+		modem.setStatusCpe(device.getStatusCPE());
+
+		if(diag.getCodigo() == 0){
+
+			DiagnosticoSIP[] diagSip = device.getDiagnosticosSIP();
+
+			for (DiagnosticoSIP diagnosticoSIP : diagSip) {
+
+				modem.setDn(diagnosticoSIP.getInstancia());	
+
+				DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
+
+				for (DiagnosticoParam param : parametros) {
+
+					if(param.getNome().equalsIgnoreCase("AuthUserName")){
+						modem.setAuthUser(param.getValor());
+					}
+
+					if(param.getNome().equalsIgnoreCase("OutboundProxy")){
+						modem.setOutboundProxy(param.getValor());
+					}
+
+					if(param.getNome().equalsIgnoreCase("UserAgentDomain")){
+						modem.setUserAgentDomain(param.getValor());
+					}
+
+					if(param.getNome().equalsIgnoreCase("RegistrarServer")){
+						modem.setRegistrarServer(param.getValor());
+					}	
+
+					if(param.getNome().equalsIgnoreCase("ProxyServer")){
+						modem.setProxyServer(param.getValor());
+					}					
+
+					if(param.getNome().equalsIgnoreCase("Status")){
+						modem.setStatus(param.getValor());
+					}		
+
+					if(param.getNome().equalsIgnoreCase("IPAddress")){
+						modem.setIpAddress(param.getValor());
+					}	
+				}
+			}
+		}
 		
-		List<Configuracao> retorno = new ArrayList<Configuracao>();
-	
-		Configuracao conf = new Configuracao();
-		conf.setNome("Tipo Modem");
-		conf.setValor(modem.getTipo());
-		retorno.add(conf);
+		Sip sip = new Sip();
 		
-		conf.setNome("Mac Address");
-		conf.setValor(modem.getMacAddress());
-		retorno.add(conf);		
+		sip.setModem(modem);
 		
+		cliente.setLinha(sip);
 		
-		conf.setNome("CPE");
-		conf.setValor(modem.getStatusCPE());
-		retorno.add(conf);		
-		
-		return retorno;
+		return cliente;
 	}
+
 
 }

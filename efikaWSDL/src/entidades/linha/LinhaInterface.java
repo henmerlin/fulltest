@@ -11,9 +11,10 @@ public interface LinhaInterface {
 	public void setInstancia(String instancia);
 	
 	public String getNome();
+	
+	public List<Configuracao> getConfiguracoes();
 
 	public void setConfiguracoes(List<Configuracao> configuracoes);
 	
-	public List<Configuracao> getConfiguracoes();
 		
 }

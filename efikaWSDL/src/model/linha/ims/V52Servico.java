@@ -20,9 +20,11 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public List<Configuracao> getConfiguracao(Cliente cliente) throws RemoteException {
+	public Cliente getConfiguracao(Cliente cliente) throws RemoteException {
 		// TODO Auto-generated method stub
-		return new ArrayList<Configuracao>();
+		return null;
 	}
+
+
 
 }

@@ -19,7 +19,6 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<p:panel header="Consultar">
-
 				<h:panelGrid columns="4" cellpadding="5">
 
 					<p:outputLabel for="instancia" value="Instância:" />
@@ -49,7 +48,8 @@
 		<h:form id="infoLinha">
 			<p:panel header="Detalhes Linha" style="margin-top: 15px;"
 				rendered="#{not empty operacionalBean.cliente.linha.nome}">
-				<p:panelGrid columns="2">
+				
+				<p:panelGrid columns="2" cellpadding="10">
 
 					<h:outputText value="Instância:" />
 					<h:outputText id="instancia"
@@ -58,14 +58,24 @@
 					<h:outputText value="Tipo da Central:" />
 					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
 
-
-					<p:dataTable var="conf" value="#{operacionalBean.cliente.linha.configuracoes}">
-						<p:column headerText="Year">
-							<h:outputText value="#{conf}" />
-						</p:column>
-					</p:dataTable>
-
 				</p:panelGrid>
+
+
+				<p:dataTable var="conf" style="margin-top: 15px;" emptyMessage="Configurações não encontradas"
+					value="#{operacionalBean.cliente.linha.configuracoes}">
+
+					<f:facet name="header">
+				        Configurações #{operacionalBean.cliente.linha.nome}
+				    </f:facet>
+				    
+					<p:column headerText="Nome">
+						<h:outputText value="#{conf.nome}" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{conf.valor}" />
+					</p:column>
+				</p:dataTable>
+				
 			</p:panel>
 		</h:form>
 
@@ -83,8 +93,6 @@
 					<h:outputText
 						value="#{operacionalBean.cliente.downloadCrm}/#{operacionalBean.cliente.uploadCrm}" />
 
-					<h:outputText value="Position:" />
-					<h:outputText value="Shooting Guard" />
 				</p:panelGrid>
 			</p:panel>
 

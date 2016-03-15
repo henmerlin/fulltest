@@ -23,7 +23,7 @@ public class Telnet {
 
 	
 	public Telnet() {
-
+		
 	}
 	
 	public static void main(String[] args) {
@@ -37,9 +37,7 @@ public class Telnet {
 		
 		
 	}
-	
-	
-	
+
 	public Credencial getAuth() {
 		return auth;
 	}
