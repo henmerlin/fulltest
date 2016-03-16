@@ -16,9 +16,7 @@ public class Cliente {
 	
 	private String designadorAcesso;
 	
-	private String downloadCrm;
-	
-	private String uploadCrm;
+	private InventarioProdutos inventario;
 	
 	private LinhaInterface linha;
 
@@ -59,27 +57,19 @@ public class Cliente {
 		this.designador = designador;
 	}
 
-	public String getDownloadCrm() {
-		return downloadCrm;
-	}
-
-	public void setDownloadCrm(String downloadCrm) {
-		this.downloadCrm = downloadCrm;
-	}
-
-	public String getUploadCrm() {
-		return uploadCrm;
-	}
-
-	public void setUploadCrm(String uploadCrm) {
-		this.uploadCrm = uploadCrm;
-	}
-
 	public String getDesignadorAcesso() {
 		return designadorAcesso;
 	}
 
 	public void setDesignadorAcesso(String designadorAcesso) {
 		this.designadorAcesso = designadorAcesso;
+	}
+
+	public InventarioProdutos getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(InventarioProdutos inventario) {
+		this.inventario = inventario;
 	}
 }

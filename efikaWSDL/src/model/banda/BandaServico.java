@@ -31,8 +31,6 @@ public class BandaServico {
 		return banda;
 	}	
 	
-	
-	
 	/**
 	 * Função referente ao informações TBS - WiseTool
 	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico
@@ -45,7 +43,7 @@ public class BandaServico {
 	 */
 	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 
-		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getDownloadCrm(), cliente.getUploadCrm());
+		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getInventario().getBanda().getDownloadCrm(), cliente.getInventario().getBanda().getUploadCrm());
 	}
 	
 	public String getAccessDesignator(String designador) throws DataNotFoundException, OSSTurbonetException, RemoteException{

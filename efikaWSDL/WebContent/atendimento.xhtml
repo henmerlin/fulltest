@@ -82,7 +82,7 @@
 
 		<h:form id="infoBanda">
 			<p:panel header="Detalhes Banda Larga" style="margin-top: 15px;"
-				rendered="#{not empty operacionalBean.cliente.downloadCrm}">
+				rendered="#{not empty operacionalBean.cliente.inventario.banda.downloadCrm}">
 				<p:panelGrid columns="2">
 
 					<h:outputText value="Designador:" />
@@ -91,13 +91,13 @@
 
 					<h:outputText value="Produto Contratado: " />
 					<h:outputText
-						value="#{operacionalBean.cliente.downloadCrm}/#{operacionalBean.cliente.uploadCrm}" />
+						value="#{operacionalBean.cliente.inventario.banda.downloadCrm}/#{operacionalBean.cliente.inventario.banda.uploadCrm}" />
 
 				</p:panelGrid>
 			</p:panel>
 
 			<p:panel header="Detalhes Banda Larga" style="margin-top: 15px;"
-				rendered="#{empty operacionalBean.cliente.downloadCrm and not empty operacionalBean.cliente.instancia}">
+				rendered="#{empty operacionalBean.cliente.inventario.banda.downloadCrm and not empty operacionalBean.cliente.instancia}">
 				<h:outputText value="Cliente não possui produto banda larga." />
 			</p:panel>
 

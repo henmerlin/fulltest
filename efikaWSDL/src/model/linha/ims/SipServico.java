@@ -36,44 +36,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 		return this.codService.executarDiagnosticoSIP(in);
 	}
-
-//	public List<Configuracao> getConfiguracao(Cliente cliente) throws RemoteException{
-//
-//		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
-//
-//		ElementoDiagnosticoSIP modem = diag.getHomegateway();
-//
-//		List<Configuracao> retorno = new ArrayList<Configuracao>();
-//
-//		retorno.add(new Configuracao("Tipo Modem", modem.getTipo(), ""));
-//
-//		retorno.add(new Configuracao("Serial Number", modem.getSerialNumber(), ""));
-//
-//		retorno.add(new Configuracao("Mac Address", modem.getMacAddress(), ""));	
-//
-//		retorno.add(new Configuracao("CPE", modem.getStatusCPE(), ""));		
-//
-//		if(diag.getCodigo() == 0){
-//
-//			DiagnosticoSIP[] diagSip = modem.getDiagnosticosSIP();
-//
-//			for (DiagnosticoSIP diagnosticoSIP : diagSip) {
-//
-//				String instancia = diagnosticoSIP.getInstancia();
-//
-//				retorno.add(new Configuracao("Instância", instancia, cliente.getInstancia()));	
-//
-//				DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
-//
-//				for (DiagnosticoParam param : parametros) {
-//					retorno.add(new Configuracao(param.getNome(), param.getValor(), param.getValorReferencia()));
-//				}
-//			}
-//		}
-//
-//		return retorno;
-//	}
-
+	
 	public Cliente getConfiguracao(Cliente cliente) throws RemoteException{
 
 		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
@@ -139,6 +102,12 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		cliente.setLinha(sip);
 		
 		return cliente;
+	}
+
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

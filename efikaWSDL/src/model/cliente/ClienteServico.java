@@ -7,29 +7,64 @@ import com.gvt.www.ws.eai.oss.inventory.api.Address;
 import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.www.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.inventory.api.Param;
+import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
+import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.oss.inventory.service.impl.InventoryImplProxy;
 import entidades.cliente.Cliente;
+import entidades.cliente.InventarioProdutos;
+import entidades.cliente.produto.ProdutoBanda;
+import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
+import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
+import model.modulos.OperacionalInterface;
 
-public class ClienteServico {
+public class ClienteServico implements OperacionalInterface{
 
 	private InventoryImplProxy invService;
+	
+	private OSSTurbonetProxy osstbService;
+
 
 	public ClienteServico() {
 		this.invService = new InventoryImplProxy();
-	}
-
-	public Cliente consultar(Cliente cliente) throws RemoteException{
-
-		InventoryAccountResponse inventario = this.getAccountItems(cliente.getInstancia());
-
-		return cliente =  this.tratarProdutos(cliente, inventario);
+		this.osstbService = new OSSTurbonetProxy();
 	}
 	
-	public void getProdutosContratados(String instancia){
+	/**
+	 * Método responsável por buscar o cadastro do cliente
+	 * Utilizando WebServices
+	 * @return Cliente
+	 * @author G0042204
+	 */
+	public Cliente consultar(Cliente cliente) throws RemoteException{
+		
+		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
+		
+		// Aciona método para obter designador
+		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia());	
+
+		// Consulta Designador de Acesso
+		String designadorAcesso = this.getAccessDesignator(designador);
 		
 		
+		cliente.setInventario(inventario);
+		cliente.setDesignador(designador);
+		cliente.setDesignadorAcesso(designadorAcesso);
+
+		return cliente;
+	}
+	
+	/**
+	 * Retorna Inventário de Produtos do cliente
+	 * @param instancia
+	 * @return
+	 * @throws RemoteException
+	 */
+	public InventarioProdutos getProdutosContratados(String instancia) throws RemoteException{
 		
+		InventoryAccountResponse retorno = this.getAccountItems(instancia);
+			
+		return this.tratarProdutos(retorno);
 	}
 	
 	/**
@@ -39,22 +74,25 @@ public class ClienteServico {
 	 * @author G0042204
 	 * @return
 	 */
-	public Cliente tratarProdutos(Cliente cliente, InventoryAccountResponse inventario){
+	public InventarioProdutos tratarProdutos(InventoryAccountResponse inventario){
 
 		Account account = inventario.getAccounts(0);
 
 		Address[] listaProdutos = account.getAddress();
-
+				
+		InventarioProdutos produtos = new InventarioProdutos();
+		
+		ProdutoBanda banda = new ProdutoBanda();
+		
 		for (Address address : listaProdutos) {
-
+			
 			Item[] itens = address.getItems();
-
+			
 			for (Item itemExterno : itens) {
-
 				Item[] itensInternos = itemExterno.getItems();
 
 				for (Item item : itensInternos) {
-					
+
 					Param[] parametros = item.getParam();
 
 					for (Param param : parametros) {
@@ -64,25 +102,67 @@ public class ClienteServico {
 						
 						// Velocidade Downstream
 						if (param.getName().equalsIgnoreCase(downString)) {
-							cliente.setDownloadCrm(param.getValue());
+							banda.setDownloadCrm(param.getValue());
 						}	
 						
 						// Velocidade Upstream
 						if (param.getName().equalsIgnoreCase(upString)) {
-							cliente.setUploadCrm(param.getValue());
-						}	
+							banda.setUploadCrm(param.getValue());
+						}
+						
+					
 					}
-
 				}
 			}
 		}
-
-		return cliente;
+		
+		produtos.setBanda(banda);
+	
+		return produtos;
 	}
 
+	
+	/**
+	 * Consulta do Webservice ao Inventário de Produtos do cliente
+	 * @param designador
+	 * @return
+	 * @throws RemoteException
+	 */
+	public InventoryAccountResponse getAccountItems(String instancia) throws RemoteException{
 
-	public InventoryAccountResponse getAccountItems(String designador) throws RemoteException{
+		return this.invService.getAccountItems(null, null, instancia, null, true);
+	}
+	
+	/**
+	 * Função referente ao informações TBS - WiseTool
+	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico
+	 * @param cliente
+	 * @return GetInfoOut
+	 * @throws DataNotFoundException
+	 * @throws OSSTurbonetException
+	 * @throws RemoteException
+	 * @author G0042204
+	 */
+	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 
-		return this.invService.getAccountItems(null, null, designador, null, true);
+		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getInventario().getBanda().getDownloadCrm(), cliente.getInventario().getBanda().getUploadCrm());
+	}
+	
+	public String getAccessDesignator(String designador) throws DataNotFoundException, OSSTurbonetException, RemoteException{
+		return this.osstbService.getAccessDesignator(designador);
+	}
+
+	/**
+	 * Função resposavel por resolver Instancia em Designador
+	 * @param instancia
+	 * @return
+	 * @throws DataNotFoundException
+	 * @throws OSSTurbonetException
+	 * @throws RemoteException
+	 * @author G0042204
+	 */
+	public String getDesignatorByAccessDesignator(String instancia) throws DataNotFoundException, OSSTurbonetException, RemoteException{
+
+		return this.osstbService.getDesignatorByAccessDesignator(instancia);
 	}
 }

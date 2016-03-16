@@ -10,10 +10,5 @@ public class WebService {
 	public String hello(@WebParam(name = "name") String txt) {
 		return "Oi mundo!!! Aqui é le agi.";
 	}
-	
-	
 
-	
-	
-	
 }

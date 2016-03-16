@@ -22,6 +22,12 @@ public class LinhaServico{
 	public LinhaServico() {
 		this.uraService = new UraServicesProxy();
 	}
+	
+	public LinhaInterface consultar(String instancia) throws IOException, Exception{
+
+		return this.construirLinha(instancia);
+	}
+
 
 	public UraServicesProxy getUraservice() {
 		return uraService;
@@ -41,11 +47,6 @@ public class LinhaServico{
 		linha.setInstancia(equip);
 
 		return linha;
-	}
-
-	public LinhaInterface consultar(String instancia) throws IOException, Exception{
-
-		return this.construirLinha(instancia);
 	}
 
 	/**

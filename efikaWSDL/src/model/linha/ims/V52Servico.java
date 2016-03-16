@@ -25,6 +25,10 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 		return null;
 	}
 
-
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
