@@ -37,39 +37,6 @@ public class SuadServico {
 		return null;
 	}
 	/*
-	 * Retorna o estado administrativo da porta 	
-	 */
-	public String adminStatus(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/administrativestatus";
-		
-		return null;
-	}
-	/*
-	 * Retorna o estado operacional da porta 	
-	 */
-	public String operStatus(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
-		
-		return null;
-	}
-	/*
-	 * Retorna a lista de vccs do canal 	
-	 */
-	public List<Array> chanVccs(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "ls /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/";
-		
-		return null;
-	}
-	/*
 	 * Retorna o perfil do canal (profile) 	
 	 */
 	public String chanProfile(GetInfoOut cadastro){
@@ -91,8 +58,5 @@ public class SuadServico {
 		
 		return null;
 	}
-	
-	
-	
 	
 }

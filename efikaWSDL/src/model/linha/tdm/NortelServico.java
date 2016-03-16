@@ -40,6 +40,13 @@ public class NortelServico extends LinhaServico implements LinhaServicoInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
