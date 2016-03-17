@@ -3,7 +3,9 @@ package model.linha.ims;
 import java.rmi.RemoteException;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
+import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineProxy;
 import com.gvt.www.metaData.smarttool.Credenciais;
+import com.gvt.www.ws.eai.configuradoronline.dadosServico.ConsultaDadosServicoIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
@@ -24,7 +26,7 @@ import model.linha.LinhaServicoInterface;
 public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	private ConfiguradorOnlineDeviceManagementProxy codService;
-
+	
 	public SipServico() {
 		this.codService = new ConfiguradorOnlineDeviceManagementProxy();
 	}
@@ -38,7 +40,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		in.setInstancia(instancia);
 		in.setDesignadorTurbonet(designador);
 		in.setCredencial(credencial);
-		
+				
 		return this.codService.executarDiagnosticoSIP(in);
 	}
 

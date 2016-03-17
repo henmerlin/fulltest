@@ -1,30 +1,30 @@
 package model.linha.ims;
 
 
-import model.linha.LinhaServico;
-import model.telnet.Telnet;
 
-public class ImsServico extends LinhaServico{
+import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineProxy;
+import com.gvt.www.ws.eai.configuradoronline.consultaElemento.ConsultaElementoIn;
+
+import entidades.cliente.Cliente;
+import model.linha.LinhaServico;
+import model.modulos.OperacionalInterface;
+
+public class ImsServico extends LinhaServico implements OperacionalInterface{
 	
-	private Telnet telnet;
+	private ConfiguradorOnlineProxy proxy;
 		
 	public ImsServico() {
-		this.telnet = new Telnet();
+		this.proxy = new ConfiguradorOnlineProxy();
+
 	}
 	
-	
-	public void consultar() {
-
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
 		
-	}
+		//ConsultaElementoIn consulta = new ConsultaElementoIn(cliente.getInstancia(), cliente.getLinha().getInstancia(), clliCode, cidade, estado);
+
+		return cliente;
+	} 
+
 	
-	public Telnet getTelnet() {
-		return telnet;
-	}
-
-
-	public void setTelnet(Telnet telnet) {
-		this.telnet = telnet;
-	}
-
 }
