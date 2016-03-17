@@ -11,11 +11,16 @@ import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.Elemento
 
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
-import entidades.configuracoes.ModemSip;
-
-import entidades.linha.ims.Sip;
+import entidades.configuracoes.ConfiguracaoSip;
+import entidades.configuracoes.Parametro;
 import model.linha.LinhaServicoInterface;
 
+/**
+ * Instância de exemplo:
+ * 4133280564 - Rafael
+ * @author G0042204
+ *
+ */
 public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	private ConfiguradorOnlineDeviceManagementProxy codService;
@@ -33,82 +38,77 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		in.setInstancia(instancia);
 		in.setDesignadorTurbonet(designador);
 		in.setCredencial(credencial);
-
+		
 		return this.codService.executarDiagnosticoSIP(in);
 	}
-	
-	public Cliente getConfiguracao(Cliente cliente) throws RemoteException{
+
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
+		
+		cliente = super.consultar(cliente);
 
 		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
-		
 
 		ElementoDiagnosticoSIP device = diag.getHomegateway();
 
+		ConfiguracaoSip config = new ConfiguracaoSip();
 
-		ModemSip modem = new ModemSip();
-
-		modem.setTipo(device.getTipo());
-		modem.setSerialNumber(device.getSerialNumber());
-		modem.setMac(device.getMacAddress());
-		modem.setStatusCpe(device.getStatusCPE());
-
+		config.setTipo(new Parametro("Tipo", device.getTipo()));
+		config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
+		config.setMac(new Parametro("Mac Address", device.getMacAddress()));
+		config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
+				
 		if(diag.getCodigo() == 0){
 
 			DiagnosticoSIP[] diagSip = device.getDiagnosticosSIP();
 
 			for (DiagnosticoSIP diagnosticoSIP : diagSip) {
 
-				modem.setDn(diagnosticoSIP.getInstancia());	
+				config.setDn(new Parametro("dn", diagnosticoSIP.getInstancia()));	
 
 				DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
 
 				for (DiagnosticoParam param : parametros) {
 
 					if(param.getNome().equalsIgnoreCase("AuthUserName")){
-						modem.setAuthUser(param.getValor());
+						config.setAuthUser(new Parametro("AuthUserName", param.getValor()));
 					}
 
 					if(param.getNome().equalsIgnoreCase("OutboundProxy")){
-						modem.setOutboundProxy(param.getValor());
+						config.setOutboundProxy(new Parametro("OutboundProxy", param.getValor()));
 					}
 
 					if(param.getNome().equalsIgnoreCase("UserAgentDomain")){
-						modem.setUserAgentDomain(param.getValor());
+						config.setUserAgentDomain(new Parametro("UserAgentDomain", param.getValor()));
 					}
 
 					if(param.getNome().equalsIgnoreCase("RegistrarServer")){
-						modem.setRegistrarServer(param.getValor());
+						config.setRegistrarServer(new Parametro("RegistrarServer", param.getValor()));
 					}	
 
 					if(param.getNome().equalsIgnoreCase("ProxyServer")){
-						modem.setProxyServer(param.getValor());
+						config.setProxyServer(new Parametro("ProxyServer", param.getValor()));
 					}					
 
 					if(param.getNome().equalsIgnoreCase("Status")){
-						modem.setStatus(param.getValor());
+						config.setStatus(new Parametro("Status", param.getValor()));
 					}		
 
 					if(param.getNome().equalsIgnoreCase("IPAddress")){
-						modem.setIpAddress(param.getValor());
+						config.setIpAddress(new Parametro("IPAddress", param.getValor()));
 					}	
 				}
 			}
 		}
-		
-		Sip sip = new Sip();
-		
-		sip.setModem(modem);
-		
-		cliente.setLinha(sip);
+
+		cliente.getLinha().setConfiguracao(config);
 		
 		return cliente;
 	}
 
 	@Override
-	public Cliente consultar(Cliente cliente) throws Exception {
+	public Cliente getConfiguracao(Cliente cliente) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

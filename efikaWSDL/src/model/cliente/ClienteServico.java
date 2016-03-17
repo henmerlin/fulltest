@@ -18,6 +18,7 @@ import entidades.cliente.produto.ProdutoLinha;
 import entidades.cliente.produto.ProdutoTv;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
+import model.factory.LinhaFactory;
 import model.modulos.OperacionalInterface;
 
 public class ClienteServico implements OperacionalInterface{
@@ -51,7 +52,6 @@ public class ClienteServico implements OperacionalInterface{
 
 		// Consulta Designador de Acesso
 		String designadorAcesso = this.getAccessDesignator(designador);
-		
 		
 		cliente.setInventario(inventario);
 		cliente.setDesignador(designador);

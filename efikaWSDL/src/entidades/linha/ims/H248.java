@@ -1,5 +1,6 @@
 package entidades.linha.ims;
 
+import entidades.configuracoes.ConfiguracaoLinha;
 import entidades.linha.LinhaInterface;
 
 public class H248 extends Ims implements LinhaInterface{
@@ -11,6 +12,18 @@ public class H248 extends Ims implements LinhaInterface{
 	@Override
 	public String getNome() {
 		return "IMS-H248";
+	}
+
+	@Override
+	public ConfiguracaoLinha getConfiguracao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setConfiguracao(ConfiguracaoLinha configuracao) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

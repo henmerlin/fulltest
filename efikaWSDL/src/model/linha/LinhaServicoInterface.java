@@ -9,5 +9,4 @@ public interface LinhaServicoInterface extends OperacionalInterface{
 	
 	public Cliente getConfiguracao(Cliente cliente) throws RemoteException;
 	
-	
 }

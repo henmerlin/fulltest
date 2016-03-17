@@ -1,5 +1,6 @@
 package entidades.linha.tdm;
 
+import entidades.configuracoes.ConfiguracaoLinha;
 import entidades.linha.Linha;
 import entidades.linha.LinhaInterface;
 
@@ -59,5 +60,19 @@ public class Nortel extends Linha implements LinhaInterface{
 	@Override
 	public String getNome() {
 		return "TDM-H248";
+	}
+
+
+	@Override
+	public ConfiguracaoLinha getConfiguracao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setConfiguracao(ConfiguracaoLinha configuracao) {
+		// TODO Auto-generated method stub
+		
 	}
 }

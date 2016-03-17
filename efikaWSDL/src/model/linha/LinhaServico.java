@@ -29,11 +29,12 @@ public class LinhaServico implements OperacionalInterface{
 	@Override
 	public Cliente consultar(Cliente cliente) throws Exception {
 		
-		// TODO Auto-generated method stub
+		String instancia = cliente.getInstancia();
 		
-		return null;
+		cliente.setLinha(this.construirLinha(instancia));
 		
-		
+
+		return cliente;
 	}
 
 
@@ -48,11 +49,12 @@ public class LinhaServico implements OperacionalInterface{
 	public LinhaInterface construirLinha(String instancia) throws Exception{
 
 		String equip = this.consultarNrEquipamento(instancia);
-		String central = this.getCentral(equip);
+		String tecnologia = this.getCentral(equip);
 
-		LinhaInterface linha = LinhaFactory.criar(central);
+		LinhaInterface linha = LinhaFactory.criar(tecnologia);
 
 		linha.setInstancia(equip);
+		linha.setTecnologia(tecnologia);
 
 		return linha;
 	}

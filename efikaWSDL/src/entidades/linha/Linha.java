@@ -1,24 +1,27 @@
 package entidades.linha;
 
-
-import java.util.List;
-
 import org.hibernate.validator.constraints.NotEmpty;
+import entidades.configuracoes.ConfiguracaoLinha;
 
-import entidades.parametros.Configuracao;
-import entidades.servicos.ServicoLinha;
-
-public class Linha {
+public class Linha{
 	
 	@NotEmpty
 	private String instancia;
 	
-	private List<ServicoLinha> servicos;
+	private String tecnologia;
 	
-	private List<Configuracao> configuracoes;
+	private ConfiguracaoLinha configuracao;
 	
 	public Linha() {
 
+	}
+	
+	public String getTecnologia() {
+		return tecnologia;
+	}
+
+	public void setTecnologia(String tecnologia) {
+		this.tecnologia = tecnologia;
 	}
 
 	public String getInstancia() {
@@ -30,23 +33,11 @@ public class Linha {
 		this.instancia = instancia;
 	}
 
-	public List<ServicoLinha> getServicos() {
-		return servicos;
+	public ConfiguracaoLinha getConfiguracao() {
+		return configuracao;
 	}
 
-
-	public void setServicos(List<ServicoLinha> servicos) {
-		this.servicos = servicos;
-	}
-
-
-	public List<Configuracao> getConfiguracoes() {
-		return configuracoes;
-	}
-
-
-	public void setConfiguracoes(List<Configuracao> configuracoes) {
-		this.configuracoes = configuracoes;
-	}
-
+	public void setConfiguracao(ConfiguracaoLinha configuracao) {
+		this.configuracao = configuracao;
+	}	
 }

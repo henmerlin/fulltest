@@ -1,8 +1,7 @@
 package entidades.linha;
 
-import java.util.List;
 
-import entidades.parametros.Configuracao;
+import entidades.configuracoes.ConfiguracaoLinha;
 
 public interface LinhaInterface {
 	
@@ -12,9 +11,12 @@ public interface LinhaInterface {
 	
 	public String getNome();
 	
-	public List<Configuracao> getConfiguracoes();
+	public String getTecnologia();
 
-	public void setConfiguracoes(List<Configuracao> configuracoes);
+	public void setTecnologia(String tecnologia);
 	
-		
+	public ConfiguracaoLinha getConfiguracao();
+
+	public void setConfiguracao(ConfiguracaoLinha configuracao);
+
 }
