@@ -1,8 +1,5 @@
 package model.banda.metalico.keymile;
 
-import java.sql.Array;
-import java.util.List;
-
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import model.factory.BandaFactory;

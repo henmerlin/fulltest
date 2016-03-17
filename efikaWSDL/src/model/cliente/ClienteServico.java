@@ -14,6 +14,8 @@ import br.com.gvt.oss.inventory.service.impl.InventoryImplProxy;
 import entidades.cliente.Cliente;
 import entidades.cliente.InventarioProdutos;
 import entidades.cliente.produto.ProdutoBanda;
+import entidades.cliente.produto.ProdutoLinha;
+import entidades.cliente.produto.ProdutoTv;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.modulos.OperacionalInterface;
@@ -31,13 +33,17 @@ public class ClienteServico implements OperacionalInterface{
 	}
 	
 	/**
-	 * Método responsável por buscar o cadastro do cliente
-	 * Utilizando WebServices
+	 * Método responsável por buscar o cadastro do cliente utilizando WebServices de IT
+	 * Consultas:
+	 *  - Produtos contratados (parcial);
+	 *  - Designador;
+	 *  - Designador de Acesso;
 	 * @return Cliente
 	 * @author G0042204
 	 */
 	public Cliente consultar(Cliente cliente) throws RemoteException{
 		
+		// Consulta Produtos Contratados
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
 		
 		// Aciona método para obter designador
@@ -82,7 +88,9 @@ public class ClienteServico implements OperacionalInterface{
 				
 		InventarioProdutos produtos = new InventarioProdutos();
 		
+		ProdutoLinha linha = new ProdutoLinha();
 		ProdutoBanda banda = new ProdutoBanda();
+		ProdutoTv tv = new ProdutoTv();
 		
 		for (Address address : listaProdutos) {
 			
@@ -99,6 +107,18 @@ public class ClienteServico implements OperacionalInterface{
 
 						String upString = "Upstream";
 						String downString = "Downstream";
+						String tecnologiaTV = "TecnologiaTV";
+						String tecnologiaVoz = "TecnologiaVoz";
+
+						// Tecnologia Voz
+						if (param.getName().equalsIgnoreCase(tecnologiaVoz)) {
+							linha.setTecnologia(param.getValue());
+						}							
+														
+						// Tecnologia Tv
+						if (param.getName().equalsIgnoreCase(tecnologiaTV)) {
+							tv.setTipo(param.getValue());
+						}							
 						
 						// Velocidade Downstream
 						if (param.getName().equalsIgnoreCase(downString)) {
@@ -108,9 +128,7 @@ public class ClienteServico implements OperacionalInterface{
 						// Velocidade Upstream
 						if (param.getName().equalsIgnoreCase(upString)) {
 							banda.setUploadCrm(param.getValue());
-						}
-						
-					
+						}					
 					}
 				}
 			}

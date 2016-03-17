@@ -1,6 +1,6 @@
 package entidades.cliente.produto;
 
-public class ProdutoBanda extends Produto{
+public class ProdutoBanda implements ProdutoInterface{
 	
 	private String downloadCrm;
 	
@@ -24,6 +24,12 @@ public class ProdutoBanda extends Produto{
 
 	public void setUploadCrm(String uploadCrm) {
 		this.uploadCrm = uploadCrm;
+	}
+
+	@Override
+	public Boolean is_Vazio() {
+		// TODO Auto-generated method stub
+		return (downloadCrm.isEmpty() || uploadCrm.isEmpty());
 	}
 
 	

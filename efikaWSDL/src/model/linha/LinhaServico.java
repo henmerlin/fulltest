@@ -11,11 +11,13 @@ import java.rmi.RemoteException;
 import com.gvt.www.uraservices.GetSwitchInfoOut;
 import com.gvt.www.uraservices.UraServicesProxy;
 
+import entidades.cliente.Cliente;
 import entidades.linha.LinhaInterface;
 import model.factory.LinhaFactory;
+import model.modulos.OperacionalInterface;
 
 
-public class LinhaServico{
+public class LinhaServico implements OperacionalInterface{
 
 	private UraServicesProxy uraService;
 
@@ -23,9 +25,15 @@ public class LinhaServico{
 		this.uraService = new UraServicesProxy();
 	}
 	
-	public LinhaInterface consultar(String instancia) throws IOException, Exception{
 
-		return this.construirLinha(instancia);
+	@Override
+	public Cliente consultar(Cliente cliente) throws Exception {
+		
+		// TODO Auto-generated method stub
+		
+		return null;
+		
+		
 	}
 
 

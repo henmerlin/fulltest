@@ -11,20 +11,19 @@ public class OperacionalBean {
 
 	private Cliente cliente;	
 
-	private OperacionalServico fulltest;
+	private OperacionalServico operacional;
 
 	public OperacionalBean() {
 		this.cliente = new Cliente();
-		this.fulltest = new OperacionalServico();
+		this.operacional = new OperacionalServico();
 	}
 
 	public void consultar(){
 
 		try {
-			this.cliente = this.fulltest.consultar(this.cliente);
+			this.cliente = this.operacional.consultar(this.cliente);
 		} catch (Exception e) {
 			JSFUtil.addErrorMessage(e.getMessage());
-
 		}
 	}
 
