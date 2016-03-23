@@ -1,6 +1,10 @@
 package entidades.linha;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformacoesInstanciaOut;
+
+import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
 import entidades.configuracoes.ConfiguracaoLinha;
 
 public class Linha{
@@ -12,6 +16,10 @@ public class Linha{
 	
 	private ConfiguracaoLinha configuracao;
 	
+	private GetNumberByFilterOut infoSwitch;
+	
+	private GetInformacoesInstanciaOut infoInstancia;
+		
 	public Linha() {
 
 	}
@@ -39,5 +47,21 @@ public class Linha{
 
 	public void setConfiguracao(ConfiguracaoLinha configuracao) {
 		this.configuracao = configuracao;
+	}
+
+	public GetNumberByFilterOut getInfoSwitch() {
+		return infoSwitch;
+	}
+
+	public void setInfoSwitch(GetNumberByFilterOut infoSwitch) {
+		this.infoSwitch = infoSwitch;
+	}
+
+	public GetInformacoesInstanciaOut getInfoInstancia() {
+		return infoInstancia;
+	}
+
+	public void setInfoInstancia(GetInformacoesInstanciaOut infoInstancia) {
+		this.infoInstancia = infoInstancia;
 	}	
 }

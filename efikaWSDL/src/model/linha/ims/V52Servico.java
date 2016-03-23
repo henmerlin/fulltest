@@ -1,14 +1,9 @@
 package model.linha.ims;
 
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
-
 import entidades.cliente.Cliente;
-import entidades.parametros.Configuracao;
 import model.linha.LinhaServicoInterface;
 
 public class V52Servico extends ImsServico implements LinhaServicoInterface {
@@ -20,13 +15,7 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public Cliente getConfiguracao(Cliente cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cliente consultar(Cliente cliente) throws Exception {
+	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

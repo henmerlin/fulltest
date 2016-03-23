@@ -60,6 +60,8 @@ public class ClienteServico implements OperacionalInterface{
 		return cliente;
 	}
 	
+
+	
 	/**
 	 * Retorna Inventário de Produtos do cliente
 	 * @param instancia

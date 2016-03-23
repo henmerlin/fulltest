@@ -1,30 +1,37 @@
 package model.linha.ims;
 
 
+import java.rmi.RemoteException;
 
-import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineProxy;
-import com.gvt.www.ws.eai.configuradoronline.consultaElemento.ConsultaElementoIn;
-
-import entidades.cliente.Cliente;
+import br.com.gvt.www.oss.necservice.ConsultElement;
+import entidades.linha.LinhaInterface;
 import model.linha.LinhaServico;
-import model.modulos.OperacionalInterface;
 
-public class ImsServico extends LinhaServico implements OperacionalInterface{
+public class ImsServico extends LinhaServico{
 	
-	private ConfiguradorOnlineProxy proxy;
-		
+
 	public ImsServico() {
-		this.proxy = new ConfiguradorOnlineProxy();
 
 	}
 	
-	@Override
-	public Cliente consultar(Cliente cliente) throws Exception {
+	public CharSequence consultarRegistroCentral(String instancia, LinhaInterface linha) throws RemoteException{
+
+		CharSequence sipState = null;
 		
-		//ConsultaElementoIn consulta = new ConsultaElementoIn(cliente.getInstancia(), cliente.getLinha().getInstancia(), clliCode, cidade, estado);
-
-		return cliente;
-	} 
-
+		for (ConsultElement consultElement : super.consultarElemento(instancia, linha)) {
+			
+			String init = "<IMSUSERST>";
+			String finit = "</IMSUSERST>";
+			
+			int inicio = consultElement.getElementAnswer().indexOf(init);
+			int fim = consultElement.getElementAnswer().indexOf(finit);
+			
+			sipState = consultElement.getElementAnswer().subSequence(inicio + init.length(), fim);
+			
+			break;
+		}
+		
+		return sipState;
+	}
 	
 }

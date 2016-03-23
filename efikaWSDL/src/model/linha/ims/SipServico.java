@@ -3,18 +3,18 @@ package model.linha.ims;
 import java.rmi.RemoteException;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
-import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineProxy;
 import com.gvt.www.metaData.smarttool.Credenciais;
-import com.gvt.www.ws.eai.configuradoronline.dadosServico.ConsultaDadosServicoIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ElementoDiagnosticoSIP;
 
+import br.com.gvt.www.oss.necservice.ConsultElement;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoSip;
 import entidades.configuracoes.Parametro;
+import entidades.linha.LinhaInterface;
 import model.linha.LinhaServicoInterface;
 
 /**
@@ -43,9 +43,10 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 				
 		return this.codService.executarDiagnosticoSIP(in);
 	}
+	
 
 	@Override
-	public Cliente consultar(Cliente cliente) throws Exception {
+	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
 		
 		cliente = super.consultar(cliente);
 
@@ -108,9 +109,4 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		return cliente;
 	}
 
-	@Override
-	public Cliente getConfiguracao(Cliente cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
