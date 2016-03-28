@@ -1,6 +1,8 @@
 package model.linha.ims;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
 import com.gvt.www.metaData.smarttool.Credenciais;
@@ -8,13 +10,10 @@ import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.Diagnost
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ElementoDiagnosticoSIP;
-
-import br.com.gvt.www.oss.necservice.ConsultElement;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoSip;
 import entidades.configuracoes.Parametro;
-import entidades.linha.LinhaInterface;
 import model.linha.LinhaServicoInterface;
 
 /**
@@ -26,7 +25,7 @@ import model.linha.LinhaServicoInterface;
 public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	private ConfiguradorOnlineDeviceManagementProxy codService;
-	
+
 	public SipServico() {
 		this.codService = new ConfiguradorOnlineDeviceManagementProxy();
 	}
@@ -40,15 +39,15 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		in.setInstancia(instancia);
 		in.setDesignadorTurbonet(designador);
 		in.setCredencial(credencial);
-				
+
 		return this.codService.executarDiagnosticoSIP(in);
 	}
-	
+
 
 	@Override
 	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
-		
-		cliente = super.consultar(cliente);
+
+		cliente = super.consultarConfiguracoes(cliente);
 
 		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
 
@@ -60,7 +59,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
 		config.setMac(new Parametro("Mac Address", device.getMacAddress()));
 		config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
-				
+
 		if(diag.getCodigo() == 0){
 
 			DiagnosticoSIP[] diagSip = device.getDiagnosticosSIP();
@@ -104,9 +103,49 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			}
 		}
 
+		config.setRegistro(super.consultarRegistroCentral(cliente.getInstancia(), cliente.getLinha()));
+
 		cliente.getLinha().setConfiguracao(config);
-		
+
 		return cliente;
+	}
+
+	@Override
+	public List<Exception> validarConfiguracoes(Cliente cliente) {
+
+		List<Exception> erros = new ArrayList<Exception>();
+
+		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+
+		if (!config.getDn().getValor().trim().equalsIgnoreCase(cliente.getLinha().getInstancia().trim())) {
+			erros.add(new Exception("Instância configurada incorretamente no modem."));
+		}
+
+		if(config.getIpAddress().getValor().equalsIgnoreCase("0")){
+			erros.add(new Exception("Sem ip de voz."));
+		}
+
+		if(config.getAuthUser().getValor().equalsIgnoreCase("0")){
+			erros.add(new Exception("AuthUser configurado incorretamente."));
+		}		
+
+		if(config.getProxyServer().getValor().equalsIgnoreCase("0")){
+			erros.add(new Exception("ProxyServer configurado incorretamente."));
+		}	
+
+		if(!config.getOutboundProxy().getValor().trim().equalsIgnoreCase("192.168.80.1")){
+			erros.add(new Exception("OutboundProxy configurado incorretamente."));
+		}			
+
+		if(!config.getProxyServer().getValor().trim().equalsIgnoreCase("192.168.80.1")){
+			erros.add(new Exception("ProxyServer configurado incorretamente."));
+		}		
+
+		if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
+			erros.add(new Exception("Status error."));
+		}
+
+		return erros;
 	}
 
 }

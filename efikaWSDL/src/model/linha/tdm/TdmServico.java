@@ -1,5 +1,7 @@
 package model.linha.tdm;
 
-public class TdmServico {
+import model.linha.LinhaServico;
+
+public class TdmServico extends LinhaServico{
 
 }

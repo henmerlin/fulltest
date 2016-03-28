@@ -57,13 +57,15 @@
 
 					<h:outputText value="Tipo da Central:" />
 					<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
-					
+
 					<h:outputText value="Central:" />
-					<h:outputText value="#{operacionalBean.cliente.linha.infoSwitch.switchName}" />				
-					
+					<h:outputText
+						value="#{operacionalBean.cliente.linha.infoSwitch.switchName}" />
+
 					<h:outputText value="CNL:" />
-					<h:outputText value="#{operacionalBean.cliente.linha.infoInstancia.cnl}" />		
-					
+					<h:outputText
+						value="#{operacionalBean.cliente.linha.infoInstancia.cnl}" />
+
 				</p:panelGrid>
 
 
@@ -82,6 +84,18 @@
 						<h:outputText value="#{conf.valor}" />
 					</p:column>
 				</p:dataTable>
+
+				<p:dataTable var="error" type="unordered" style="margin-top: 15px;"
+					value="#{operacionalBean.cliente.linha.configErrors}"
+					rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}">
+					
+					<p:column headerText="Erros de Configuração">
+						<h:outputText value="#{error.message}" />
+					</p:column>
+
+				</p:dataTable>
+
+
 
 			</p:panel>
 		</h:form>

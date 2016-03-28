@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfiguracaoSip implements ConfiguracaoLinha{
+	
+	private Parametro registro;
 
 	private Parametro serialNumber;
 
@@ -28,7 +30,7 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 	private Parametro userAgentDomain;
 
 	private Parametro ipAddress;
-
+	
 	public ConfiguracaoSip() {
 
 	}
@@ -37,12 +39,14 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 
 		ArrayList<Parametro> retorno = new ArrayList<Parametro>();
 
+		retorno.add(registro);
+		
 		if(serialNumber != null){
 			retorno.add(serialNumber);
 		}
 		
-		retorno.add(tipo);
 		retorno.add(mac);
+		retorno.add(tipo);
 		retorno.add(statusCpe);
 		retorno.add(status);
 		retorno.add(dn);
@@ -150,5 +154,13 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 
 	public void setIpAddress(Parametro ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+
+	public Parametro getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(Parametro registro) {
+		this.registro = registro;
 	}
 }

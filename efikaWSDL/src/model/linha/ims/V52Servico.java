@@ -2,6 +2,8 @@ package model.linha.ims;
 
 
 
+import java.util.List;
+
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
 import entidades.cliente.Cliente;
 import model.linha.LinhaServicoInterface;
@@ -16,6 +18,12 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 
 	@Override
 	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Exception> validarConfiguracoes(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return null;
 	}

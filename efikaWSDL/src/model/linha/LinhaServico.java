@@ -42,14 +42,6 @@ public class LinhaServico implements OperacionalInterface{
 		this.portService = new PortabilidadeBusinessDSSoapProxy();
 		this.coService = new ConfiguradorOnlineProxy();
 	}
-
-	public Cliente consultar(Cliente cliente) throws Exception {
-
-		String instancia = cliente.getInstancia();
-		cliente.setLinha(this.construirLinha(instancia));
-
-		return cliente;
-	}
 	
 	/**
 	 * Consulta de Registro na Central - tanto IMS/NORTEL
@@ -60,10 +52,25 @@ public class LinhaServico implements OperacionalInterface{
 	 */
 	public ConsultElement[] consultarElemento(String instancia, LinhaInterface linha) throws RemoteException{
 		
-		ConsultaElementoIn consulta = new ConsultaElementoIn(instancia, linha.getInstancia(), linha.getInfoSwitch().getSwitchName(), linha.getInfoSwitch().getCity(), linha.getInfoSwitch().getState());
+		ConsultaElementoIn consulta = new ConsultaElementoIn(linha.getInstancia(), linha.getInstancia(), linha.getInfoSwitch().getSwitchName(), linha.getInfoSwitch().getCity(), linha.getInfoSwitch().getState());
 
 		return this.coService.consultaElemento(consulta);
 	}
+	
+	/**
+	 * Consulta de Informações da Central
+	 * @param cliente
+	 * @return
+	 * @throws Exception
+	 */
+	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception{
+		
+		cliente.getLinha().setInfoSwitch(this.getNumberInfo(cliente.getLinha().getInstancia()));
+		cliente.getLinha().setInfoInstancia(this.getInformacoesInstancia((cliente.getLinha().getInstancia())));
+		
+		return cliente;
+	}
+	
 	
 	/**
 	 * Retorna operadora e CNL da instância

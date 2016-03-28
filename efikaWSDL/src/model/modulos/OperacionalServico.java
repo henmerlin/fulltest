@@ -1,6 +1,5 @@
 package model.modulos;
 
-import br.com.gvt.www.oss.necservice.ConsultElement;
 import entidades.cliente.Cliente;
 import model.cliente.ClienteServico;
 import model.factory.LinhaFactory;
@@ -28,26 +27,29 @@ public class OperacionalServico implements OperacionalInterface{
 	 * Inicio do FullTest
 	 */
 	public Cliente consultar(Cliente cliente) throws Exception{
-
+		
+		// Inicializa objetos
+		cliente = this.initObjects(cliente);
+		
 		// Consultas de Cadastro
-		cliente = this.servicoCadastro.consultar(cliente);	
-		cliente = this.servicoLinha.consultar(cliente);
-
-		// Constroí serviços de acordo com cadastro
-		this.servicoVoz = LinhaFactory.criarServico(cliente.getLinha().getTecnologia());
-
+		cliente = this.servicoCadastro.consultarCadastro(cliente);	
+	
+		// Consulta Configurações
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 		
-		// Consulta de Informações da Central
-		cliente.getLinha().setInfoSwitch(this.servicoLinha.getNumberInfo(cliente.getLinha().getInstancia()));
-		cliente.getLinha().setInfoInstancia(this.servicoLinha.getInformacoesInstancia((cliente.getLinha().getInstancia())));
-		
-		
-		
-		ConsultElement[] oi = this.servicoLinha.consultarElemento(cliente.getInstancia(), cliente.getLinha());
+		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
 
+		return cliente;
+	}
+	
+	public Cliente initObjects(Cliente cliente) throws Exception{
 		
-
+		// Constroí Objeto Linha de acordo com cadastro
+		cliente.setLinha(this.servicoLinha.construirLinha(cliente.getInstancia()));
+		
+		// Constroí serviços de acordo com cadastro
+		this.servicoVoz = LinhaFactory.criarServico(cliente.getLinha().getTecnologia());
+		
 		return cliente;
 	}
 

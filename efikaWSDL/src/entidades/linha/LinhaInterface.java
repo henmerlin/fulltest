@@ -1,6 +1,8 @@
 package entidades.linha;
 
 
+import java.util.List;
+
 import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformacoesInstanciaOut;
 
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
@@ -29,4 +31,9 @@ public interface LinhaInterface {
 	public GetInformacoesInstanciaOut getInfoInstancia();
 
 	public void setInfoInstancia(GetInformacoesInstanciaOut infoInstancia);
+	
+	public List<Exception> getConfigErrors();
+	
+	public void setConfigErrors(List<Exception> oi);
+
 }

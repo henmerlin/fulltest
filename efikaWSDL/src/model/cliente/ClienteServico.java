@@ -42,7 +42,7 @@ public class ClienteServico implements OperacionalInterface{
 	 * @return Cliente
 	 * @author G0042204
 	 */
-	public Cliente consultar(Cliente cliente) throws RemoteException{
+	public Cliente consultarCadastro(Cliente cliente) throws RemoteException{
 		
 		// Consulta Produtos Contratados
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());

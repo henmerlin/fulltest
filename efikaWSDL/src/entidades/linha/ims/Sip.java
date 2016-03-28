@@ -11,7 +11,6 @@ import entidades.linha.LinhaInterface;
  */
 public class Sip extends Ims implements LinhaInterface{
 	
-	private ConfiguracaoLinha configuracaoModem;
 
 	public Sip() {
 
@@ -20,13 +19,5 @@ public class Sip extends Ims implements LinhaInterface{
 	@Override
 	public String getNome() {
 		return "IMS-SIP";
-	}
-
-	public ConfiguracaoLinha getConfiguracaoModem() {
-		return configuracaoModem;
-	}
-
-	public void setConfiguracaoModem(ConfiguracaoLinha configuracaoModem) {
-		this.configuracaoModem = configuracaoModem;
 	}
 }

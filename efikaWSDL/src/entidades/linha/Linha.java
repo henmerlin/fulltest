@@ -1,5 +1,7 @@
 package entidades.linha;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformacoesInstanciaOut;
@@ -19,6 +21,9 @@ public class Linha{
 	private GetNumberByFilterOut infoSwitch;
 	
 	private GetInformacoesInstanciaOut infoInstancia;
+	
+	private List<Exception> configErrors;
+
 		
 	public Linha() {
 
@@ -35,7 +40,6 @@ public class Linha{
 	public String getInstancia() {
 		return instancia;
 	}
-
 
 	public void setInstancia(String instancia) {
 		this.instancia = instancia;
@@ -63,5 +67,13 @@ public class Linha{
 
 	public void setInfoInstancia(GetInformacoesInstanciaOut infoInstancia) {
 		this.infoInstancia = infoInstancia;
+	}
+
+	public List<Exception> getConfigErrors() {
+		return configErrors;
+	}
+
+	public void setConfigErrors(List<Exception> configErrors) {
+		this.configErrors = configErrors;
 	}	
 }
