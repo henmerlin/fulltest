@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.List;
 
 import entidades.credenciais.Credencial;
 
@@ -20,13 +22,26 @@ public class Telnet {
 	private String ip;
 	
 	public Credencial auth;
+	
+	private List<ComandoTelnet> comandos;
+	
+	private Boolean slowMode;
 
 	
 	public Telnet() {
 		
 	}
 	
-	public static void main(String[] args) {
+	public List<String> run() throws UnknownHostException, IOException{
+		
+		Socket pingSocket = new Socket(this.ip, 23);
+	
+		
+
+		return null;
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
 		
 		try {
 			keymileTest();
@@ -34,8 +49,6 @@ public class Telnet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	public Credencial getAuth() {
@@ -178,5 +191,21 @@ public class Telnet {
 		in.close();
 		pingSocket.close();
 
+	}
+
+	public List<ComandoTelnet> getComandos() {
+		return comandos;
+	}
+
+	public void setComandos(List<ComandoTelnet> comandos) {
+		this.comandos = comandos;
+	}
+
+	public Boolean getSlowMode() {
+		return slowMode;
+	}
+
+	public void setSlowMode(Boolean slowMode) {
+		this.slowMode = slowMode;
 	}
 }

@@ -15,9 +15,11 @@ import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.Diagnost
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ElementoDiagnosticoSIP;
+import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ResetSIPAgentOut;
 
 import br.com.gvt.telefonia.ura.co.services.ResendFxsIn;
 import br.com.gvt.telefonia.ura.co.services.ResendFxsOut;
+import br.com.gvt.telefonia.ura.co.services.ResetModemSipInterfaceIn;
 import br.com.gvt.telefonia.ura.co.services.SIPProxy;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
@@ -171,9 +173,46 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-		if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
-			this.reenviarFxs(cliente.getDesignador());
+		if(config.getStatus().getValor().equalsIgnoreCase("Disabled") 
+			|| config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
+			// Sip Profile reset
+			 
+			Thread thread = new Thread()
+			    {
+			        public void run()
+			        {
+
+		                try {
+							resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        }
+			    };
+			    thread.start();
 		}
+		
+		
+//		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
+//			// Reenviar FXS 
+//			this.reenviarFxs(cliente.getDesignador());
+//		}
+		
+
+	}
+	
+	public ResetSIPAgentOut resetarSipProfile(String designador, String instancia) throws RemoteException{
+				
+		DiagnosticoSIPIn in = new DiagnosticoSIPIn();
+
+		Credenciais credencial = new Credenciais("URA", "URA", "URA");
+
+		in.setInstancia(instancia);
+		in.setDesignadorTurbonet(designador);
+		in.setCredencial(credencial);		
+		
+		return this.codService.executarResetSIPAgent(in);
 	}
 
 	public PortaFxs consultarPortaFxs(Cliente cliente) throws RemoteException{
