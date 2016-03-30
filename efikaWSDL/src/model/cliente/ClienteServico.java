@@ -48,7 +48,7 @@ public class ClienteServico implements OperacionalInterface{
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
 		
 		// Aciona método para obter designador
-		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia());	
+		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
 
 		// Consulta Designador de Acesso
 		String designadorAcesso = this.getAccessDesignator(designador);

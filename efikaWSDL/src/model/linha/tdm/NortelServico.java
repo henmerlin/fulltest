@@ -46,24 +46,24 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 
 			String servicos = (String) retorno.subSequence(retorno.indexOf(option) + option.length(), retorno.lastIndexOf("-------------------------------------------------------------------------------"));
 
-			if(servicos.contentEquals("DGT")){
-				listServico.add(new Parametro("Digital", "Ativado"));
+			if(servicos.contains("DGT")){
+				listServico.add(new Parametro("Digital", "Ativo"));
 			}
 			
-			if(servicos.contentEquals("CWT")){
-				listServico.add(new Parametro("Ligação Simultânea", "Ativado"));
+			if(servicos.contains("CWT")){
+				listServico.add(new Parametro("Ligação Simultânea", "Ativo"));
 			}
 						
-			if(servicos.contentEquals("3WC")){
-				listServico.add(new Parametro("Conversa a Três", "Ativado"));
+			if(servicos.contains("3WC")){
+				listServico.add(new Parametro("Conversa a Três", "Ativo"));
 			}			
 
-			if( ( servicos.contentEquals("DDN") && servicos.contentEquals("NOAMA"))){
-				listServico.add(new Parametro("Identificador de Chamadas (DDN)", "Ativado"));
+			if( ( servicos.contains("DDN") && servicos.contains("NOAMA"))){
+				listServico.add(new Parametro("Identificador de Chamadas (DDN)", "Ativo"));
 			}	
 			
-			if( ( servicos.contentEquals("CND") && servicos.contentEquals("NOAMA"))){
-				listServico.add(new Parametro("Identificador de Chamadas (CND)", "Ativado"));
+			if( ( servicos.contains("CND") && servicos.contains("NOAMA"))){
+				listServico.add(new Parametro("Identificador de Chamadas (CND)", "Ativo"));
 			}	
 		}
 
@@ -100,5 +100,11 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 	public List<Exception> validarConfiguracoes(Cliente cliente) {
 
 		return new ArrayList<Exception>();
+	}
+
+	@Override
+	public void realizarCorrecoes(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
 	}
 }

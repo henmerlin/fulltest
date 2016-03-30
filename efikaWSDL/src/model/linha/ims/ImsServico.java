@@ -32,10 +32,10 @@ public class ImsServico extends LinhaServico{
 			break;
 		}
 		
-		return new Parametro("Registro IMS", resolverStatusSip(reg));
+		return new Parametro("Registro IMS", resolverStatusRegCentral(reg));
 	}
 	
-	public static String resolverStatusSip(String string){
+	public static String resolverStatusRegCentral(String string){
 		
 		if (string.equalsIgnoreCase("1")) {
 			return "Registrado";

@@ -5,15 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
+import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineServicesProxy;
 import com.gvt.www.metaData.smarttool.Credenciais;
+import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoIn;
+import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoOut;
+import com.gvt.www.services.model.portaFXS.PortaFXSWS;
+import com.gvt.www.services.model.recursoLogico.RecursoLogicoWS;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ElementoDiagnosticoSIP;
+
+import br.com.gvt.telefonia.ura.co.services.ResendFxsIn;
+import br.com.gvt.telefonia.ura.co.services.ResendFxsOut;
+import br.com.gvt.telefonia.ura.co.services.SIPProxy;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoSip;
 import entidades.configuracoes.Parametro;
+import entidades.configuracoes.PortaFxs;
 import model.linha.LinhaServicoInterface;
 
 /**
@@ -26,8 +36,14 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	private ConfiguradorOnlineDeviceManagementProxy codService;
 
+	private ConfiguradorOnlineServicesProxy configOnline;
+	
+	private SIPProxy sip;
+
 	public SipServico() {
 		this.codService = new ConfiguradorOnlineDeviceManagementProxy();
+		this.configOnline = new ConfiguradorOnlineServicesProxy();
+		this.sip = new SIPProxy();
 	}
 
 	public DiagnosticoSIPOut executarDiagnosticoSIP(String instancia, String designador) throws RemoteException {
@@ -104,6 +120,8 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		}
 
 		config.setRegistro(super.consultarRegistroCentral(cliente.getInstancia(), cliente.getLinha()));
+		
+		//config.setFxs(this.consultarPortaFxs(cliente));
 
 		cliente.getLinha().setConfiguracao(config);
 
@@ -147,5 +165,61 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 		return erros;
 	}
+
+	@Override
+	public void realizarCorrecoes(Cliente cliente) throws Exception {
+		
+		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+
+		if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
+			this.reenviarFxs(cliente.getDesignador());
+		}
+	}
+
+	public PortaFxs consultarPortaFxs(Cliente cliente) throws RemoteException{
+
+		ConsultarEquipamentoIn in = new ConsultarEquipamentoIn();
+
+		in.setDesignador(cliente.getDesignador());
+
+
+		ConsultarEquipamentoOut resp = this.configOnline.consultarEquipamentos(in);
+
+		PortaFxs fxs = new PortaFxs();
+
+
+		if (resp.getCodigo() == 0) {
+
+			RecursoLogicoWS[] recurso = resp.getRecursosLogicos();
+
+			for (RecursoLogicoWS recursoLogicoWS : recurso) {			
+
+				PortaFXSWS consulta = recursoLogicoWS.getRecursosLogicos(0).getPortaFXS();
+
+				fxs.setId(consulta.getId());
+				fxs.setInstancia(new Parametro("[FXS] Instancia", consulta.getInstancia()));
+				fxs.setStatus(new Parametro("[FXS] Status", consulta.getStatus().getValue()));
+				fxs.setOutboundProxyIp(new Parametro("[FXS] OutboundProxyIp", consulta.getSessionBorder().getOutboundProxyIp()));
+				fxs.setPorta(new Parametro("[FXS] Porta Modem", consulta.getNumeroPorta().toString()));
+				fxs.setProxyServerIp(new Parametro("[FXS] ProxyServer", consulta.getSessionBorder().getProxyServerIp()));
+				fxs.setUserAgentDomain(new Parametro("[FXS] UserAgentDomain", consulta.getSessionBorder().getUserAgentDomain()));
+				fxs.setRegistraServer(new Parametro("[FXS] RegistrarServer", consulta.getSessionBorder().getRegistraServer()));
+				
+			}
+
+		}
+		return fxs;		
+	}	
+
+	public ResendFxsOut reenviarFxs(String designador) throws RemoteException{
+
+		ResendFxsIn in = new ResendFxsIn();
+		
+		in.setDesignator(designador);
+		in.setIsGpon("false");
+
+		return this.sip.resendFxs(in);
+	}
+
 
 }

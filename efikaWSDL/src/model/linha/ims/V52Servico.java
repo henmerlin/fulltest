@@ -1,31 +1,45 @@
 package model.linha.ims;
 
 
-
 import java.util.List;
 
-import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineDeviceManagementProxy;
 import entidades.cliente.Cliente;
+import entidades.configuracoes.ConfiguracaoV52;
 import model.linha.LinhaServicoInterface;
 
 public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	
-	private ConfiguradorOnlineDeviceManagementProxy codService;
+	//private ConfiguradorOnlineDeviceManagementProxy codService;
 	
 	public V52Servico() {
-		this.codService = new ConfiguradorOnlineDeviceManagementProxy();
+		//this.codService = new ConfiguradorOnlineDeviceManagementProxy();
 	}
 
 	@Override
 	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		cliente = super.consultarConfiguracoes(cliente);
+		
+		ConfiguracaoV52 config = new ConfiguracaoV52();
+		
+		config.setRegistro(super.consultarRegistroCentral(cliente.getInstancia(), cliente.getLinha()));
+		
+		cliente.getLinha().setConfiguracao(config);
+		
+		
+		return cliente;
 	}
 
 	@Override
 	public List<Exception> validarConfiguracoes(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void realizarCorrecoes(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

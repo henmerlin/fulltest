@@ -87,7 +87,7 @@
 
 				<p:dataTable var="error" type="unordered" style="margin-top: 15px;"
 					value="#{operacionalBean.cliente.linha.configErrors}"
-					rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}">
+					emptyMessage="Não foram encontrados erros de configuração.">
 					
 					<p:column headerText="Erros de Configuração">
 						<h:outputText value="#{error.message}" />

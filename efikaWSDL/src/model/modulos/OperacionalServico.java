@@ -38,6 +38,9 @@ public class OperacionalServico implements OperacionalInterface{
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 		
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+		
+		this.servicoVoz.realizarCorrecoes(cliente);
+		
 
 		return cliente;
 	}

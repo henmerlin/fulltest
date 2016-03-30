@@ -3,10 +3,8 @@ package entidades.configuracoes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfiguracaoSip implements ConfiguracaoLinha{
+public class ConfiguracaoSip extends ConfiguracaolIms implements ConfiguracaoLinha{
 	
-	private Parametro registro;
-
 	private Parametro serialNumber;
 
 	private Parametro tipo;
@@ -31,6 +29,8 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 
 	private Parametro ipAddress;
 	
+	private PortaFxs fxs;
+	
 	public ConfiguracaoSip() {
 
 	}
@@ -39,7 +39,7 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 
 		ArrayList<Parametro> retorno = new ArrayList<Parametro>();
 
-		retorno.add(registro);
+		retorno.add(this.getRegistro());
 		
 		if(serialNumber != null){
 			retorno.add(serialNumber);
@@ -56,6 +56,13 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 		retorno.add(registrarServer);
 		retorno.add(userAgentDomain);
 		retorno.add(ipAddress);
+		
+//		List<Parametro> oi = this.fxs.getParametros();
+//		
+//		for (Parametro parametro : oi) {
+//			retorno.add(parametro);
+//		}
+		
 
 		return retorno;
 	}
@@ -156,11 +163,11 @@ public class ConfiguracaoSip implements ConfiguracaoLinha{
 		this.ipAddress = ipAddress;
 	}
 
-	public Parametro getRegistro() {
-		return registro;
+	public PortaFxs getFxs() {
+		return fxs;
 	}
 
-	public void setRegistro(Parametro registro) {
-		this.registro = registro;
+	public void setFxs(PortaFxs fxs) {
+		this.fxs = fxs;
 	}
 }
