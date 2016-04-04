@@ -1,61 +1,49 @@
 package model;
 
-import java.io.IOException;
-import java.rmi.RemoteException;
-
-import entidades.cliente.Cliente;
-import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
-import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.banda.BandaServico;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import model.cliente.ClienteServico;
-import model.linha.LinhaServico;
+
 
 public class Teste {
-	
-	public static void main(String[] args) {
 
-		Cliente cliente = new Cliente();
-		
-		LinhaServico servicoLinha = new LinhaServico();
-		BandaServico servicoBanda = new BandaServico();
-		ClienteServico servicoCliente = new ClienteServico();
-		
-		String instancia = "1530232072";
-		
-		cliente.setInstancia(instancia);
-		
+	public static void main(String[] args) throws Exception {
 
-		
-		String designador;
-		try {
-			designador = servicoBanda.getDesignatorByAccessDesignator(instancia);
-			
-			System.out.println(designador);
-//			
-//			cliente.setDesignador(designador);
-//			
-//			cliente = servicoCliente.consultar(cliente);
-//			
-//			cliente.setLinha(servicoLinha.consultar(cliente.getInstancia()));
-			
-			
-		} catch (DataNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (OSSTurbonetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		/**
+		 * 
+
+		Telnet telnet = new Telnet();
+		Credencial cred = new Credencial();
+
+		//cred.setUser("admin");
+		cred.setUser("manager");
+		//cred.setPass("zhone");
+		cred.setPass("");
+
+		telnet.setMode(ExecutionType.KEYMILE);
+
+		telnet.setAuth(cred);
+		//telnet.setIp("10.151.58.82");
+		telnet.setIp("10.161.15.223");
+
+		//ComandoTelnet comando = new ComandoTelnet("bridge show vlan 217");
+		ComandoTelnet comando = new ComandoTelnet("get /unit-1/port-28/pm/History24hTable");
+
+		telnet.getComandos().add(comando);
+
+
+		for (String string : telnet.run()) {
+			System.out.println(string);
 		}
 
-	}
+		 */
 
+
+		ClienteServico serv = new ClienteServico();
+
+		InventoryAccountResponse inventario = serv.getAccountItems("4133280564");
+
+
+				
+	}
 }
+

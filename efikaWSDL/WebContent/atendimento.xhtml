@@ -86,16 +86,21 @@
 				</p:dataTable>
 
 				<p:dataTable var="error" type="unordered" style="margin-top: 15px;"
+					rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
 					value="#{operacionalBean.cliente.linha.configErrors}"
 					emptyMessage="Não foram encontrados erros de configuração.">
-					
+
 					<p:column headerText="Erros de Configuração">
 						<h:outputText value="#{error.message}" />
 					</p:column>
 
 				</p:dataTable>
+				
+				<h:outputText styleClass="ui-messages-info-summary" rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}" value="Linha Configurada corretamente!" />
 
-
+				<p:commandButton action="#{operacionalBean.realizarCorrecoes()}"
+					value="Realizar Correções!"
+					rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}" />
 
 			</p:panel>
 		</h:form>

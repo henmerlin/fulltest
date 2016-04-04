@@ -24,7 +24,7 @@ import model.modulos.OperacionalInterface;
 public class ClienteServico implements OperacionalInterface{
 
 	private InventoryImplProxy invService;
-	
+
 	private OSSTurbonetProxy osstbService;
 
 
@@ -32,7 +32,7 @@ public class ClienteServico implements OperacionalInterface{
 		this.invService = new InventoryImplProxy();
 		this.osstbService = new OSSTurbonetProxy();
 	}
-	
+
 	/**
 	 * Método responsável por buscar o cadastro do cliente utilizando WebServices de IT
 	 * Consultas:
@@ -43,25 +43,25 @@ public class ClienteServico implements OperacionalInterface{
 	 * @author G0042204
 	 */
 	public Cliente consultarCadastro(Cliente cliente) throws RemoteException{
-		
+
 		// Consulta Produtos Contratados
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
-		
+
 		// Aciona método para obter designador
 		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
 
 		// Consulta Designador de Acesso
 		String designadorAcesso = this.getAccessDesignator(designador);
-		
+
 		cliente.setInventario(inventario);
 		cliente.setDesignador(designador);
 		cliente.setDesignadorAcesso(designadorAcesso);
 
 		return cliente;
 	}
-	
 
-	
+
+
 	/**
 	 * Retorna Inventário de Produtos do cliente
 	 * @param instancia
@@ -69,12 +69,12 @@ public class ClienteServico implements OperacionalInterface{
 	 * @throws RemoteException
 	 */
 	public InventarioProdutos getProdutosContratados(String instancia) throws RemoteException{
-		
+
 		InventoryAccountResponse retorno = this.getAccountItems(instancia);
-			
+
 		return this.tratarProdutos(retorno);
 	}
-	
+
 	/**
 	 * Método resposável pelo tratamento do Retorno do servico getAccountItems
 	 * @param cliente
@@ -87,17 +87,13 @@ public class ClienteServico implements OperacionalInterface{
 		Account account = inventario.getAccounts(0);
 
 		Address[] listaProdutos = account.getAddress();
-				
+
 		InventarioProdutos produtos = new InventarioProdutos();
-		
-		ProdutoLinha linha = new ProdutoLinha();
-		ProdutoBanda banda = new ProdutoBanda();
-		ProdutoTv tv = new ProdutoTv();
-		
+
 		for (Address address : listaProdutos) {
-			
+
 			Item[] itens = address.getItems();
-			
+
 			for (Item itemExterno : itens) {
 				Item[] itensInternos = itemExterno.getItems();
 
@@ -105,43 +101,50 @@ public class ClienteServico implements OperacionalInterface{
 
 					Param[] parametros = item.getParam();
 
-					for (Param param : parametros) {
-
-						String upString = "Upstream";
-						String downString = "Downstream";
-						String tecnologiaTV = "TecnologiaTV";
-						String tecnologiaVoz = "TecnologiaVoz";
-
-						// Tecnologia Voz
-						if (param.getName().equalsIgnoreCase(tecnologiaVoz)) {
-							linha.setTecnologia(param.getValue());
-						}							
-														
-						// Tecnologia Tv
-						if (param.getName().equalsIgnoreCase(tecnologiaTV)) {
-							tv.setTipo(param.getValue());
-						}							
-						
-						// Velocidade Downstream
-						if (param.getName().equalsIgnoreCase(downString)) {
-							banda.setDownloadCrm(param.getValue());
-						}	
-						
-						// Velocidade Upstream
-						if (param.getName().equalsIgnoreCase(upString)) {
-							banda.setUploadCrm(param.getValue());
-						}					
+					try {
+						ProdutoLinha linha = new ProdutoLinha();
+						linha.setTecnologia(this.tratamentoProdutosParam(parametros, "TecnologiaVoz"));
+						produtos.setLinha(linha);
+					} catch (Exception e) {
+						produtos.setLinha(null);
 					}
+
+					try {
+						ProdutoBanda banda = new ProdutoBanda();
+						banda.setDownloadCrm(this.tratamentoProdutosParam(parametros, "Downstream"));
+						banda.setUploadCrm(this.tratamentoProdutosParam(parametros, "Upstream"));
+						produtos.setBanda(banda);
+					} catch (Exception e) {
+						produtos.setBanda(null);
+					}				
+
+					try {
+						ProdutoTv tv = new ProdutoTv();
+						tv.setTipo(this.tratamentoProdutosParam(parametros, "TecnologiaTV"));
+						produtos.setTv(tv);
+					} catch (Exception e) {
+						produtos.setTv(null);
+					}						
+
 				}
 			}
 		}
-		
-		produtos.setBanda(banda);
-	
+
 		return produtos;
 	}
 
-	
+	public String tratamentoProdutosParam(Param[] parametros, String stringServico) throws Exception{
+
+		for (Param param : parametros) {
+			if (param.getName().equalsIgnoreCase(stringServico)) {
+				return param.getValue();
+			}	
+		}
+
+		throw new Exception("Não possui o produto contratado.");
+	}
+
+
 	/**
 	 * Consulta do Webservice ao Inventário de Produtos do cliente
 	 * @param designador
@@ -152,7 +155,7 @@ public class ClienteServico implements OperacionalInterface{
 
 		return this.invService.getAccountItems(null, null, instancia, null, true);
 	}
-	
+
 	/**
 	 * Função referente ao informações TBS - WiseTool
 	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico
@@ -164,10 +167,18 @@ public class ClienteServico implements OperacionalInterface{
 	 * @author G0042204
 	 */
 	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
-
 		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getInventario().getBanda().getDownloadCrm(), cliente.getInventario().getBanda().getUploadCrm());
 	}
-	
+
+	/**
+	 * Utiliza OSSTurbonetProxy metodo getAccessDesignator
+	 * para obter designador de acesso 
+	 * @param designador
+	 * @return
+	 * @throws DataNotFoundException
+	 * @throws OSSTurbonetException
+	 * @throws RemoteException
+	 */
 	public String getAccessDesignator(String designador) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 		return this.osstbService.getAccessDesignator(designador);
 	}

@@ -12,7 +12,8 @@ public class OperacionalBean {
 	private Cliente cliente;	
 
 	private OperacionalServico operacional;
-
+		
+	
 	public OperacionalBean() {
 		this.cliente = new Cliente();
 		this.operacional = new OperacionalServico();
@@ -26,6 +27,16 @@ public class OperacionalBean {
 			JSFUtil.addErrorMessage(e.getMessage());
 		}
 	}
+	
+	public void realizarCorrecoes(){
+
+		try {
+			this.cliente = this.operacional.realizarCorrecoes(this.cliente);
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());
+		}
+	}
+	
 
 	public Cliente getCliente() {
 		return cliente;
@@ -33,7 +44,5 @@ public class OperacionalBean {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-	
-	
+	}	
 }

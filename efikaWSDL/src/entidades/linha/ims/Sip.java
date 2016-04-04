@@ -1,6 +1,5 @@
 package entidades.linha.ims;
 
-import entidades.configuracoes.ConfiguracaoLinha;
 import entidades.linha.LinhaInterface;
 
 /**
