@@ -1,6 +1,6 @@
 package model.banda.parametros;
 
-public class TabelaParametrosVdsl extends TabelaParametros{
+public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico{
 		
 	private Double snrDown1;
 	
@@ -18,7 +18,7 @@ public class TabelaParametrosVdsl extends TabelaParametros{
 	
 	private Double atnUp2;	
 	
-	public TabelaParametrosVdsl() {
+	public TabelaParametrosMetalicoVdsl() {
 	
 	}
 
