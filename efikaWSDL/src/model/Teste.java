@@ -1,7 +1,6 @@
 package model;
 
-import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import model.cliente.ClienteServico;
+import model.banda.metalico.keymile.SuadServico;
 
 
 public class Teste {
@@ -38,10 +37,14 @@ public class Teste {
 		 */
 
 
-		ClienteServico serv = new ClienteServico();
+//		ClienteServico serv = new ClienteServico();
+//
+//		InventoryAccountResponse inventario = serv.getAccountItems("4133280564");
 
-		InventoryAccountResponse inventario = serv.getAccountItems("4133280564");
-
+		
+		SuadServico suad = new SuadServico();
+		
+		suad.consultarTabelaParametros();
 
 				
 	}

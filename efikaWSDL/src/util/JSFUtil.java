@@ -26,4 +26,5 @@ public class JSFUtil {
 		message.setSummary(msg);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
+
 }

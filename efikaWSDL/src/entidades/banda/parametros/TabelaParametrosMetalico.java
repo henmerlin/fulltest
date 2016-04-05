@@ -1,6 +1,6 @@
 package entidades.banda.parametros;
 
-public class TabelaParametrosMetalico {
+public class TabelaParametrosMetalico extends TabelaParametros{
 	
 	private Double download;
 	

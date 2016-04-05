@@ -21,7 +21,7 @@ public class KeymileServico {
 		
 		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/administrativestatus";
 		
-		return null;
+		return comando;
 	}
 	/*
 	 * Retorna o estado operacional da porta 	
@@ -32,7 +32,7 @@ public class KeymileServico {
 		
 		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
 		
-		return null;
+		return comando;
 	}
 	/*
 	 * Retorna a lista de vccs do canal 	
