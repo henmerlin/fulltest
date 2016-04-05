@@ -1,7 +1,5 @@
 package model.banda.metalico.keymile;
 
-import java.sql.Array;
-import java.util.List;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
@@ -12,24 +10,27 @@ public class KeymileServico {
 		
 	}
 	
-	/*
-	 * Retorna o estado administrativo da porta 	
+	/**
+	 * Retorna o estado administrativo da porta 
+	 * @param tbs
+	 * @return
 	 */
-	public String cmdAdminStatus(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/administrativestatus";
-		
-		return comando;
+	public String cmdAdminStatus(InfoTBS tbs){
+				
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/administrativestatus";
 	}
-	/*
-	 * Retorna o estado operacional da porta 	
+
+
+	/**
+	 * Retorna o estado operacional da porta (Sincronismo)
+	 * @param tbs
+	 * @return String
 	 */
 	public String cmdOperStatus(InfoTBS tbs){
 
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
 	}
+	
 	/*
 	 * Retorna a lista de vccs do canal 	
 	 */
@@ -37,6 +38,8 @@ public class KeymileServico {
 		
 		return "ls /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/";
 	}
+	
+	
 	/*
 	 * Retorna srvcs das vccs do canal 	
 	 */
@@ -44,37 +47,30 @@ public class KeymileServico {
 		
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/" + vcc + "/status/servicestatus";
 	}
-	/*
+	
+	/**
 	 * Retorna tabela histórica da porta (resync, crc...) 	
+	 * @param tbs
+	 * @return
 	 */
-	public String historyTable(InfoTBS tbs){
-		
-		
-		String comando = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/history24htable";
-		
-		return null;
+	public String cmdHistoryTable(InfoTBS tbs){		
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/history24htable";
 	}
 	/*
 	 * Retorna tabela atual da porta (crc, fec...) 	
 	 */
-	public String currentTable(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercountertable";
-		
-		return null;
+	public String cmdCurrentTable(InfoTBS tbs){
+
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercountertable";
 	}
 	/*
 	 * Reseta tabela atual da porta (crc, fec...) 	
 	 */
-	public void resetcurrentTable(GetInfoOut cadastro){
+	public String cmdResetcurrentTable(InfoTBS tbs){
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando = "/unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercounterreset";
-		
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercounterreset";
 	}
+	
 	/*
 	 * Retorna o mac comunicando-se com a interface de banda (mac do modem) 	
 	 */

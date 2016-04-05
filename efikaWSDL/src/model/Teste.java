@@ -1,8 +1,6 @@
 package model;
 
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.linha.ims.Sip;
-import entidades.linha.tdm.Nortel;
 import model.banda.metalico.keymile.SuadServico;
 
 
@@ -39,19 +37,27 @@ public class Teste {
 
 		 */
 		
-//		SuadServico suad = new SuadServico();
-//		
-//		TabelaParametrosMetalico oi = suad.consultarTabelaParametros();
-//		
-//		
-//		System.out.println(oi.getSnrDown());
-		
-		
-		Nortel oi = new Nortel();
-		
-		System.out.println(oi);
-
+		SuadServico suad = new SuadServico();
 				
+		TabelaParametrosMetalico oi = suad.consultarTabelaParametros();
+				
+		System.out.println(oi.getDownload());
+		System.out.println(oi.getUpload());
+		
+		System.out.println(oi.getSnrDown());
+		System.out.println(oi.getSnrUp());
+		
+		System.out.println(oi.getAtnDown());
+		System.out.println(oi.getAtnUp());
+
+		
+		System.out.println(oi.getPortaAdmStatus());
+		System.out.println(oi.getSincronismoStatus());
+
+		System.out.println(oi.getProfile());
+		System.out.println(oi.getModulacao());
+
+		
 	}
 }
 

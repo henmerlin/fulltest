@@ -219,8 +219,6 @@ public class Telnet {
 
 
 		out.println("logout");
-
-
 		out.close();
 		in.close();
 		pingSocket.close();

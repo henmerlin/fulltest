@@ -2,7 +2,6 @@ package model.banda.metalico.keymile;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import model.factory.BandaFactory;
@@ -46,30 +45,38 @@ public class SuadServico extends KeymileServico {
 		telnet.getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
 		telnet.getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
 		telnet.getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-
+		telnet.getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
+		telnet.getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
+		
 		telnet.setMode(ExecutionType.KEYMILE);
 
 		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
-		
+
 		// Sincronizada
-		tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(6))));
-		tabela.setUpload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(10))));
+		tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 1)))));
+		tabela.setUpload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 2)))));
 
 		// SNR
-		tabela.setSnrDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Downstream", retorno.get(15))));
-		tabela.setSnrUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Upstream", retorno.get(16))));
+		tabela.setSnrDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Downstream", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Downstream", 2)))));
+		tabela.setSnrUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Upstream", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Upstream", 2)))));
 
 		// ATN
-		tabela.setAtnDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Downstream", retorno.get(19))));
-		tabela.setAtnUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Upstream", retorno.get(20))));		
+		tabela.setAtnDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Downstream", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Downstream", 3)))));
+		tabela.setAtnUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # Upstream", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Upstream", 3)))));	
 
 		// PROFILE APLICADO
-		tabela.setProfile(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(23))));
+		tabela.setProfile(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 1)))));
 
 		// MODULAÇÃO APLICADA
-		tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(26))));
+		tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 2)))));
+
+		// AdministrativeStatus
+		tabela.setPortaAdmStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 1)))));
+	
+		// AdministrativeStatus
+		tabela.setSincronismoStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 2)))));
 		
 		// Debugger
 		//TelnetUtil.debugger(retorno);
