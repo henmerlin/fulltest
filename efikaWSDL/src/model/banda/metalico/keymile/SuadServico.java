@@ -41,24 +41,11 @@ public class SuadServico {
 
 		telnet.setIp(tbs.getIpDslam());
 
-		String comando1 = this.cmdchanStatus(tbs);
-		String comando2 = this.cmdSnrMargin(tbs);
-		String comando3 = this.cmdAttenuation(tbs);
-		String comando4 =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/profilename";
-		String comando5 =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
-
-
-		ComandoTelnet cmd1 = new ComandoTelnet(comando1);
-		ComandoTelnet cmd2 = new ComandoTelnet(comando2);
-		ComandoTelnet cmd3 = new ComandoTelnet(comando3);
-		ComandoTelnet cmd4 = new ComandoTelnet(comando4);
-		ComandoTelnet cmd5 = new ComandoTelnet(comando5);
-
-		telnet.getComandos().add(cmd1);
-		telnet.getComandos().add(cmd2);
-		telnet.getComandos().add(cmd3);
-		telnet.getComandos().add(cmd4);
-		telnet.getComandos().add(cmd5);
+		telnet.getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
+		telnet.getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
+		telnet.getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
+		telnet.getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
+		telnet.getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
 
 		telnet.setMode(ExecutionType.KEYMILE);
 
@@ -83,14 +70,16 @@ public class SuadServico {
 
 		// MODULAÇÃO APLICADA
 		tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(26))));
+		
+		
 
 		// Debugger
-		TelnetUtil.debugger(retorno);
+		//TelnetUtil.debugger(retorno);
 
 		return tabela;
 	}
 
-	public String cmdchanStatus(InfoTBS tbs){
+	public String cmdChanStatus(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";
 	}
 
@@ -107,11 +96,11 @@ public class SuadServico {
 	 * @param tbs
 	 * @return String 
 	 */
-	public String chanProfile(InfoTBS tbs){
+	public String cmdChanProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/profilename";
 	}
 
-	public String portProfile(InfoTBS tbs){
+	public String cmdPortProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
 	}
 
