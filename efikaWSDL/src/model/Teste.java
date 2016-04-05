@@ -1,5 +1,6 @@
 package model;
 
+import entidades.banda.parametros.TabelaParametrosMetalico;
 import model.banda.metalico.keymile.SuadServico;
 
 
@@ -35,16 +36,13 @@ public class Teste {
 		}
 
 		 */
-
-
-//		ClienteServico serv = new ClienteServico();
-//
-//		InventoryAccountResponse inventario = serv.getAccountItems("4133280564");
-
 		
 		SuadServico suad = new SuadServico();
 		
-		suad.consultarTabelaParametros();
+		TabelaParametrosMetalico oi = suad.consultarTabelaParametros();
+		
+		
+		System.out.println(oi.getSnrDown());
 
 				
 	}
