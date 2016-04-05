@@ -21,5 +21,12 @@ public class Nortel extends Linha implements LinhaInterface{
 
 		return "TDM-H248";
 	}
+
+	@Override
+	public String toString() {
+		return "Nortel [getNome()=" + getNome() + "]";
+	}
+	
+	
 	
 }

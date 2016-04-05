@@ -15,7 +15,7 @@ public class KeymileServico {
 	/*
 	 * Retorna o estado administrativo da porta 	
 	 */
-	public String adminStatus(GetInfoOut cadastro){
+	public String cmdAdminStatus(GetInfoOut cadastro){
 		
 		InfoTBS tbs = cadastro.getInfoTBS();
 		
@@ -26,45 +26,29 @@ public class KeymileServico {
 	/*
 	 * Retorna o estado operacional da porta 	
 	 */
-	public String operStatus(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
-		
-		return comando;
+	public String cmdOperStatus(InfoTBS tbs){
+
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
 	}
 	/*
 	 * Retorna a lista de vccs do canal 	
 	 */
-	public List<Array> chanVccs(GetInfoOut cadastro){
+	public String cmdLsChanVccs(InfoTBS tbs){
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando =  "ls /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/";
-		
-		return null;
+		return "ls /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/";
 	}
 	/*
 	 * Retorna srvcs das vccs do canal 	
 	 */
-	public String srvcs(GetInfoOut cadastro){
+	public String srvcs(InfoTBS tbs, String vcc){
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		//varrer array dos vccs executando...
-		String param = "param";
-		
-		String comando = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/" + param + "/status/servicestatus";
-		
-		return null;
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/" + vcc + "/status/servicestatus";
 	}
 	/*
 	 * Retorna tabela histórica da porta (resync, crc...) 	
 	 */
-	public String historyTable(GetInfoOut cadastro){
+	public String historyTable(InfoTBS tbs){
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
 		
 		String comando = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/history24htable";
 		

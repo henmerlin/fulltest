@@ -1,6 +1,6 @@
 package entidades.banda.parametros;
 
-public class TabelaParametros{
+abstract class TabelaParametros{
 	
 	private String sincronismoStatus;
 	
@@ -8,10 +8,6 @@ public class TabelaParametros{
 	
 	private String profile;
 	
-	public TabelaParametros() {
-	
-	}
-
 	public String getSincronismoStatus() {
 		return sincronismoStatus;
 	}

@@ -11,7 +11,7 @@ import model.telnet.ExecutionType;
 import model.telnet.Telnet;
 import util.TelnetUtil;
 
-public class SuadServico {
+public class SuadServico extends KeymileServico {
 
 	public SuadServico() {
 
@@ -52,7 +52,7 @@ public class SuadServico {
 		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
-
+		
 		// Sincronizada
 		tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(6))));
 		tabela.setUpload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(10))));
@@ -71,8 +71,6 @@ public class SuadServico {
 		// MODULAÇÃO APLICADA
 		tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(26))));
 		
-		
-
 		// Debugger
 		//TelnetUtil.debugger(retorno);
 

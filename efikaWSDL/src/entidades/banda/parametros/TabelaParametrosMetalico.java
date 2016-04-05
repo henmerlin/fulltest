@@ -17,7 +17,7 @@ public class TabelaParametrosMetalico extends TabelaParametros{
 	private String modulacao;
 		
 	public TabelaParametrosMetalico() {
-	
+
 	}
 
 	public Double getDownload() {
