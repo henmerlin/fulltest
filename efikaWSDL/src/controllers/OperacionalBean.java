@@ -1,11 +1,13 @@
 package controllers;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import entidades.cliente.Cliente;
 import model.modulos.OperacionalServico;
 import util.JSFUtil;
 
+@ViewScoped
 @ManagedBean
 public class OperacionalBean {
 
@@ -20,7 +22,7 @@ public class OperacionalBean {
 	}
 
 	public void consultar(){
-
+				
 		try {
 			this.cliente = this.operacional.consultar(this.cliente);
 		} catch (Exception e) {

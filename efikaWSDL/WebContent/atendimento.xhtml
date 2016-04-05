@@ -95,8 +95,9 @@
 					</p:column>
 
 				</p:dataTable>
-				
-				<h:outputText styleClass="ui-messages-info-summary" rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}" value="Linha Configurada corretamente!" />
+
+				<h:outputText rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}"
+					value="Linha configurada corretamente!" />
 
 				<p:commandButton action="#{operacionalBean.realizarCorrecoes()}"
 					value="Realizar Correções!"

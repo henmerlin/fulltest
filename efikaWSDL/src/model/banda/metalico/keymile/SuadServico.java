@@ -10,12 +10,14 @@ public class SuadServico {
 	public SuadServico() {
 		
 	}
-	/*
+
+	/**
 	 * Retorna:
-	 * 	velocidade do canal, em kbps;
-	 * 	sinal ruído da porta, em dB;
-	 * 	atenuação da porta, em dB; 
-	 * 
+	 * Velocidade do canal, em kbps;
+	 * Sinal ruído da porta, em dB;
+	 * Atenuação da porta, em dB; 
+	 * @param cadastro
+	 * @return
 	 */
 	public String consultarParametros(GetInfoOut cadastro) {
 		
@@ -29,7 +31,6 @@ public class SuadServico {
 		String comando1 = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";
 		String comando2 = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/snrmargin";
 		String comando3 = "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/attenuation";
-		
 		
 		return null;
 	}
