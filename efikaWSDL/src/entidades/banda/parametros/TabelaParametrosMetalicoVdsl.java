@@ -1,4 +1,4 @@
-package model.banda.parametros;
+package entidades.banda.parametros;
 
 public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico{
 		
