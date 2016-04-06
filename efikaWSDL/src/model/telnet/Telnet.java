@@ -55,7 +55,7 @@ public class Telnet {
 			BufferedReader in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
 			Thread.sleep(1000);
 			
-			List<String> retorno = this.keymileMode(out, in);
+			List<String> retorno = this.execType(out, in);
 			
 			out.close();
 			in.close();
