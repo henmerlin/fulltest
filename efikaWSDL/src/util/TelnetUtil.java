@@ -13,7 +13,9 @@ public class TelnetUtil {
 		int fim = string.indexOf(substringFinal);
 		String reg = null;
 		reg = (String) string.subSequence(0, fim);
-
+		if(reg.contains("\"")){
+			reg = reg.replaceAll("\"", "");
+		}
 		return reg.trim();
 	}
 	

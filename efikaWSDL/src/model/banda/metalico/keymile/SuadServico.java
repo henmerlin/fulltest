@@ -84,10 +84,6 @@ public class SuadServico extends KeymileServico {
 		return tabela;
 	}
 
-	public String cmdChanStatus(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";
-	}
-
 	public String cmdSnrMargin(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/snrmargin";
 	}
