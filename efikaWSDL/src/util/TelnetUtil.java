@@ -1,6 +1,11 @@
 package util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TelnetUtil {
 
@@ -57,5 +62,16 @@ public class TelnetUtil {
 		
 		return ocorrencia;
 	}
+	
+	
+	public static Date formatarDateDeMenosParametro(Integer i) throws ParseException{
+		
+		LocalDate hoje = LocalDate.now();
+		LocalDate stringData = hoje.plusDays(1 - i);
+		DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return data.parse(stringData.toString());
+	}
+
 
 }
