@@ -19,67 +19,6 @@ public class SuvdServico extends KeymileServico{
 		
 	}
 
-	
-	public TabelaParametrosMetalicoVdsl consultarTabelaParametrosVdsl() throws Exception {
-		
-		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.185.9.211");
-		tbs.setSlot(new BigInteger("15"));
-		tbs.setPortNumber(new BigInteger("4"));
-
-
-		this.getTelnet().setIp(tbs.getIpDslam());
-
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
-		
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
-
-		TabelaParametrosMetalicoVdsl tabela = new TabelaParametrosMetalicoVdsl();
-
-		// Sincronizada
-		tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 1)))));
-		tabela.setUpload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 2)))));
-		
-		// SNR
-		tabela.setSnrUp1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 1)))));
-		tabela.setSnrUp2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 2)))));
-		tabela.setSnrUp3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 3)))));
-		tabela.setSnrDown1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 4)))));
-		tabela.setSnrDown2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 5)))));
-		tabela.setSnrDown3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 6)))));
-		
-		// ATN
-		tabela.setAtnUp1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 1)))));
-		tabela.setAtnUp2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 2)))));
-		tabela.setAtnUp3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 3)))));
-		tabela.setAtnDown1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 4)))));
-		tabela.setAtnDown2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 5)))));
-		tabela.setAtnDown3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 6)))));
-
-		// PROFILE APLICADO
-		tabela.setProfile(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 1)))));
-
-		// MODULAÇÃO APLICADA
-		tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 2)))));
-
-		// AdministrativeStatus
-		tabela.setPortaAdmStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 1)))));
-	
-		// AdministrativeStatus
-		tabela.setSincronismoStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 2)))));
-		
-		// Debugger
-		//TelnetUtil.debugger(retorno);
-
-		return tabela;
-	}
-	
 public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 		
 		InfoTBS tbs = new InfoTBS();
@@ -109,24 +48,24 @@ public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 		if(TelnetUtil.contarOcorrenciaStringArray(retorno, "CurrAttenuation") == 6){
 					
 			TabelaParametrosMetalicoVdsl tabela = new TabelaParametrosMetalicoVdsl();
-			
+			Integer lele = (TelnetUtil.posicaoArrayDeSubString(retorno, "true", 1)+1);
 			// Sincronizada
 			tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 1)))));
 			tabela.setUpload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 2)))));
 			
 			// SNR
-			tabela.setSnrUp1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 1)))));
+			tabela.setSnrUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 1)))));
 			tabela.setSnrUp2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 2)))));
 			tabela.setSnrUp3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 3)))));
-			tabela.setSnrDown1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 4)))));
+			tabela.setSnrDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 4)))));
 			tabela.setSnrDown2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 5)))));
 			tabela.setSnrDown3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrSnrMargin", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrSnrMargin", 6)))));
 			
 			// ATN
-			tabela.setAtnUp1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 1)))));
+			tabela.setAtnUp(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 1)))));
 			tabela.setAtnUp2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 2)))));
 			tabela.setAtnUp3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 3)))));
-			tabela.setAtnDown1(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 4)))));
+			tabela.setAtnDown(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 4)))));
 			tabela.setAtnDown2(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 5)))));
 			tabela.setAtnDown3(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrAttenuation", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrAttenuation", 6)))));
 
@@ -134,13 +73,18 @@ public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 			tabela.setProfile(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 1)))));
 
 			// MODULAÇÃO APLICADA
-			tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Name", 2)))));
+			tabela.setModulacao(new String(TelnetUtil.tratamentoStringKeymile("\\ # Name", retorno.get(lele))));
 
 			// AdministrativeStatus
 			tabela.setPortaAdmStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 1)))));
 		
 			// AdministrativeStatus
 			tabela.setSincronismoStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 2)))));
+			
+			
+			
+			//System.out.println(lele);
+			//TelnetUtil.debugger(retorno);
 			
 			return tabela;
 			

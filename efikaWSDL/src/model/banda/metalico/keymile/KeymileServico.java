@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.parametros.DiaTabelaHistorico;
 import entidades.banda.parametros.TabelaHistorico;
 import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
@@ -51,7 +52,14 @@ public class KeymileServico extends DslamGerenciavel{
 		TabelaHistorico tabela = new TabelaHistorico();
 
 		//Resync
-		tabela.setResyncHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 24)))));
+		
+		DiaTabelaHistorico dia = new DiaTabelaHistorico();
+		
+		dia.setResync(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 24)))));
+		dia.setCrcDown(crcDown);
+		
+		tabela.getDias().add(dia);
+
 		tabela.setResyncOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 24)))));
 		tabela.setResyncAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 24)))));
 		
