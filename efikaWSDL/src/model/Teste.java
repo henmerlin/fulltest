@@ -1,5 +1,8 @@
 package model;
 
+import java.util.List;
+
+import entidades.banda.parametros.DiaTabelaHistorico;
 import entidades.banda.parametros.TabelaHistorico;
 import model.banda.metalico.keymile.SuvdServico;
 
@@ -15,6 +18,13 @@ public class Teste {
 			SuvdServico suvd = new SuvdServico();
 
 			TabelaHistorico tabela1 = suvd.consultarTabelaHistorico();
+			
+			List<DiaTabelaHistorico> dias = tabela1.getDias();
+			
+			for (DiaTabelaHistorico diaTabelaHistorico : dias) {
+				System.out.println(diaTabelaHistorico.getResync());
+			}
+			
 		
 			//TabelaParametrosMetalico tabela = (TabelaParametrosMetalico) tabela1;
 

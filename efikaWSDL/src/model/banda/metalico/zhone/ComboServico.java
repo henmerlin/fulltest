@@ -12,7 +12,7 @@ import util.TelnetUtil;
 public class ComboServico extends ZhoneServico{
 
 	public ComboServico() {
-		
+				
 	}
 	/*
 	 * Retorna:
@@ -36,8 +36,9 @@ public class ComboServico extends ZhoneServico{
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.portStatus(tbs)));
-
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet("A"));
+	
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
@@ -49,7 +50,7 @@ public class ComboServico extends ZhoneServico{
 	}
 	
 	
-	public String portStatus(InfoTBS tbs){
+	public String cmdPortStatus(InfoTBS tbs){
 				
 		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/adsl -v";
 	}

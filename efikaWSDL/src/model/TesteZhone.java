@@ -1,10 +1,6 @@
 package model;
 
-import entidades.banda.parametros.TabelaHistorico;
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.banda.parametros.TabelaParametrosMetalicoVdsl;
-import model.banda.metalico.keymile.SuadServico;
-import model.banda.metalico.keymile.SuvdServico;
 import model.banda.metalico.zhone.ComboServico;
 
 

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import entidades.credenciais.Credencial;
 
@@ -39,7 +40,6 @@ public class Telnet {
 		this.ip = ip;
 		this.auth = auth;
 		this.comandos = new ArrayList<ComandoTelnet>();
-		this.mode = ExecutionType.KEYMILE;
 	}	
 
 	public List<String> run() throws Exception{
@@ -125,25 +125,30 @@ public class Telnet {
 			out.println(comandoTelnet.getSintaxe() + "\n");
 			
 			Thread.sleep(1000);
-							
-			retorno.add(in.readLine());			
-
+			
+			String ret;
+			int i = 0;
+			
+			do {
+				
+				i++;
+								
+				System.out.println(i);
+				
+				//ret = in.readLine();
+//								
+				System.out.println(in.lines().count());
+				
+				
+//				retorno.add(ret);
+//				
+//				System.out.println(ret);		
+			
+								
+			} while (i != 999);						
 		}
 
 		out.println("||");
-
-		for (int i = 0; i < 999; i++) {
-
-			String line = in.readLine();
-
-			retorno.add(line);			
-
-			if (line.contains("||")) {
-				
-				break;
-			}
-
-		}		
 		
 		return retorno;
 	}
