@@ -1,8 +1,13 @@
 package model.banda.metalico.zhone;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
+import model.telnet.ComandoTelnet;
+import util.TelnetUtil;
 
 public class ComboServico extends ZhoneServico{
 
@@ -20,22 +25,33 @@ public class ComboServico extends ZhoneServico{
 	 * 		crc up e down
 	 * 		fec up e down
 	 */
-	public TabelaParametrosMetalico consultarTabelaParametros(){
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 		
+		InfoTBS tbs = new InfoTBS();
+
+		tbs.setIpDslam("10.161.139.17");
+		tbs.setSlot(new BigInteger("12"));
+		tbs.setPortNumber(new BigInteger("34"));
+		tbs.setPortAddrSeq(new BigInteger("226"));
+
+		this.getTelnet().setIp(tbs.getIpDslam());
+
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.portStatus(tbs)));
+
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
-		
+
+		//TelnetUtil.debugger(retorno);
+
 		return tabela;
+		
 	}
 	
 	
-	public String portStatus(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando1 = "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/adsl -v";
-		String comando2 = "A";
-		
-		return null;
+	public String portStatus(InfoTBS tbs){
+				
+		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/adsl -v";
 	}
 	/*
 	 * Retorna o profile de down da porta

@@ -1,5 +1,7 @@
 package model.banda.metalico.zhone;
 
+import java.math.BigInteger;
+
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import model.banda.metalico.DslamGerenciavel;
@@ -18,13 +20,11 @@ public class ZhoneServico extends DslamGerenciavel{
 	 * 	 	estado das bridges
 	 * 		mac que comunica-se com as bridges
 	 */
-	public String bridgesPort(GetInfoOut cadastro){
+	public String cmdBridgesPort(InfoTBS tbs){
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
+		BigInteger cvid = tbs.getPortAddrSeq().add(new BigInteger("100"));
 		
-		String comando =  "bridge show vlan " + tbs.getPortAddrSequence()+100;
-		
-		return null;
+		return "bridge show vlan " + cvid;
 	}
 
 }

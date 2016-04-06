@@ -122,7 +122,20 @@ public class Telnet {
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 
 			out.println(comandoTelnet.getSintaxe() + "\n");
+			
 			Thread.sleep(1000);
+			
+			String leret = in.readLine();
+			System.out.println(leret);
+			String retzin = in.readLine();
+			System.out.println(retzin);
+			do {
+				Thread.sleep(1000);
+				
+				retzin = in.readLine();
+				System.out.println(retzin);
+			} while (retzin.contentEquals(leret));
+				
 			retorno.add(in.readLine());
 
 		}
