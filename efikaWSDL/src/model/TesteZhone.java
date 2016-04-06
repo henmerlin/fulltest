@@ -20,7 +20,7 @@ public class TesteZhone {
 			TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();
 	
 			
-			System.out.println(" ");
+		/*	System.out.println(" ");
 			System.out.println("SUAD");
 			System.out.println(" ");
 			
@@ -33,7 +33,9 @@ public class TesteZhone {
 			System.out.println("SnrDown  -> " + tabela.getSnrDown());
 			System.out.println("SnrUp -> " + tabela.getSnrUp());
 			System.out.println("AtnDown  -> " + tabela.getAtnDown());
-			System.out.println("AtnUp -> " + tabela.getAtnUp());
+			System.out.println("AtnUp -> " + tabela.getAtnUp());*/
+			
+						
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
