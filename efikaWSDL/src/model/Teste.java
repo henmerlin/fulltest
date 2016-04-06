@@ -20,7 +20,7 @@ public class Teste {
 			TabelaParametrosMetalico tabela = (TabelaParametrosMetalico) tabela1;
 
 			System.out.println(" ");
-			System.out.println("SUAD");
+			System.out.println("SUVD");
 			System.out.println(" ");
 
 			System.out.println("Adm Status -> " + tabela.getPortaAdmStatus());

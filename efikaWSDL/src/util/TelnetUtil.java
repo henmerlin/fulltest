@@ -43,5 +43,19 @@ public class TelnetUtil {
 		}
 		
 	}
+	
+	public static Integer contarOcorrenciaStringArray(ArrayList<String> retorno, String substring){
+	
+		int ocorrencia = 0;
+		
+		for (int i = 0; i < retorno.size(); i++) {
+			
+			if(retorno.get(i).contains(substring)){
+				ocorrencia++;
+			}
+		}
+		
+		return ocorrencia;
+	}
 
 }
