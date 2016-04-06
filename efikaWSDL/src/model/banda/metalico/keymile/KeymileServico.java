@@ -95,21 +95,7 @@ public class KeymileServico extends DslamGerenciavel{
 						
 			tabela.getDias().add(dia);
 		}
-		
 	
-		List<DiaTabelaHistorico> dias = tabela.getDias();
-		
-		for (DiaTabelaHistorico dia : dias) {
-			System.out.println(dia.getData().toLocaleString());
-		}
-		
-		
-
-					
-		//TelnetUtil.debugger(retorno);
-		
-	
-
 		return tabela;
 	}
 	
