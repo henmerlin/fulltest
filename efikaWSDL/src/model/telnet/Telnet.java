@@ -113,7 +113,8 @@ public class Telnet {
 	public List<String> zhoneMode(PrintWriter out, BufferedReader in) throws Exception{
 
 		ArrayList<String> retorno = new ArrayList<String>();
-
+		
+		Thread.sleep(500);
 		out.println(this.auth.getUser() + "\r\n");
 		Thread.sleep(1000);
 		out.println(this.auth.getPass() + "\r\n");
@@ -124,19 +125,8 @@ public class Telnet {
 			out.println(comandoTelnet.getSintaxe() + "\n");
 			
 			Thread.sleep(1000);
-			
-			String leret = in.readLine();
-			System.out.println(leret);
-			String retzin = in.readLine();
-			System.out.println(retzin);
-			do {
-				Thread.sleep(1000);
-				
-				retzin = in.readLine();
-				System.out.println(retzin);
-			} while (retzin.contentEquals(leret));
-				
-			retorno.add(in.readLine());
+							
+			retorno.add(in.readLine());			
 
 		}
 
@@ -146,14 +136,15 @@ public class Telnet {
 
 			String line = in.readLine();
 
-			retorno.add(line);
+			retorno.add(line);			
 
 			if (line.contains("||")) {
+				
 				break;
 			}
 
-		}
-
+		}		
+		
 		return retorno;
 	}
 
