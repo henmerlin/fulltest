@@ -148,11 +148,14 @@ public TabelaParametrosMetalico consultarTabelaParametros() throws Exception {
 	}
 	
 	
-	
+	/**
+	 * Retorna sintaxe Bandstatus
+	 * @param tbs
+	 * @return
+	 */
 	public String cmdBandStatus(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/bandstatus";
 	}
-	
 	
 	/*
 	 * Retorna o perfil do canal (profile) 	

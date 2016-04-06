@@ -1,6 +1,6 @@
 package entidades.banda.parametros;
 
-abstract class TabelaParametros{
+abstract class TabelaParametros implements TabelaParametrosInter{
 	
 	private String sincronismoStatus;
 	

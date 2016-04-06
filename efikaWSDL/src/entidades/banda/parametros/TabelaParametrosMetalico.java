@@ -75,4 +75,10 @@ public class TabelaParametrosMetalico extends TabelaParametros{
 	public void setModulacao(String modulacao) {
 		this.modulacao = modulacao;
 	}
+
+	@Override
+	public void listarParametros() {
+		// TODO Auto-generated method stub
+		
+	}
 }

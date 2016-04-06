@@ -26,4 +26,10 @@ public class TabelaParametrosGpon extends TabelaParametros implements TabelaPara
 	public void setPotenciaOLT(Double potenciaOLT) {
 		this.potenciaOLT = potenciaOLT;
 	}
+
+	@Override
+	public void listarParametros() {
+		// TODO Auto-generated method stub
+		
+	}
 }
