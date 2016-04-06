@@ -2,7 +2,13 @@ package model.banda.metalico.keymile;
 
 
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
@@ -35,9 +41,9 @@ public class KeymileServico extends DslamGerenciavel{
 		// InfoTBS tbs = cadastro.getInfoTBS();
 		InfoTBS tbs = new InfoTBS();
 
-		tbs.setIpDslam("10.131.35.174");
-		tbs.setSlot(new BigInteger("7"));
-		tbs.setPortNumber(new BigInteger("35"));
+		tbs.setIpDslam("10.141.13.179");
+		tbs.setSlot(new BigInteger("16"));
+		tbs.setPortNumber(new BigInteger("12"));
 
 		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
 
@@ -45,52 +51,70 @@ public class KeymileServico extends DslamGerenciavel{
 
 		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
 
-		this.getTelnet().setMode(ExecutionType.KEYMILE);
-
+		
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaHistorico tabela = new TabelaHistorico();
 
 		//Resync
+		Integer posicaoResync = TelnetUtil.posicaoArrayDeSubString(retorno, "Near End Full Init Count", 1);
 		
-		DiaTabelaHistorico dia = new DiaTabelaHistorico();
+		// Pacotes
+		Integer posicaoPcktsDown = TelnetUtil.posicaoArrayDeSubString(retorno, "Out Unicast Packets", 1);
+		Integer posicaoPcktsUp = TelnetUtil.posicaoArrayDeSubString(retorno, "In Unicast Packets", 1);
 		
-		dia.setResync(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 24)))));
-		dia.setCrcDown(crcDown);
-		
-		tabela.getDias().add(dia);
+		// CRC
+		Integer posicaoCrcDown = TelnetUtil.posicaoArrayDeSubString(retorno, "Near End ES", 1);
+		Integer posicaoCrcUp = TelnetUtil.posicaoArrayDeSubString(retorno, "Far End ES", 1);
 
-		tabela.setResyncOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 24)))));
-		tabela.setResyncAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 24)))));
-		
-		//Pckts
-		tabela.setPcktsDownHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 15)))));
-		tabela.setPcktsDownOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 15)))));
-		tabela.setPcktsDownAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 15)))));
-		tabela.setPcktsUpHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 12)))));
-		tabela.setPcktsUpOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 12)))));
-		tabela.setPcktsUpAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 12)))));
-		
-		//CRC
-		
-		tabela.setCrcDownHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 20)))));
-		tabela.setCrcDownOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 20)))));
-		tabela.setCrcDownAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 20)))));
-		tabela.setCrcUpHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 27)))));
-		tabela.setCrcUpOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 27)))));
-		tabela.setCrcUpAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 27)))));
 		
 		//FEC
+		Integer posicaoFecDown = TelnetUtil.posicaoArrayDeSubString(retorno, "Near End FECS", 1);
+		Integer posicaoFecUp = TelnetUtil.posicaoArrayDeSubString(retorno, "Far End FECS", 1);
 		
-		tabela.setFecDownHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 19)))));
-		tabela.setFecDownOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 19)))));
-		tabela.setFecDownAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 19)))));
-		tabela.setFecUpHoje(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval0", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval0", 26)))));
-		tabela.setFecUpOntem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval1", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval1", 26)))));
-		tabela.setFecUpAnteontem(new BigInteger(TelnetUtil.tratamentoStringKeymile("\\ # Interval2", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Interval2", 26)))));
 		
-		// Debugger
+		String interval = "\\ # Interval";
+		
+		for (int i = 1; i < 8; i++) {
+			
+			DiaTabelaHistorico dia = new DiaTabelaHistorico();
+			
+			dia.setResync(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoResync + i))));
+			
+			dia.setPcktsDown(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoPcktsDown + i))));
+			dia.setPcktsUp(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoPcktsUp + i))));
+			
+			dia.setCrcDown(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoCrcDown + i))));
+			dia.setCrcUp(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoCrcUp + i))));
+
+			dia.setFecDown(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoFecDown + i))));
+			dia.setFecUp(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoFecUp + i))));
+			
+			LocalDate hoje = LocalDate.now();
+			LocalDate stringData = hoje.plusDays(1 - i);
+			
+			DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+			
+			Date dateFinal = data.parse(stringData.toString());
+						
+			dia.setData(dateFinal);
+						
+			tabela.getDias().add(dia);
+		}
+		
+	
+		List<DiaTabelaHistorico> dias = tabela.getDias();
+		
+		for (DiaTabelaHistorico dia : dias) {
+			System.out.println(dia.getData().toLocaleString());
+		}
+		
+		
+
+					
 		//TelnetUtil.debugger(retorno);
+		
+	
 
 		return tabela;
 	}
