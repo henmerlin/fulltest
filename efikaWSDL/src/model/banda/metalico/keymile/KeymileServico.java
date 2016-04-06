@@ -18,6 +18,7 @@ import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
+import util.JSFUtil;
 import util.TelnetUtil;
 
 public class KeymileServico extends DslamGerenciavel{
@@ -90,14 +91,7 @@ public class KeymileServico extends DslamGerenciavel{
 			dia.setFecDown(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoFecDown + i))));
 			dia.setFecUp(new BigInteger(TelnetUtil.tratamentoStringKeymile(interval, retorno.get(posicaoFecUp + i))));
 			
-			LocalDate hoje = LocalDate.now();
-			LocalDate stringData = hoje.plusDays(1 - i);
-			
-			DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Date dateFinal = data.parse(stringData.toString());
-						
-			dia.setData(dateFinal);
+			dia.setData(TelnetUtil.formatarDateDeMenosParametro(i));
 						
 			tabela.getDias().add(dia);
 		}
@@ -118,7 +112,6 @@ public class KeymileServico extends DslamGerenciavel{
 
 		return tabela;
 	}
-	
 	
 	
 	/**
