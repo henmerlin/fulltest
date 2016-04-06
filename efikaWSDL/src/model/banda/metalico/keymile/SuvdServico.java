@@ -28,26 +28,19 @@ public class SuvdServico extends KeymileServico{
 		tbs.setSlot(new BigInteger("15"));
 		tbs.setPortNumber(new BigInteger("4"));
 
-		Telnet telnet = new Telnet();
 
-		telnet.setAuth(BandaFactory.keymileCredencial());
+		this.getTelnet().setIp(tbs.getIpDslam());
 
-		telnet.setIp(tbs.getIpDslam());
-
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
 		
-		telnet.setMode(ExecutionType.KEYMILE);
-
-		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaParametrosMetalicoVdsl tabela = new TabelaParametrosMetalicoVdsl();
-
-		Integer modulAtiva = (TelnetUtil.posicaoArrayDeSubString(retorno, "true", 1)+1);
 
 		// Sincronizada
 		tabela.setDownload(new Double(TelnetUtil.tratamentoStringKeymile("\\ # CurrentRate", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "CurrentRate", 1)))));
@@ -99,32 +92,19 @@ public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 		tbs.setSlot(new BigInteger("15"));
 		tbs.setPortNumber(new BigInteger("4"));
 		
-		
-		
-		
 
-		Telnet telnet = new Telnet();
+		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
 
-		telnet.setAuth(BandaFactory.keymileCredencial());
+		this.getTelnet().setIp(tbs.getIpDslam());
 
-		telnet.setIp(tbs.getIpDslam());
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
 
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
-		
-		telnet.setMode(ExecutionType.KEYMILE);
-
-		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
-
-		
-		
-		Integer modulAtiva = (TelnetUtil.posicaoArrayDeSubString(retorno, "true", 1)+1);
-
-		System.out.println();
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 		
 		if(TelnetUtil.contarOcorrenciaStringArray(retorno, "CurrAttenuation") == 6){
 					

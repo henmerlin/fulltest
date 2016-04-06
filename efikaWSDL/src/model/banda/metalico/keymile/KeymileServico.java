@@ -11,7 +11,6 @@ import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
-import model.telnet.Telnet;
 import util.TelnetUtil;
 
 public class KeymileServico extends DslamGerenciavel{
@@ -39,17 +38,15 @@ public class KeymileServico extends DslamGerenciavel{
 		tbs.setSlot(new BigInteger("7"));
 		tbs.setPortNumber(new BigInteger("35"));
 
-		Telnet telnet = new Telnet();
+		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
 
-		telnet.setAuth(BandaFactory.keymileCredencial());
+		this.getTelnet().setIp(tbs.getIpDslam());
 
-		telnet.setIp(tbs.getIpDslam());
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
 
-		telnet.getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
+		this.getTelnet().setMode(ExecutionType.KEYMILE);
 
-		telnet.setMode(ExecutionType.KEYMILE);
-
-		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaHistorico tabela = new TabelaHistorico();
 

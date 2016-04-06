@@ -10,8 +10,6 @@ import model.telnet.Telnet;
 import util.TelnetUtil;
 
 public class SuadServico extends KeymileServico implements DslamMetalicoInterface{
-
-	private Telnet telnet;
 	
 	public SuadServico() {
 		
@@ -35,17 +33,17 @@ public class SuadServico extends KeymileServico implements DslamMetalicoInterfac
 		tbs.setSlot(new BigInteger("16"));
 		tbs.setPortNumber(new BigInteger("12"));
 
-		telnet.setIp(tbs.getIpDslam());
+		this.getTelnet().setIp(tbs.getIpDslam());
 
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		telnet.getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
 		
-		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
 
