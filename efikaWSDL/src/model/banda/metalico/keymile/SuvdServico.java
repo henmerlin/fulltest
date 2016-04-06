@@ -17,13 +17,8 @@ public class SuvdServico extends KeymileServico{
 	public SuvdServico() {
 		
 	}
-	/*
-	 * Retorna:
-	 * 	velocidade do canal, em kbps;
-	 * 	sinal ruído da porta, em dB;
-	 * 	atenuação da porta, em dB; 
-	 * 
-	 */
+
+	
 	public TabelaParametrosMetalicoVdsl consultarTabelaParametrosVdsl() throws Exception {
 		
 		InfoTBS tbs = new InfoTBS();

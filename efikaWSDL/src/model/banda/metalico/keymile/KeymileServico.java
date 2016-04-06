@@ -6,18 +6,19 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
-import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.banda.parametros.TabelaHistorico;
+import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import model.telnet.Telnet;
 import util.TelnetUtil;
 
-public class KeymileServico {
+public class KeymileServico extends DslamGerenciavel{
 
 	public KeymileServico() {
-		
+		this.getTelnet().setMode(ExecutionType.KEYMILE);
+		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
 	}
 	
 	/**

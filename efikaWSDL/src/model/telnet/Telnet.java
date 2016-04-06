@@ -48,20 +48,27 @@ public class Telnet {
 		if(this.comandos.size() == 0){
 			throw new Exception("A lista de comandos está vazia.");
 		}
+		
+		try {
+			Socket pingSocket = new Socket(this.ip, 23);
+			PrintWriter out = new PrintWriter(pingSocket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
+			Thread.sleep(1000);
+			
+			List<String> retorno = this.keymileMode(out, in);
+			
+			out.close();
+			in.close();
+			pingSocket.close();
 
-		Socket pingSocket = new Socket(this.ip, 23);
-		PrintWriter out = new PrintWriter(pingSocket.getOutputStream(), true);
-		BufferedReader in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
+			return retorno;
+						
+		} catch (Exception e) {
+			throw new Exception("Falha ao realizar conexão com DSLAM.");
+		}finally {
+			// Realizar chamada para Log
+		}
 
-		Thread.sleep(1000);
-
-		List<String> retorno = this.keymileMode(out, in);
-
-		out.close();
-		in.close();
-		pingSocket.close();
-
-		return retorno;
 	}
 
 	public List<String> keymileMode(PrintWriter out, BufferedReader in) throws Exception{

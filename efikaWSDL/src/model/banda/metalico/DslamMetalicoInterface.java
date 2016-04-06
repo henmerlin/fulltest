@@ -1,10 +1,9 @@
 package model.banda.metalico;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import entidades.banda.parametros.TabelaParametrosInter;
+import entidades.banda.parametros.TabelaParametrosMetalico;
 
 public interface DslamMetalicoInterface {
 	
-	public TabelaParametrosInter consultarTabelaParametros(GetInfoOut cadastro);
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception;
 
 }

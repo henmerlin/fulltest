@@ -2,8 +2,9 @@ package model.banda.metalico.zhone;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.parametros.TabelaParametrosMetalico;
 
-public class ComboServico {
+public class ComboServico extends ZhoneServico{
 
 	public ComboServico() {
 		
@@ -19,6 +20,14 @@ public class ComboServico {
 	 * 		crc up e down
 	 * 		fec up e down
 	 */
+	public TabelaParametrosMetalico consultarTabelaParametros(){
+		
+		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
+		
+		return tabela;
+	}
+	
+	
 	public String portStatus(GetInfoOut cadastro){
 		
 		InfoTBS tbs = cadastro.getInfoTBS();

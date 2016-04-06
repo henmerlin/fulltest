@@ -4,16 +4,17 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import model.factory.BandaFactory;
+import model.banda.metalico.DslamMetalicoInterface;
 import model.telnet.ComandoTelnet;
-import model.telnet.ExecutionType;
 import model.telnet.Telnet;
 import util.TelnetUtil;
 
-public class SuadServico extends KeymileServico {
+public class SuadServico extends KeymileServico implements DslamMetalicoInterface{
 
+	private Telnet telnet;
+	
 	public SuadServico() {
-
+		
 	}
 
 	/**
@@ -34,10 +35,6 @@ public class SuadServico extends KeymileServico {
 		tbs.setSlot(new BigInteger("16"));
 		tbs.setPortNumber(new BigInteger("12"));
 
-		Telnet telnet = new Telnet();
-
-		telnet.setAuth(BandaFactory.keymileCredencial());
-
 		telnet.setIp(tbs.getIpDslam());
 
 		telnet.getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
@@ -48,8 +45,6 @@ public class SuadServico extends KeymileServico {
 		telnet.getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
 		telnet.getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
 		
-		telnet.setMode(ExecutionType.KEYMILE);
-
 		ArrayList<String> retorno = (ArrayList<String>) telnet.run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
@@ -104,5 +99,4 @@ public class SuadServico extends KeymileServico {
 	public String cmdPortProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
 	}
-
 }
