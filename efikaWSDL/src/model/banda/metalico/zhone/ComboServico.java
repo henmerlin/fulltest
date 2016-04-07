@@ -70,7 +70,7 @@ public class ComboServico extends ZhoneServico{
 		// ATN
 		tabela.setAtnDown(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAturCurrLineAtn", 1)))) /10);
 		tabela.setAtnUp(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAtucCurrLineAtn", 1)))) /10);
-		
+
 		// Execução dos outro comandos necessários
 		ArrayList<ComandoTelnet> comandos = new ArrayList<ComandoTelnet>();
 		
@@ -95,7 +95,7 @@ public class ComboServico extends ZhoneServico{
 		// Modulação
 		tabela.setModulacao(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "adslTransmissionMode", 1))));
 
-		//TelnetUtil.debugger(retorno1);
+		//TelnetUtil.debugger(retorno);
 
 		return tabela;
 	}
