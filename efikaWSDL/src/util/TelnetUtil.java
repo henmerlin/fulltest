@@ -24,6 +24,10 @@ public class TelnetUtil {
 		return reg.trim();
 	}
 	
+	public static String tratamentoStringZhone(String string) throws Exception{
+		return (String) string.subSequence(string.lastIndexOf(".") + 1, string.length());
+	}
+	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		
 		int k = 1;

@@ -105,12 +105,48 @@ public class Telnet {
 			return this.keymileMode(out, in);
 		}else if (this.mode.equals(ExecutionType.ZHONE)) {
 			return this.zhoneMode(out, in);
+		}else if (this.mode.equals(ExecutionType.ZHONE_SLOW)) {
+			return this.zhoneSlowMode(out, in);
 		}else{
 			return this.keymileMode(out, in);
 		}
 	}
-
+	
 	public List<String> zhoneMode(PrintWriter out, BufferedReader in) throws Exception{
+
+		ArrayList<String> retorno = new ArrayList<String>();
+
+		out.println(this.auth.getUser() + "\r\n");
+		Thread.sleep(1000);
+		out.println(this.auth.getPass() + "\r\n");
+		Thread.sleep(1000);
+
+		for (ComandoTelnet comandoTelnet : this.getComandos()) {
+
+			out.println(comandoTelnet.getSintaxe() + "\n");
+			Thread.sleep(1000);
+			retorno.add(in.readLine());
+
+		}
+
+		out.println("||");
+
+		for (int i = 0; i < 999; i++) {
+
+			String line = in.readLine();
+
+			retorno.add(line);
+
+			if (line.contains("||")) {
+				break;
+			}
+
+		}
+
+		return retorno;
+	}
+
+	public List<String> zhoneSlowMode(PrintWriter out, BufferedReader in) throws Exception{
 		
 		long le_begin = System.nanoTime();
 		
@@ -142,7 +178,7 @@ public class Telnet {
 				long le_now = System.nanoTime();
 				long duracion = (le_now - le_begin)/1000000;
 				
-				System.out.println(i);
+				//System.out.println(i);
 
 //				if(duracion>maximo){
 //					leduracion = duracion;
@@ -151,7 +187,13 @@ public class Telnet {
 //					System.out.println("Duracion -> " + duracion);
 //				}
 				ret = in.readLine();
-				retorno.add(ret);
+				
+				if(ret.length() > 0){
+					retorno.add(ret);
+				}
+				
+				
+				
 				/**
 				 * acho que era melhor na condicao do while verificar pela segunda ocorrencia de zSH> porem nao deu pe... nao sei o que fiz de errado...afinal, pq existem 2 .indexOf?
 				 * parece que quanto melhor(mais rapido) o processamento, mais trava e fica parado la pelo i = 146
@@ -171,14 +213,16 @@ public class Telnet {
 		
 		
 		
-		for (String string : retorno) {
-			System.out.println(string);
-		}
-		System.out.println("Duracion leitura -> " + leduracion);
-
-		long le_ahora = System.nanoTime();
-		long duracione = (le_ahora - le_begin)/1000000;
-		System.out.println("Duracion total -> " + duracione);
+//		for (String string : retorno) {
+//			System.out.println(string);
+//		}
+//		
+//		System.out.println("Duracion leitura -> " + leduracion);
+//
+//		long le_ahora = System.nanoTime();
+//		long duracione = (le_ahora - le_begin)/1000000;
+//		
+//		System.out.println("Duracion total -> " + duracione);
 		
 		return retorno;
 	}
@@ -197,37 +241,6 @@ public class Telnet {
 
 	public void setIp(String ip) {
 		this.ip = ip;
-	}
-
-	public static void keymileTest() throws Exception {
-
-		Socket pingSocket = null;
-		PrintWriter out = null;
-		BufferedReader in = null;
-		String ip = "10.161.15.223";
-
-		pingSocket = new Socket(ip, 23);
-		out = new PrintWriter(pingSocket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
-
-		out.println("manager");
-		out.println("");
-
-
-		out.println("get /unit-1/port-28/pm/History24hTable");
-
-		in.readLine();
-		in.readLine();
-
-		while (!(in.readLine().isEmpty())) {
-			System.out.println(in.readLine());
-		}
-
-
-		out.close();
-		in.close();
-		pingSocket.close();
-
 	}
 
 	public static void nortelTest() throws Exception {
