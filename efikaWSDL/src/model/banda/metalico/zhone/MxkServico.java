@@ -1,9 +1,16 @@
 package model.banda.metalico.zhone;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.parametros.TabelaParametrosMetalico;
+import model.telnet.ComandoTelnet;
+import model.telnet.ExecutionType;
+import util.TelnetUtil;
 
-public class MxkServico {
+public class MxkServico extends ZhoneServico{
 
 	public MxkServico() {
 		
@@ -18,14 +25,35 @@ public class MxkServico {
 	 * 		pacotes enviados
 	 * 		crc (up ou down ou a media dos dois, desconhecido)
 	 */
-	public String portStatus(GetInfoOut cadastro){
+	
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
+
+		InfoTBS tbs = new InfoTBS();
+
+		tbs.setIpDslam("10.171.33.102");
+		tbs.setSlot(new BigInteger("16"));
+		tbs.setPortNumber(new BigInteger("22"));
+		tbs.setPortAddrSeq(new BigInteger("1430"));
 		
-		InfoTBS tbs = cadastro.getInfoTBS();
+		this.getTelnet().setIp(tbs.getIpDslam());
 		
-		String comando1 = "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl -v";
-		String comando2 = "A";
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet("A"));
 		
-		return null;
+		this.getTelnet().setMode(ExecutionType.ZHONE_MXK);
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		
+		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
+
+		TelnetUtil.debugger(retorno);
+
+		return tabela;
+	}
+	
+	public String cmdPortStatus(InfoTBS tbs){
+		
+		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl -v";
 	}
 	/*
 	 * Retorna o profile de down da porta
@@ -41,24 +69,16 @@ public class MxkServico {
 	/*
 	 * Retorna o profile de up da porta
 	 */
-	public String profileUp(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando = "get vdsl-cpe-config 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
-		
-		return null;
+	public String cmdProfileUp(InfoTBS tbs){
+				
+		return "get vdsl-cpe-config 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
 	}
 	/*
 	 * Retorna a modulação da porta
 	 */
-	public String modulacao(GetInfoOut cadastro){
-		
-		InfoTBS tbs = cadastro.getInfoTBS();
-		
-		String comando = "get vdsl-config 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
-		
-		return null;
+	public String cmdModulacao(InfoTBS tbs){
+					
+		return "get vdsl-config 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
 	}
 
 }
