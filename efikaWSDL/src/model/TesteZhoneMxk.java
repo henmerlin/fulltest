@@ -14,9 +14,9 @@ public class TesteZhoneMxk {
 			MxkServico mxk = new MxkServico();			
 			TabelaParametrosMetalico tabela = mxk.consultarTabelaParametros();					
 
-		/*	System.out.println(" ");
-			System.out.println("SUAD");
-			System.out.println(" ");
+//			System.out.println(" ");
+//			System.out.println("SUAD");
+//			System.out.println(" ");
 			
 			System.out.println("Adm Status -> " + tabela.getPortaAdmStatus());
 			System.out.println("Sinc Status -> " + tabela.getSincronismoStatus());
@@ -27,7 +27,7 @@ public class TesteZhoneMxk {
 			System.out.println("SnrDown  -> " + tabela.getSnrDown());
 			System.out.println("SnrUp -> " + tabela.getSnrUp());
 			System.out.println("AtnDown  -> " + tabela.getAtnDown());
-			System.out.println("AtnUp -> " + tabela.getAtnUp());*/
+			System.out.println("AtnUp -> " + tabela.getAtnUp());
 			
 						
 

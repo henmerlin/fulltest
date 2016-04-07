@@ -72,13 +72,13 @@ public class MxkServico extends ZhoneServico{
 		
 		//Profile da porta Down/Up
 		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "interleaveMaxTxRate", 1))));
-		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "fastMaxTxRate", 1))));
+		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "fastMaxTxRate", 1)))) /10;
 				
 		tabela.setProfile(profileDown + " - " + profileUp);
 		
-		System.out.println(tabela.getProfile());		
+		//System.out.println(tabela.getProfile());		
 		
-		TelnetUtil.debugger(retorno);
+		//TelnetUtil.debugger(retorno);
 
 		return tabela;
 	}
