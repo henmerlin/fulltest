@@ -24,9 +24,28 @@ public class TelnetUtil {
 		return reg.trim();
 	}
 	
+	
+	/**
+	 * Tratamento para string com esse perfil:
+	 * 	CRC errors on interleaved buffer.............0
+	 * @param string
+	 * @return
+	 * @throws Exception
+	 */
 	public static String tratamentoStringZhone(String string) throws Exception{
 		return (String) string.subSequence(string.lastIndexOf(".") + 1, string.length());
 	}
+
+	/**
+	 * Tratamento para string com esse perfil:
+	 * 	 fastMaxTxRate: ------------>  {12800000}
+	 * @param string
+	 * @return
+	 * @throws Exception
+	 */
+	public static String tratamentoStringZhoneDif(String string) throws Exception{
+		return (String) string.subSequence(string.lastIndexOf("{") + 1, string.length() - 1);
+	}	
 	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		

@@ -9,6 +9,12 @@ import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import util.TelnetUtil;
 
+/**
+ * Instancia para leitura (sem alteração):
+ * 	3125265870
+ * @author G0042204
+ *
+ */
 public class ComboServico extends ZhoneServico{
 
 	public ComboServico() {
@@ -33,10 +39,10 @@ public class ComboServico extends ZhoneServico{
 		InfoTBS tbs = new InfoTBS();
 
 		// DSLAM do Agi - 4130825270
-		tbs.setIpDslam("10.141.228.42");
+		tbs.setIpDslam("10.131.35.23");
 		tbs.setSlot(new BigInteger("8"));
-		tbs.setPortNumber(new BigInteger("30"));
-		tbs.setPortAddrSeq(new BigInteger("126"));
+		tbs.setPortNumber(new BigInteger("26"));
+		tbs.setPortAddrSeq(new BigInteger("122"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
@@ -47,18 +53,49 @@ public class ComboServico extends ZhoneServico{
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
-
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
 
+		// Status Port
 		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdminStatus", 1))));
-				
+		tabela.setSincronismoStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "LineStatus", 1))));
+		
+		// Velocidade Sincronizada
 		tabela.setDownload(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "DslDownLineRate", 1)))) /1000);
 		tabela.setUpload(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "DslUpLineRate", 1)))) /1000);
+		
+		// SNR
+		tabela.setSnrDown(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAturCurrLineSnrMgn", 1)))) /10);
+		tabela.setSnrUp(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAtucCurrLineSnrMgn", 1)))) /10);
 
+		// ATN
+		tabela.setAtnDown(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAturCurrLineAtn", 1)))) /10);
+		tabela.setAtnUp(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAtucCurrLineAtn", 1)))) /10);
+		
+		// Execução dos outro comandos necessários
+		ArrayList<ComandoTelnet> comandos = new ArrayList<ComandoTelnet>();
+		
+		comandos.add(new ComandoTelnet(this.cmdProfileDown(tbs)));
+		comandos.add(new ComandoTelnet(this.cmdProfileUp(tbs)));
+		comandos.add(new ComandoTelnet(this.cmdModulacao(tbs)));
+		
 
-		System.out.println(tabela.getUpload());
+		this.getTelnet().setComandos(comandos);
+		
+		this.getTelnet().setMode(ExecutionType.ZHONE);
+		
+		ArrayList<String> retorno1 = (ArrayList<String>) this.getTelnet().run();
 
-		//TelnetUtil.debugger(retorno);
+		
+		// Profile Download e Upload
+		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "fastMaxTxRate", 1))))/1000;
+		Double profileUp =  new Double(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "fastMaxTxRate", 2))))/1000;
+		
+		tabela.setProfile(profileDown + " - " + profileUp);
+		
+		// Modulação
+		tabela.setModulacao(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "adslTransmissionMode", 1))));
+
+		//TelnetUtil.debugger(retorno1);
 
 		return tabela;
 	}
@@ -69,7 +106,6 @@ public class ComboServico extends ZhoneServico{
 	 * @return
 	 */
 	public String cmdPortStatus(InfoTBS tbs){
-
 		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/adsl -v";
 	}
 
@@ -98,7 +134,6 @@ public class ComboServico extends ZhoneServico{
 	 * @return
 	 */
 	public String cmdModulacao(InfoTBS tbs){
-
 		return "get adsl-profile 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
 	}
 }
