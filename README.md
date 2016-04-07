@@ -1,2 +1,7 @@
 # fulltest
-Desenvolvimento do FullTest Centro de Operações
+
+Devs:
+
+Fabio Clem
+Henrique Merlin
+Matheus Agibert
