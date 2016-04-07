@@ -28,11 +28,11 @@ public class ComboServico extends ZhoneServico{
 	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 		
 		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.161.139.17");
-		tbs.setSlot(new BigInteger("12"));
-		tbs.setPortNumber(new BigInteger("34"));
-		tbs.setPortAddrSeq(new BigInteger("226"));
+		// DSLAM do Agi - 4130825270
+		tbs.setIpDslam("10.141.228.42");
+		tbs.setSlot(new BigInteger("8"));
+		tbs.setPortNumber(new BigInteger("30"));
+		tbs.setPortAddrSeq(new BigInteger("126"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
