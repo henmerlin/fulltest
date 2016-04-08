@@ -58,7 +58,9 @@ public class OperacionalServico implements OperacionalInterface{
 	public Cliente realizarCorrecoes(Cliente cliente) throws Exception{
 
 		// Realiza as Correções
-		this.servicoVoz.realizarCorrecoes(cliente);
+		
+		
+		//this.servicoVoz.realizarCorrecoes(cliente);
 
 		return cliente;
 	}

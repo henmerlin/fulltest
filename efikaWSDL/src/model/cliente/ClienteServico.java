@@ -9,8 +9,11 @@ import com.gvt.www.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.inventory.api.Param;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
+import bean.ossturbonet.oss.gvt.com.AccessInfo;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.oss.inventory.service.impl.InventoryImplProxy;
+import entidades.cadastro.Cadastro;
+import entidades.cadastro.CadastroGpon;
 import entidades.cliente.Cliente;
 import entidades.cliente.InventarioProdutos;
 import entidades.cliente.produto.ProdutoBanda;
@@ -18,7 +21,7 @@ import entidades.cliente.produto.ProdutoLinha;
 import entidades.cliente.produto.ProdutoTv;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.factory.LinhaFactory;
+import model.factory.CadastroFactory;
 import model.modulos.OperacionalInterface;
 
 public class ClienteServico implements OperacionalInterface{
@@ -42,7 +45,7 @@ public class ClienteServico implements OperacionalInterface{
 	 * @return Cliente
 	 * @author G0042204
 	 */
-	public Cliente consultarCadastro(Cliente cliente) throws RemoteException{
+	public Cliente consultarCadastro(Cliente cliente) throws Exception{
 
 		// Consulta Produtos Contratados
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
@@ -53,14 +56,43 @@ public class ClienteServico implements OperacionalInterface{
 		// Consulta Designador de Acesso
 		String designadorAcesso = this.getAccessDesignator(designador);
 
+		// Sets
 		cliente.setInventario(inventario);
 		cliente.setDesignador(designador);
 		cliente.setDesignadorAcesso(designadorAcesso);
 
+		cliente.setCadastro(this.consultarCadastroTbs(cliente));
+
 		return cliente;
 	}
 
+	/**
+	 * Método realiza tratativa de cadastro GPON/Metálico
+	 * @param cliente
+	 * @return 
+	 * @return
+	 * @throws Exception
+	 */
+	public Cadastro consultarCadastroTbs(Cliente cliente) throws Exception{
 
+		GetInfoOut info = this.getInfo(cliente);
+
+		Cadastro preCad = CadastroFactory.criar(info.getTechnology());
+
+		preCad.setCadastro(info);
+
+
+		// Bloco especifico para GPON (consulta de Infos de OLT/ONT/Porta Lógica
+		if (preCad instanceof CadastroGpon) {
+
+			CadastroGpon cadastro = (CadastroGpon) preCad;
+			cadastro.setCadastroGpon(this.getAccessInfo(cliente));			
+
+			return cadastro;
+		}
+
+		return preCad;
+	}
 
 	/**
 	 * Retorna Inventário de Produtos do cliente
@@ -167,7 +199,21 @@ public class ClienteServico implements OperacionalInterface{
 	 * @author G0042204
 	 */
 	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
-		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getInventario().getBanda().getDownloadCrm(), cliente.getInventario().getBanda().getUploadCrm());
+		return this.osstbService.getInfo(cliente.getDesignador(), cliente.getDesignadorAcesso(), "wise", "wise", cliente.getInstancia(), "wise", "0", "0");
+	}
+
+	/**
+	 * Função referente ao informações GPON TBS - WiseTool
+	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico
+	 * @param cliente
+	 * @return GetInfoOut
+	 * @throws DataNotFoundException
+	 * @throws OSSTurbonetException
+	 * @throws RemoteException
+	 * @author G0042204
+	 */
+	public AccessInfo getAccessInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
+		return this.osstbService.getAccessInfo(cliente.getDesignadorAcesso(), cliente.getDesignador(), "0");
 	}
 
 	/**

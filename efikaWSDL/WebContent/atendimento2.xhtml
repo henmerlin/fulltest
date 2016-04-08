@@ -47,14 +47,11 @@
 
 
 		<h:form>
-
-			<p:growl id="growl" sticky="true" showDetail="true" />
-
 			<p:wizard flowListener="#{atendimentoWizard.onFlowProcess}"
 				rendered="#{not empty operacionalBean.cliente.linha.instancia}"
 				style="margin-top: 15px;" nextLabel="Próximo" backLabel="Voltar">
 				<p:tab id="linha" title="Linha" disabled="false">
-					<p:panel header="Detalhes Linha" style="margin-top: 15px;"
+					<p:panel header="Configurações Linha" style="margin-top: 15px;"
 						rendered="#{not empty operacionalBean.cliente.linha.instancia}">
 
 						<p:panelGrid columns="2" cellpadding="10">
@@ -77,8 +74,8 @@
 							value="#{operacionalBean.cliente.linha.configuracao.parametros}">
 
 							<f:facet name="header">
-				        Configurações #{operacionalBean.cliente.linha.nome}
-				    </f:facet>
+						        Configurações #{operacionalBean.cliente.linha.nome}
+						    </f:facet>
 
 							<p:column headerText="Nome">
 								<h:outputText value="#{conf.nome}" />
@@ -112,8 +109,14 @@
 				</p:tab>
 
 				<p:tab id="banda" title="Banda">
-					<p:panel header="Personal Details">
-						<p:messages />
+					<p:panel header="Configurações Banda">
+
+						<p:outputLabel for="salve" value="Instância:" />
+						<p:inputText id="salve"
+							value="#{operacionalBean.cliente.cadastro.cadastro.infoTBS.dslamModel}"
+							placeholder="Instância..." />
+
+
 
 					</p:panel>
 				</p:tab>
@@ -122,8 +125,7 @@
 				<p:tab id="confirm" title="Confirmation">
 					<p:panel header="Confirmation">
 						<p:commandButton value="Submit"
-							actionListener="#{atendimentoWizard.save()}" update="growl"
-							process="@this" />
+							actionListener="#{atendimentoWizard.save()}" process="@this" />
 					</p:panel>
 				</p:tab>
 			</p:wizard>

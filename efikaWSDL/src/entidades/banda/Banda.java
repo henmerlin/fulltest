@@ -1,17 +1,20 @@
 package entidades.banda;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import entidades.banda.parametros.TabelaParametrosInter;
 
 public class Banda {
 	
-	private GetInfoOut cadastro;
+	private TabelaParametrosInter parametros;
 	
-	public GetInfoOut getCadastro() {
-		return cadastro;
+	public Banda() {
+	
 	}
 
-	public void setCadastro(GetInfoOut cadastro) {
-		this.cadastro = cadastro;
+	public TabelaParametrosInter getParametros() {
+		return parametros;
 	}
 
+	public void setParametros(TabelaParametrosInter parametros) {
+		this.parametros = parametros;
+	}
 }
