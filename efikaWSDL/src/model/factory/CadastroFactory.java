@@ -24,7 +24,7 @@ public class CadastroFactory {
 		}else if (technology.equalsIgnoreCase(CadastroFactory.DSL)) {
 			return new CadastroMetalico();
 		}else{
-			throw new Exception("Cadastro não implementado.");
+			return new CadastroMetalico();
 		}
 	}
 

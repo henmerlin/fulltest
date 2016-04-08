@@ -14,7 +14,6 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.oss.inventory.service.impl.InventoryImplProxy;
 import entidades.cadastro.Cadastro;
 import entidades.cadastro.CadastroGpon;
-import entidades.cadastro.CadastroMetalico;
 import entidades.cliente.Cliente;
 import entidades.cliente.InventarioProdutos;
 import entidades.cliente.produto.ProdutoBanda;
@@ -23,7 +22,6 @@ import entidades.cliente.produto.ProdutoTv;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.factory.CadastroFactory;
-import model.factory.LinhaFactory;
 import model.modulos.OperacionalInterface;
 
 public class ClienteServico implements OperacionalInterface{
@@ -62,42 +60,39 @@ public class ClienteServico implements OperacionalInterface{
 		cliente.setInventario(inventario);
 		cliente.setDesignador(designador);
 		cliente.setDesignadorAcesso(designadorAcesso);
-		
-		
-		
+
 		cliente.setCadastro(this.consultarCadastroTbs(cliente));
-		
+
 		return cliente;
 	}
-	
+
 	/**
-	 * Método realizada a tratativa de cadastro GPON/Metálico
+	 * Método realiza tratativa de cadastro GPON/Metálico
 	 * @param cliente
+	 * @return 
 	 * @return
 	 * @throws Exception
 	 */
 	public Cadastro consultarCadastroTbs(Cliente cliente) throws Exception{
-		
+
 		GetInfoOut info = this.getInfo(cliente);
-		
+
 		Cadastro preCad = CadastroFactory.criar(info.getTechnology());
-		
+
 		preCad.setCadastro(info);
-		
-		
+
+
 		// Bloco especifico para GPON (consulta de Infos de OLT/ONT/Porta Lógica
 		if (preCad instanceof CadastroGpon) {
-			
+
 			CadastroGpon cadastro = (CadastroGpon) preCad;
 			cadastro.setCadastroGpon(this.getAccessInfo(cliente));			
-			
+
 			return cadastro;
 		}
-		
+
 		return preCad;
 	}
-
-
 
 	/**
 	 * Retorna Inventário de Produtos do cliente
@@ -204,9 +199,9 @@ public class ClienteServico implements OperacionalInterface{
 	 * @author G0042204
 	 */
 	public GetInfoOut getInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
-		return this.osstbService.getInfo(cliente.getDesignador(), this.getAccessDesignator(cliente.getDesignador()), "URA", "URA", cliente.getDesignador(), "URA", cliente.getInventario().getBanda().getDownloadCrm(), cliente.getInventario().getBanda().getUploadCrm());
+		return this.osstbService.getInfo(cliente.getDesignador(), cliente.getDesignadorAcesso(), "wise", "wise", cliente.getInstancia(), "wise", "0", "0");
 	}
-	
+
 	/**
 	 * Função referente ao informações GPON TBS - WiseTool
 	 * Depende da consulta de produtos contratados - Informações do Cliente (Siebel 8) - Cliente Servico
@@ -220,7 +215,7 @@ public class ClienteServico implements OperacionalInterface{
 	public AccessInfo getAccessInfo(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 		return this.osstbService.getAccessInfo(cliente.getDesignadorAcesso(), cliente.getDesignador(), "0");
 	}
-	
+
 	/**
 	 * Utiliza OSSTurbonetProxy metodo getAccessDesignator
 	 * para obter designador de acesso 

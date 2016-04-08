@@ -111,7 +111,10 @@
 				<p:tab id="banda" title="Banda">
 					<p:panel header="Configurações Banda">
 
-
+						<p:outputLabel for="salve" value="Instância:" />
+						<p:inputText id="salve"
+							value="#{operacionalBean.cliente.cadastro.cadastro.infoTBS.dslamModel}"
+							placeholder="Instância..." />
 
 
 
@@ -122,8 +125,7 @@
 				<p:tab id="confirm" title="Confirmation">
 					<p:panel header="Confirmation">
 						<p:commandButton value="Submit"
-							actionListener="#{atendimentoWizard.save()}"
-							process="@this" />
+							actionListener="#{atendimentoWizard.save()}" process="@this" />
 					</p:panel>
 				</p:tab>
 			</p:wizard>
