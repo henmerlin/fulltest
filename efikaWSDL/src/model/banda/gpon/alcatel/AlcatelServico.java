@@ -64,6 +64,10 @@ public class AlcatelServico extends DslamGerenciavel{
 		tabela.setPotenciaONT(new Double(ret.trim()));
 		tabela.setPotenciaOLT(new Double(ret1.trim()));
 		
+		
+		System.out.println(this.cmdGetBridge());
+		System.out.println(this.cmdGetSagePorta());
+		
 		return tabela;
 
 	}
