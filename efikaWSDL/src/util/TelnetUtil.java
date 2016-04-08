@@ -73,7 +73,7 @@ public class TelnetUtil {
 		
 	}
 	
-	
+	 
 	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		
@@ -95,7 +95,7 @@ public class TelnetUtil {
 	public static void debugger(ArrayList<String> retorno){
 		
 		for (int i = 0; i < retorno.size(); i++) {
-			System.out.println(i + ": " + retorno.get(i));
+			System.out.println(retorno.get(i));
 		}
 		
 	}

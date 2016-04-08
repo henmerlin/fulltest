@@ -67,9 +67,9 @@ public class AlcatelServico extends DslamGerenciavel{
 	
 	public String cmdGetPotencia(){
 
-		Integer slot = 8;
+		Integer slot = 6;
 		Integer olt = 1;
-		Integer logica = 30;
+		Integer logica = 8;	
 		
 		return "show equipment ont optics 1/1/"+ slot +"/"+ olt +"/"+ logica;
 	}
