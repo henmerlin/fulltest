@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import entidades.banda.BandaInterface;
+import entidades.cadastro.Cadastro;
 import entidades.linha.LinhaInterface;
 
 public class Cliente {
@@ -21,6 +22,8 @@ public class Cliente {
 	private LinhaInterface linha;
 
 	private BandaInterface banda;
+	
+	private Cadastro cadastro;
 
 	public Cliente() {
 		
@@ -71,5 +74,13 @@ public class Cliente {
 
 	public void setInventario(InventarioProdutos inventario) {
 		this.inventario = inventario;
+	}
+
+	public Cadastro getCadastro() {
+		return cadastro;
+	}
+
+	public void setCadastro(Cadastro cadastro) {
+		this.cadastro = cadastro;
 	}
 }

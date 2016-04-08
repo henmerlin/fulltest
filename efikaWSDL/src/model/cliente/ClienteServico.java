@@ -11,6 +11,8 @@ import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.oss.inventory.service.impl.InventoryImplProxy;
+import entidades.cadastro.Cadastro;
+import entidades.cadastro.CadastroMetalico;
 import entidades.cliente.Cliente;
 import entidades.cliente.InventarioProdutos;
 import entidades.cliente.produto.ProdutoBanda;
@@ -57,7 +59,27 @@ public class ClienteServico implements OperacionalInterface{
 		cliente.setDesignador(designador);
 		cliente.setDesignadorAcesso(designadorAcesso);
 
+		CadastroMetalico cadastro = new CadastroMetalico();
+		
+		GetInfoOut oi = this.getInfo(cliente);
+		
+		oi.getInfoTBS().getDslamVendor();
+		
+		
+		
+		
+		
 		return cliente;
+	}
+	
+	public Cadastro consultarCadastro(){
+		
+		
+		
+		
+		
+		
+		return null;
 	}
 
 
