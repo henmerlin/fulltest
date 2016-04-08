@@ -85,7 +85,77 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 
 		return reg.trim();
 	}
+	
+	
+	public String cmdAtivarServico(Cliente cliente, String servico){
+		return "ADO $ " + cliente.getInstancia() + " " + servico + " $ Y";
+	}
+	
+	public String cmdDesativarServico(Cliente cliente, String servico){
+		return "DEO $ " + cliente.getInstancia() + " " + servico + " $ Y";
+	}
+	
+	public String cmdManobraFacilidade(String facilidade_velha, String facilidade_nova){
+		return "CLN $ " + facilidade_velha + " " + facilidade_nova + " Y";
+	}
+	
+	public String cmdManobraNumero(Cliente cliente, String numero_velho){
+		return "CNL $ " + numero_velho + " " + cliente.getInstancia() + " Y";
+	}
+	
+	public String cmdAtivarBioSuspensao(Cliente cliente, String custgroup){
+		return "CHG $ LINE " + cliente.getInstancia() + " CUST " + custgroup.replace("POS", "BIO") + " Y";
+	}
+	
+	public String cmdDesativarBioSuspensao(Cliente cliente, String custgroup){
+		return "CHG $ LINE " + cliente.getInstancia() + " CUST " + custgroup.replace("BIO", "POS") + " Y";
+	}
+	
+	public String cmdAlternarCustGroup(Cliente cliente, String custgroup){
+		String new_cust;
+		
+		if(custgroup.indexOf("N")!=0 && custgroup.length() == 8){
+			new_cust = "N"+custgroup;
+		}else{
+			new_cust = custgroup.substring(1);
+		}
+		
+		return "CHG $ LINE " + cliente.getInstancia() + " CUST " + new_cust + " Y";
+		
+	}
 
+	public String cmdCriarLinha(Cliente cliente, String facilidade, String custgroup){
+		return "NEW $ " + cliente.getInstancia() + " IBN " + custgroup + " 0 115 " + facilidade + " DGT CWT 3WC CFU N DDN $ $ Y";
+	}
+	
+	public String cmdDeletarLinha(Cliente cliente, String facilidade){
+		return "OUT $ " + cliente.getInstancia() + " " + facilidade + " BLDN Y";
+	}
+	
+	public String cmdStatusdaLinha(Cliente cliente){
+		return "mapci nodisp;mtc;lns;ltp;post d " + cliente.getInstancia() + " display";
+	}
+	
+	public String cmdResetaStatusdaLinha(Cliente cliente){
+		return "mapci nodisp;mtc;lns;ltp;post d " + cliente.getInstancia() + ";frls;rts;";
+	}
+	
+	public String cmdAtivarSuspensaoTemporaria(Cliente cliente, String facilidade){
+		return "SUS $ " + cliente.getInstancia() + " " + facilidade + " Y";
+	}
+	
+	public String cmdDesativarSuspensaoTemporaria(Cliente cliente, String facilidade){
+		return "RES $ " + cliente.getInstancia() + " " + facilidade + " Y";
+	}
+	
+	public String cmdAlterarNCOS(Cliente cliente, String ncos){
+		return "CHG $ LINE " + cliente.getInstancia() + " NCOS " + ncos + " Y";
+	}
+	
+	public String cmdAlterarCustgroup(Cliente cliente, String custgroup){
+		return "CHG $ LINE " + cliente.getInstancia() + " CUST " + custgroup + " Y";
+	}
+	
 	public Telnet getTelnet() {
 		return telnet;
 	}

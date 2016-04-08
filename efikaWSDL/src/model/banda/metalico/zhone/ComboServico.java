@@ -39,10 +39,10 @@ public class ComboServico extends ZhoneServico{
 		InfoTBS tbs = new InfoTBS();
 
 		// DSLAM do Agi - 4130825270
-		tbs.setIpDslam("10.131.35.23");
+		tbs.setIpDslam("10.141.228.42");
 		tbs.setSlot(new BigInteger("8"));
-		tbs.setPortNumber(new BigInteger("26"));
-		tbs.setPortAddrSeq(new BigInteger("122"));
+		tbs.setPortNumber(new BigInteger("30"));
+		tbs.setPortAddrSeq(new BigInteger("126"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
