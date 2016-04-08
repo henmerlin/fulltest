@@ -22,8 +22,8 @@ public class AlcatelServico extends DslamGerenciavel{
 
 		/*Cadastro cadastro = new CadastroGpon();
 
-		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();*/		
-
+		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();*/	
+		
 		InfoTBS tbs = new InfoTBS();
 
 		tbs.setIpDslam("10.214.57.11");		
@@ -32,7 +32,7 @@ public class AlcatelServico extends DslamGerenciavel{
 
 		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetProfilePort()));
 		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetPotencia()));
-
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetPortStatus()));
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
@@ -63,10 +63,14 @@ public class AlcatelServico extends DslamGerenciavel{
 		
 		tabela.setPotenciaONT(new Double(ret.trim()));
 		tabela.setPotenciaOLT(new Double(ret1.trim()));
-		
-		
-		System.out.println(this.cmdGetBridge());
+			
+		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringAlcatel2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Gpon::Inactive", 1))));
+						
+		/*System.out.println(this.cmdGetBridge());
 		System.out.println(this.cmdGetSagePorta());
+		System.out.println(this.cmdGetPotencia());*/
+		
+		//TelnetUtil.debugger(retorno);
 		
 		return tabela;
 
@@ -121,6 +125,15 @@ public class AlcatelServico extends DslamGerenciavel{
 		Integer logica = 8;	
 
 		return "info configure qos interface 1/1/"+ slot +"/"+ olt +"/"+ logica +"/4/1 flat";
+	}
+	
+	public String cmdGetPortStatus(){
+		
+		Integer slot = 6;
+		Integer olt = 1;
+		Integer logica = 8;	
+
+		return "show equipment ont operational-data 1/1/"+ slot +"/"+ olt +"/" + logica + " xml";
 	}	
 
 }
