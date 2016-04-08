@@ -47,7 +47,7 @@ public class ClienteServico implements OperacionalInterface{
 	 * @return Cliente
 	 * @author G0042204
 	 */
-	public Cliente consultarCadastro(Cliente cliente) throws RemoteException{
+	public Cliente consultarCadastro(Cliente cliente) throws Exception{
 
 		// Consulta Produtos Contratados
 		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
@@ -58,19 +58,14 @@ public class ClienteServico implements OperacionalInterface{
 		// Consulta Designador de Acesso
 		String designadorAcesso = this.getAccessDesignator(designador);
 
+		// Sets
 		cliente.setInventario(inventario);
 		cliente.setDesignador(designador);
 		cliente.setDesignadorAcesso(designadorAcesso);
-
-		CadastroMetalico cadastro = new CadastroMetalico();
-		
-		GetInfoOut oi = this.getInfo(cliente);
-		
-		oi.getInfoTBS().getDslamVendor();
 		
 		
 		
-		
+		cliente.setCadastro(this.consultarCadastroTbs(cliente));
 		
 		return cliente;
 	}
