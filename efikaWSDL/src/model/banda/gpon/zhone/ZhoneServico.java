@@ -1,11 +1,10 @@
 package model.banda.gpon.zhone;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
-
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosGpon;
-import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.Cadastro;
+import entidades.cadastro.CadastroGpon;
 import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
@@ -21,8 +20,10 @@ public class ZhoneServico extends DslamGerenciavel{
 	
 	public TabelaParametrosGpon consultarTabelaParametros() throws Exception{
 
-		InfoTBS tbs = new InfoTBS();
-
+		Cadastro cadastro = new CadastroGpon();
+		
+		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
+						
 		// 1633360314 - INSTANCIA GPON-- TA DIFICI
 		tbs.setIpDslam("10.214.57.251");
 		
@@ -36,15 +37,14 @@ public class ZhoneServico extends DslamGerenciavel{
 		 * e agora José? o InfoTBS é de metalico T_T'
 		 */
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(" "));
+		this.getTelnet().getComandos().add(new ComandoTelnet("lst"));
+		this.getTelnet().getComandos().add(new ComandoTelnet("a"));
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaParametrosGpon tabela = new TabelaParametrosGpon();
 
-
-
-		//TelnetUtil.debugger(retorno);
+		TelnetUtil.debugger(retorno);
 
 		return tabela;
 	}

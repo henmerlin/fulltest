@@ -170,10 +170,14 @@ public class Telnet {
 		out.println("||");
 
 		for (int i = 0; i < 999; i++) {
-			System.out.println(i);
+			//System.out.println(i);
 			String line = in.readLine();
-			retorno.add(line);
-			System.out.println(line);
+			
+			if(line.length() > 0){
+				retorno.add(line);
+			}
+			
+			//System.out.println(line);
 			if (line.contains("||")) {
 				break;
 			}
