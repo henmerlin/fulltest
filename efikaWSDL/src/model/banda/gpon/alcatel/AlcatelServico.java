@@ -30,23 +30,40 @@ public class AlcatelServico extends DslamGerenciavel{
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetMacinPort()));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetProfilePort()));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetPotencia()));
+
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
 		TabelaParametrosGpon tabela = new TabelaParametrosGpon();
 		
-		/*String profileDown = TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "NGLT_Default", 2)));
+		
+		String profileDown = TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "NGLT_Default", 2)));
 		String profileUP = TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "bandwidth-profile", 1)));
 
-		tabela.setProfile(profileDown + " - " + profileUP);*/
+		tabela.setProfile(profileDown + " - " + profileUP);
 		
-		//tabela.setPotenciaONT(new Double(TelnetUtil.tratamentoStringAlcatel2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "-", 1)))));
 		
-		//System.out.println(tabela.getPotenciaOLT());
+		String linha = retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "rx-signal", 1));
 		
-		TelnetUtil.debugger(retorno);
+		Integer limite1 = linha.indexOf("|", 1);
+		Integer limite2 = linha.indexOf("|", limite1 + 1);
+		Integer limite3 = linha.indexOf("|", limite2 + 1);
+		Integer limite4 = linha.indexOf("|", limite3 + 1);
+		Integer limite5 = linha.indexOf("|", limite4 + 1);
+		Integer limite6 = linha.indexOf("|", limite5 + 1);
+		
+		
+		String potencia = (String) retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "rx-signal", 1) + 3);
+		
+		String ret = (String) potencia.subSequence(limite1, limite2);
+		String ret1 = (String) potencia.subSequence(limite6, potencia.length());
 
+		
+		tabela.setPotenciaONT(new Double(ret.trim()));
+		tabela.setPotenciaOLT(new Double(ret1.trim()));
+		
 		return tabela;
 
 	}

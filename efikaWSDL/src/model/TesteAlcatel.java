@@ -13,6 +13,8 @@ public class TesteAlcatel {
 			
 			AlcatelServico alcatel = new AlcatelServico();			
 			TabelaParametrosGpon tabela = alcatel.consultarTabelaParametros();		
+			
+			
 
 			/*System.out.println("Adm Status -> " + tabela.getPortaAdmStatus());
 			System.out.println("Sinc Status -> " + tabela.getSincronismoStatus());
@@ -27,7 +29,7 @@ public class TesteAlcatel {
 					
 
 		} catch (Exception e) {
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		
