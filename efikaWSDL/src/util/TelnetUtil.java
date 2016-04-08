@@ -69,7 +69,7 @@ public class TelnetUtil {
 	 * */	
 	public static String tratamentoStringAlcatel2(String string) throws Exception {
 		
-		return (String) string.subSequence(string.lastIndexOf("+") + 11, string.length());
+		return (String) string.subSequence(string.lastIndexOf("+"), string.length());
 		
 	}
 	

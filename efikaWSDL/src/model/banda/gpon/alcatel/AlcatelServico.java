@@ -41,11 +41,11 @@ public class AlcatelServico extends DslamGerenciavel{
 
 		tabela.setProfile(profileDown + " - " + profileUP);*/
 		
-		tabela.setPotenciaONT(new Double(TelnetUtil.tratamentoStringAlcatel2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "-", 1)))));
+		//tabela.setPotenciaONT(new Double(TelnetUtil.tratamentoStringAlcatel2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "-", 1)))));
 		
-		System.out.println(tabela.getPotenciaOLT());
+		//System.out.println(tabela.getPotenciaOLT());
 		
-		//TelnetUtil.debugger(retorno);
+		TelnetUtil.debugger(retorno);
 
 		return tabela;
 
@@ -67,9 +67,9 @@ public class AlcatelServico extends DslamGerenciavel{
 	
 	public String cmdGetPotencia(){
 
-		Integer slot = 6;
+		Integer slot = 8;
 		Integer olt = 1;
-		Integer logica = 8;
+		Integer logica = 30;
 		
 		return "show equipment ont optics 1/1/"+ slot +"/"+ olt +"/"+ logica;
 	}
