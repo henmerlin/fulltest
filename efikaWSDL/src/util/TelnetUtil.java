@@ -47,6 +47,34 @@ public class TelnetUtil {
 		return (String) string.subSequence(string.lastIndexOf("{") + 1, string.length() - 1);
 	}	
 	
+	/**
+	 * Tratamento para string com esse perfil:
+	 * 
+	 * @param string
+	 * @return
+	 * @throws Exception
+	 * */	
+	public static String tratamentoStringAlcatel(String string) throws Exception {
+		
+		return (String) string.subSequence(string.lastIndexOf(":") + 1, string.length());
+		
+	}
+	
+	/**
+	 * Tratamento para string com esse perfil:
+	 * 
+	 * @param string
+	 * @return
+	 * @throws Exception
+	 * */	
+	public static String tratamentoStringAlcatel2(String string) throws Exception {
+		
+		return (String) string.subSequence(string.lastIndexOf("+") + 11, string.length());
+		
+	}
+	
+	
+	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		
 		int k = 1;

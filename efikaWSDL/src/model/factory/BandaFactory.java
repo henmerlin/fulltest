@@ -60,5 +60,19 @@ public class BandaFactory {
 
 		return credencial;
 	}
+	
+	/**
+	 * Gera credencial Alcatel
+	 * @return Credencial
+	 */
+	public static Credencial alcatelCredencial(){
+
+		Credencial credencial = new Credencial();
+
+		credencial.setUser("co");
+		credencial.setPass("#operco33");
+
+		return credencial;
+	}
 
 }

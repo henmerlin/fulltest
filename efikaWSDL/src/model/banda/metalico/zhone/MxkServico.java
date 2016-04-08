@@ -30,10 +30,10 @@ public class MxkServico extends ZhoneServico{
 
 		InfoTBS tbs = new InfoTBS();
 
-		tbs.setIpDslam("10.131.113.31");
-		tbs.setSlot(new BigInteger("8"));
+		tbs.setIpDslam("10.221.146.61");
+		tbs.setSlot(new BigInteger("16"));
 		tbs.setPortNumber(new BigInteger("10"));
-		tbs.setPortAddrSeq(new BigInteger("1226"));
+		tbs.setPortAddrSeq(new BigInteger("1418"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
@@ -43,6 +43,8 @@ public class MxkServico extends ZhoneServico{
 		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdModulacao(tbs)));
 		
 		this.getTelnet().getComandos().add(new ComandoTelnet(this.profileDown(tbs)));
+		
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdProfileUp(tbs)));
 
 		this.getTelnet().setMode(ExecutionType.ZHONE_MXK);
 
@@ -72,10 +74,10 @@ public class MxkServico extends ZhoneServico{
 		
 		//Profile da porta Down/Up
 		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "interleaveMaxTxRate", 1))));
-		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "fastMaxTxRate", 1)))) /10;
+		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "interleaveMaxTxRate", 2))));
 				
 		tabela.setProfile(profileDown + " - " + profileUp);
-		
+				
 		//System.out.println(tabela.getProfile());		
 		
 		//TelnetUtil.debugger(retorno);
@@ -88,7 +90,7 @@ public class MxkServico extends ZhoneServico{
 		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl -v";
 	}
 	/*
-	 * Retorna o profile de down/up da porta
+	 * Retorna o profile de down da porta
 	 */
 	public String profileDown(InfoTBS tbs){
 
@@ -99,7 +101,7 @@ public class MxkServico extends ZhoneServico{
 	 */
 	public String cmdProfileUp(InfoTBS tbs){
 
-		return "get vdsl-cpe-config 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
+		return "get vdsl-cpe-config 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl";
 	}
 	/*
 	 * Retorna a modulação da porta
