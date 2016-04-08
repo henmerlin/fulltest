@@ -30,7 +30,7 @@ public class AlcatelServico extends DslamGerenciavel{
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetPotencia()));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdGetMacinPort()));
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
