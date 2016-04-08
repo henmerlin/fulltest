@@ -2,22 +2,29 @@ package model.factory;
 
 import entidades.cadastro.Cadastro;
 import entidades.cadastro.CadastroGpon;
+import entidades.cadastro.CadastroMetalico;
 
 public class CadastroFactory {
 
 
-	private final static String GPON_CARD8 = "GPON_CARD8";
+	private final static String GPON = "GPON";
+	private final static String ADSL = "ADSL";
+	private final static String DSL = "DSL";
 
 	public CadastroFactory() {
 
 	}
 	
-	public static Cadastro criar(String dslamVendor) throws Exception{
+	public static Cadastro criar(String technology) throws Exception{
 		
-		if(dslamVendor.equalsIgnoreCase(CadastroFactory.GPON_CARD8)){
+		if(technology.equalsIgnoreCase(CadastroFactory.GPON)){
 			return new CadastroGpon();
+		}else if (technology.equalsIgnoreCase(CadastroFactory.ADSL)) {
+			return new CadastroMetalico();
+		}else if (technology.equalsIgnoreCase(CadastroFactory.DSL)) {
+			return new CadastroMetalico();
 		}else{
-			throw new Exception("DSLAM não implementado.");
+			throw new Exception("Cadastro não implementado.");
 		}
 	}
 
