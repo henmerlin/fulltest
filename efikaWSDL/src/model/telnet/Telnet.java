@@ -151,7 +151,7 @@ public class Telnet {
 	}
 
 	public List<String> zhoneGponMode(PrintWriter out, BufferedReader in) throws Exception{
-
+		
 		ArrayList<String> retorno = new ArrayList<String>();
 		
 		out.println(this.auth.getUser() + "\r\n");
@@ -170,7 +170,7 @@ public class Telnet {
 		out.println("||");
 
 		for (int i = 0; i < 999; i++) {
-			//System.out.println(i);
+			
 			String line = in.readLine();
 			
 			if(line.length() > 0){

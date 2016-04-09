@@ -10,25 +10,15 @@ public class TesteZhoneGpon {
 		
 		
 		try {
-			
+
 			ZhoneServico gpon = new ZhoneServico();			
 			TabelaParametrosGpon tabela = gpon.consultarTabelaParametros();					
 
-
+			System.out.println("Sincronismo -> " + tabela.getSincronismoStatus());
+			System.out.println("AdmStatus -> " + tabela.getPortaAdmStatus() + " (sera q e esse mesmo?)");
+			System.out.println("Potencia ONT -> " + tabela.getPotenciaONT());			
+			System.out.println("Potencia OLT -> " + tabela.getPotenciaOLT());
 			
-//			System.out.println("Adm Status -> " + tabela.getPortaAdmStatus());
-//			System.out.println("Sinc Status -> " + tabela.getSincronismoStatus());
-//			System.out.println("Modulação -> " + tabela.getModulacao());
-//			System.out.println("Perfil -> " + tabela.getProfile());
-//			System.out.println("Vel. Download -> " + tabela.getDownload());
-//			System.out.println("Vel. Upload -> " + tabela.getUpload());
-//			System.out.println("SnrDown  -> " + tabela.getSnrDown());
-//			System.out.println("SnrUp -> " + tabela.getSnrUp());
-//			System.out.println("AtnDown  -> " + tabela.getAtnDown());
-//			System.out.println("AtnUp -> " + tabela.getAtnUp());
-			
-						
-
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

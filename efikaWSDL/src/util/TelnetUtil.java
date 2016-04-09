@@ -45,7 +45,14 @@ public class TelnetUtil {
 	 */
 	public static String tratamentoStringZhoneDif(String string) throws Exception{
 		return (String) string.subSequence(string.lastIndexOf("{") + 1, string.length() - 1);
-	}	
+	}
+	
+	public static String tratamentoStringZhoneGpon(String string) throws Exception{
+		
+		
+		
+		return "";
+	}
 	
 	/**
 	 * Tratamento para string com esse perfil:
