@@ -11,10 +11,8 @@ public class TesteZhone {
 		
 		try {
 			
-			ComboServico combo = new ComboServico();
-			
-			
-			//TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();
+			ComboServico combo = new ComboServico();			
+			//TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();			
 						
 
 		/*	System.out.println(" ");
