@@ -1,6 +1,9 @@
 package entidades.banda;
 
+import java.util.List;
+
 import entidades.banda.parametros.TabelaParametrosInter;
+import entidades.parametros.Parametro;
 
 public class Banda {
 	
@@ -16,5 +19,11 @@ public class Banda {
 
 	public void setParametros(TabelaParametrosInter parametros) {
 		this.parametros = parametros;
+	}
+	
+	
+	public List<Parametro> listarParametros(){
+		
+		return null;
 	}
 }

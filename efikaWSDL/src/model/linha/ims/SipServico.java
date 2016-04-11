@@ -24,8 +24,8 @@ import br.com.gvt.telefonia.ura.co.services.SIPProxy;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoSip;
-import entidades.configuracoes.Parametro;
 import entidades.configuracoes.PortaFxs;
+import entidades.parametros.Parametro;
 import model.linha.LinhaServicoInterface;
 
 /**

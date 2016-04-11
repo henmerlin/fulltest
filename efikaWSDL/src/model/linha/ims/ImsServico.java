@@ -4,8 +4,8 @@ package model.linha.ims;
 import java.rmi.RemoteException;
 
 import br.com.gvt.www.oss.necservice.ConsultElement;
-import entidades.configuracoes.Parametro;
 import entidades.linha.LinhaInterface;
+import entidades.parametros.Parametro;
 import model.linha.LinhaServico;
 
 public class ImsServico extends LinhaServico{

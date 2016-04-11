@@ -3,6 +3,8 @@ package entidades.configuracoes;
 import java.util.ArrayList;
 import java.util.List;
 
+import entidades.parametros.Parametro;
+
 public class ConfiguracaoSip extends ConfiguracaolIms implements ConfiguracaoLinha{
 	
 	private Parametro serialNumber;

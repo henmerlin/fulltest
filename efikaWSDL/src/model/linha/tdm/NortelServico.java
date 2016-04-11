@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.gvt.www.oss.necservice.ConsultElement;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoNortel;
-import entidades.configuracoes.Parametro;
+import entidades.parametros.Parametro;
 import model.linha.LinhaServicoInterface;
 import model.telnet.Telnet;
 

@@ -8,8 +8,8 @@ import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoOut;
 import com.gvt.www.services.model.portaFXS.PortaFXSWS;
 import com.gvt.www.services.model.recursoLogico.RecursoLogicoWS;
 
-import entidades.configuracoes.Parametro;
 import entidades.configuracoes.PortaFxs;
+import entidades.parametros.Parametro;
 
 public class Debugger {
 

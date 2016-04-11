@@ -1,4 +1,4 @@
-package entidades.configuracoes;
+package entidades.parametros;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

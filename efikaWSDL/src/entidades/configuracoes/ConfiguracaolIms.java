@@ -1,5 +1,6 @@
 package entidades.configuracoes;
 
+import entidades.parametros.Parametro;
 
 public class ConfiguracaolIms{
 
