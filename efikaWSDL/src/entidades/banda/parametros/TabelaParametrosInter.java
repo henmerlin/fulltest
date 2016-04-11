@@ -1,12 +1,12 @@
 package entidades.banda.parametros;
 
-import java.util.List;
-
 import entidades.parametros.Parametro;
 
 public interface TabelaParametrosInter {
+		
+	public Parametro getParam(int index);
 	
-	public List<Parametro> listarParametros();
+	public void listarParametros();
 	
 	public String getSincronismoStatus();
 

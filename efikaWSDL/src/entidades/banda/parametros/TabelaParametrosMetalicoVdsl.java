@@ -1,6 +1,6 @@
 package entidades.banda.parametros;
 
-public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico{
+public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico implements TabelaParametrosInter{
 	
 	private Double snrDown2;
 	

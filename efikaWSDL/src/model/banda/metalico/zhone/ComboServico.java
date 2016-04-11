@@ -38,13 +38,13 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 */
 	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
-		InfoTBS tbs = new InfoTBS();
+		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
 
 		// DSLAM do Agi - 4130825270
-		tbs.setIpDslam("10.141.228.42");
-		tbs.setSlot(new BigInteger("8"));
-		tbs.setPortNumber(new BigInteger("30"));
-		tbs.setPortAddrSeq(new BigInteger("126"));
+//		tbs.setIpDslam("10.141.228.42");
+//		tbs.setSlot(new BigInteger("8"));
+//		tbs.setPortNumber(new BigInteger("30"));
+//		tbs.setPortAddrSeq(new BigInteger("126"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 

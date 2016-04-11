@@ -1,10 +1,11 @@
 package entidades.banda.parametros;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.parametros.Parametro;
 
-public class TabelaParametrosMetalico extends TabelaParametros{
+public class TabelaParametrosMetalico extends TabelaParametros implements TabelaParametrosInter{
 	
 	private Double download;
 	
@@ -21,9 +22,9 @@ public class TabelaParametrosMetalico extends TabelaParametros{
 	private String modulacao;
 		
 	public TabelaParametrosMetalico() {
-
+		
 	}
-
+	
 	public Double getDownload() {
 		return download;
 	}
@@ -79,10 +80,29 @@ public class TabelaParametrosMetalico extends TabelaParametros{
 	public void setModulacao(String modulacao) {
 		this.modulacao = modulacao;
 	}
-
+	
 	@Override
-	public List<Parametro> listarParametros() {
-		// TODO Auto-generated method stub
-		return null;
+	public Parametro getParam(int index) {
+		return this.getParametros().get(index);
 	}
+	
+	
+	@Override
+	public void listarParametros() {
+		
+		List<Parametro> param = new ArrayList<Parametro>();
+		
+		param.add(new Parametro("Download", this.download.toString()));
+		param.add(new Parametro("Upload", this.upload.toString()));
+		param.add(new Parametro("Modulação", this.modulacao.toString()));
+		param.add(new Parametro("Sinal Ruído Download", this.snrDown.toString()));
+		param.add(new Parametro("Atenuação Download", this.atnDown.toString()));
+		param.add(new Parametro("Atenuação Upload", this.atnUp.toString()));
+		
+		this.setParametros(param);
+				
+	}
+	
+	
+
 }

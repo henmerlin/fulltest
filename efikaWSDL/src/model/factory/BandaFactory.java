@@ -5,12 +5,14 @@ import entidades.banda.gpon.alcatel.Alcatel;
 import entidades.banda.gpon.zhone.Zhone;
 import entidades.banda.metalico.keymile.Suad;
 import entidades.banda.metalico.keymile.Suvd;
+import entidades.banda.metalico.zhone.Combo;
 import entidades.credenciais.Credencial;
 import model.banda.BandaServicoInterface;
 import model.banda.gpon.alcatel.AlcatelServico;
 import model.banda.gpon.zhone.ZhoneServico;
 import model.banda.metalico.keymile.SuadServico;
 import model.banda.metalico.keymile.SuvdServico;
+import model.banda.metalico.zhone.ComboServico;
 
 public class BandaFactory {
 
@@ -30,7 +32,9 @@ public class BandaFactory {
 	// Zhone
 	// GPON
 	private final static String GPON_CARD8 = "GPON_CARD8";
-
+	
+	// COMBOZH48
+	private final static String COMBOZH48 = "COMBOZH48";
 	
 	// Alcatel
 	// GPON
@@ -52,6 +56,11 @@ public class BandaFactory {
 				modeloDslam.equalsIgnoreCase(BandaFactory.GPON_CARD8)
 				){
 			return new Zhone();
+		}else if (
+				modeloDslam.equalsIgnoreCase(BandaFactory.COMBOZH48) ||
+				modeloDslam.equalsIgnoreCase(BandaFactory.COMBOZH48)
+				){
+			return new Combo();
 		}else if (
 				modeloDslam.equalsIgnoreCase(BandaFactory.GPON_CARD) ||
 				modeloDslam.equalsIgnoreCase(BandaFactory.GPON_CARD)
@@ -75,6 +84,11 @@ public class BandaFactory {
 				modeloDslam.equalsIgnoreCase(BandaFactory.SUAD3)
 				){
 			return new SuadServico();
+		}else if (
+				modeloDslam.equalsIgnoreCase(BandaFactory.COMBOZH48) ||
+				modeloDslam.equalsIgnoreCase(BandaFactory.COMBOZH48)
+				){
+			return new ComboServico();
 		}else if (
 				modeloDslam.equalsIgnoreCase(BandaFactory.GPON_CARD8) ||
 				modeloDslam.equalsIgnoreCase(BandaFactory.GPON_CARD8)

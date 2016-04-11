@@ -1,5 +1,6 @@
 package model.modulos;
 
+import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.cliente.Cliente;
 import model.banda.BandaServico;
 import model.banda.BandaServicoInterface;
@@ -50,14 +51,14 @@ public class OperacionalServico implements OperacionalInterface{
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 		
 		// Consulta Configurações Banda
-		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros(cliente.getCadastro()));
-
+		
+		TabelaParametrosInter tabela = this.servicoBandaEsp.consultarTabelaParametros(cliente.getCadastro());
+		tabela.listarParametros();
+		cliente.getBanda().setParametros(tabela);
+		
 		// Sets nos erros de configuração encontrados
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
 		
-		
-		
-
 		return cliente;
 	}
 

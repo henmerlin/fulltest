@@ -1,5 +1,9 @@
 package entidades.banda.parametros;
 
+import java.util.List;
+
+import entidades.parametros.Parametro;
+
 abstract class TabelaParametros implements TabelaParametrosInter{
 	
 	private String sincronismoStatus;
@@ -7,6 +11,12 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 	private String portaAdmStatus;
 	
 	private String profile;
+	
+	private List<Parametro> parametros;
+	
+	public TabelaParametros() {
+		
+	}
 	
 	public String getSincronismoStatus() {
 		return sincronismoStatus;
@@ -31,4 +41,18 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	public List<Parametro> getParametros() {
+		return parametros;
+	}
+
+	public void setParametros(List<Parametro> parametros) {
+		this.parametros = parametros;
+	}
+	
+	@Override
+	public Parametro getParam(int index) {
+		return this.parametros.get(index);
+	}
+	
 }
