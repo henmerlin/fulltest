@@ -12,4 +12,6 @@ public interface TabelaParametrosInter {
 
 	public String getPortaAdmStatus();
 	
+	public String getProfile();
+	
 }

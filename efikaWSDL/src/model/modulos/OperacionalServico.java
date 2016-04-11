@@ -26,11 +26,7 @@ public class OperacionalServico implements OperacionalInterface{
 
 		this.servicoCadastro = new ClienteServico();
 		this.servicoBanda = new BandaServico();
-		
-		// Especifico
 		this.servicoLinha = new LinhaServico();
-		
-
 	}
 
 	/**

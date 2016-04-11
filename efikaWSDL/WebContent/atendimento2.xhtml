@@ -17,6 +17,30 @@
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="conteudo">
+	
+		<h:outputStylesheet>
+			.container {
+			    width:100%;
+			    text-align:center;
+			}
+			
+			.left {
+			    float:left;
+			    width:100px;
+			}
+			
+			.center {
+			    display: inline-block;
+			    margin:0 auto;
+			    width:100px;
+			}
+			
+			.right {
+			    float:right;
+			    width:100px;
+			}
+		</h:outputStylesheet>
+	
 
 		<h:form>
 			<p:panel header="Consultar">
@@ -113,6 +137,10 @@
 
 						<p:panelGrid columns="2" cellpadding="10">
 
+							<f:facet name="header">
+								Informações
+							</f:facet>
+
 							<h:outputText value="Designador:" />
 							<h:outputText id="designador"
 								value="#{operacionalBean.cliente.designador}" />
@@ -129,8 +157,8 @@
 						</p:panelGrid>
 
 
-
-						<p:panelGrid columns="2" cellpadding="10" style="margin-top: 15px;">
+						<p:panelGrid columns="2" cellpadding="10"
+							style="margin-top: 15px;">
 
 							<f:facet name="header">
 								Porta
@@ -142,11 +170,21 @@
 							<h:outputText value="Estado Operacional:" />
 							<h:outputText id="port_fis"
 								value="#{operacionalBean.cliente.banda.parametros.sincronismoStatus}" />
-	
+
+							<h:outputText value="Profile:" />
+							<h:outputText id="port_profile"
+								value="#{operacionalBean.cliente.banda.parametros.profile}" />
 						</p:panelGrid>
 
+						<p:panelGrid columns="2" cellpadding="10"
+							style="margin-top: 15px;">
+							<f:facet name="header">
+								Parâmetros
+							</f:facet>
+							<h:outputText value="#{operacionalBean.cliente.banda.parametros}" />
 
 
+						</p:panelGrid>
 
 
 					</p:panel>
