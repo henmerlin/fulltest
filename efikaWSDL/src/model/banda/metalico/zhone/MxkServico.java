@@ -3,14 +3,15 @@ package model.banda.metalico.zhone;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.Cadastro;
+import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import util.TelnetUtil;
 
-public class MxkServico extends ZhoneServico{
+public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 	public MxkServico() {
 
@@ -26,7 +27,7 @@ public class MxkServico extends ZhoneServico{
 	 * 		crc (up ou down ou a media dos dois, desconhecido)
 	 */
 
-	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
+	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
 		InfoTBS tbs = new InfoTBS();
 

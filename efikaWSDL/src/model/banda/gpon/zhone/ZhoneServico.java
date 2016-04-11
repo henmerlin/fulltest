@@ -5,20 +5,21 @@ import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosGpon;
 import entidades.cadastro.Cadastro;
 import entidades.cadastro.CadastroGpon;
+import model.banda.BandaServicoInterface;
 import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import util.TelnetUtil;
 
-public class ZhoneServico extends DslamGerenciavel{
+public class ZhoneServico extends DslamGerenciavel implements BandaServicoInterface{
 
 	public ZhoneServico() {
 		this.getTelnet().setMode(ExecutionType.ZHONE_GPON);
 		this.getTelnet().setAuth(BandaFactory.zhoneCredencial());
 	}
 	
-	public TabelaParametrosGpon consultarTabelaParametros() throws Exception{
+	public TabelaParametrosGpon consultarTabelaParametros(Cadastro cadastro) throws Exception {
 
 //		Cadastro cadastro = new CadastroGpon();
 //		

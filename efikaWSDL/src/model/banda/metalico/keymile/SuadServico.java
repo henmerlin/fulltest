@@ -4,12 +4,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import model.banda.metalico.DslamMetalicoInterface;
+import entidades.cadastro.Cadastro;
+import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.Telnet;
 import util.TelnetUtil;
 
-public class SuadServico extends KeymileServico implements DslamMetalicoInterface{
+public class SuadServico extends KeymileServico implements BandaServicoInterface{
 	
 	public SuadServico() {
 		
@@ -24,7 +25,7 @@ public class SuadServico extends KeymileServico implements DslamMetalicoInterfac
 	 * @return
 	 * @throws Exception 
 	 */
-	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception {
+	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
 		// InfoTBS tbs = cadastro.getInfoTBS();
 		InfoTBS tbs = new InfoTBS();
@@ -97,4 +98,5 @@ public class SuadServico extends KeymileServico implements DslamMetalicoInterfac
 	public String cmdPortProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
 	}
+
 }

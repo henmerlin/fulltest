@@ -7,19 +7,19 @@ import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.banda.parametros.TabelaParametrosMetalicoVdsl;
+import entidades.cadastro.Cadastro;
+import model.banda.BandaServicoInterface;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
-import model.telnet.ExecutionType;
-import model.telnet.Telnet;
 import util.TelnetUtil;
 
-public class SuvdServico extends KeymileServico{
+public class SuvdServico extends KeymileServico implements BandaServicoInterface{
 
 	public SuvdServico() {
 		
 	}
 
-public TabelaParametrosInter consultarTabelaParametros() throws Exception {
+public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception {
 		
 		InfoTBS tbs = new InfoTBS();
 

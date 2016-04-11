@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosGpon;
+import entidades.cadastro.Cadastro;
+import model.banda.BandaServicoInterface;
 import model.banda.metalico.DslamGerenciavel;
 import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import util.TelnetUtil;
 
-public class AlcatelServico extends DslamGerenciavel{
+public class AlcatelServico extends DslamGerenciavel implements BandaServicoInterface{
 
 	public AlcatelServico() {
 
@@ -18,7 +20,7 @@ public class AlcatelServico extends DslamGerenciavel{
 		this.getTelnet().setAuth(BandaFactory.alcatelCredencial());
 	}
 
-	public TabelaParametrosGpon consultarTabelaParametros() throws Exception {		
+	public TabelaParametrosGpon consultarTabelaParametros(Cadastro cadastro) throws Exception {
 
 		/*Cadastro cadastro = new CadastroGpon();
 

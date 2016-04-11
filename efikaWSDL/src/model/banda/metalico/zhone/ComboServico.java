@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.Cadastro;
+import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
 import util.TelnetUtil;
@@ -15,7 +17,7 @@ import util.TelnetUtil;
  * @author G0042204
  *
  */
-public class ComboServico extends ZhoneServico{
+public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 	public ComboServico() {
 
@@ -34,7 +36,7 @@ public class ComboServico extends ZhoneServico{
 	 * @return
 	 * @throws Exception
 	 */
-	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
+	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
 		InfoTBS tbs = new InfoTBS();
 
