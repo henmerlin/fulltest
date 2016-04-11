@@ -1,7 +1,15 @@
 package entidades.banda.parametros;
 
+import java.util.List;
+
+import entidades.parametros.Parametro;
+
 public interface TabelaParametrosInter {
 	
-	public void listarParametros();
+	public List<Parametro> listarParametros();
+	
+	public String getSincronismoStatus();
 
+	public String getPortaAdmStatus();
+	
 }

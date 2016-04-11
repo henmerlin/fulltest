@@ -27,12 +27,12 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 */
 	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
-		// InfoTBS tbs = cadastro.getInfoTBS();
-		InfoTBS tbs = new InfoTBS();
+		 InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
+		//InfoTBS tbs = new InfoTBS();
 
-		tbs.setIpDslam("10.141.13.179");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("12"));
+//		tbs.setIpDslam("10.141.13.179");
+//		tbs.setSlot(new BigInteger("16"));
+//		tbs.setPortNumber(new BigInteger("12"));
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 

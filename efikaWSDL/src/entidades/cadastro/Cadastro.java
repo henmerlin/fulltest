@@ -7,5 +7,7 @@ public interface Cadastro {
 	public GetInfoOut getCadastro();
 
 	public void setCadastro(GetInfoOut cadastro);
+	
+	public Boolean isGpon();
 
 }

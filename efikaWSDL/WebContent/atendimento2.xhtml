@@ -111,10 +111,41 @@
 				<p:tab id="banda" title="Banda">
 					<p:panel header="Configurações Banda">
 
-						<p:outputLabel for="salve" value="Instância:" />
-						<p:inputText id="salve"
-							value="#{operacionalBean.cliente.cadastro.cadastro.infoTBS.dslamModel}"
-							placeholder="Instância..." />
+						<p:panelGrid columns="2" cellpadding="10">
+
+							<h:outputText value="Designador:" />
+							<h:outputText id="designador"
+								value="#{operacionalBean.cliente.designador}" />
+
+							<h:outputText value="Designador de Acesso:"
+								rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
+							<h:outputText value="#{operacionalBean.cliente.designadorAcesso}"
+								rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
+
+							<h:outputText value="Perfil Radius:" />
+							<h:outputText id="perfil_radius"
+								value="#{operacionalBean.cliente.cadastro.cadastro.infoRadius.radiusProfile}" />
+
+						</p:panelGrid>
+
+
+
+						<p:panelGrid columns="2" cellpadding="10" style="margin-top: 15px;">
+
+							<f:facet name="header">
+								Porta
+							</f:facet>
+							<h:outputText value="Estado Administrativo:" />
+							<h:outputText id="port_adm"
+								value="#{operacionalBean.cliente.banda.parametros.portaAdmStatus}" />
+
+							<h:outputText value="Estado Operacional:" />
+							<h:outputText id="port_fis"
+								value="#{operacionalBean.cliente.banda.parametros.sincronismoStatus}" />
+	
+						</p:panelGrid>
+
+
 
 
 

@@ -1,5 +1,9 @@
 package entidades.banda.parametros;
 
+import java.util.List;
+
+import entidades.parametros.Parametro;
+
 public class TabelaParametrosMetalico extends TabelaParametros{
 	
 	private Double download;
@@ -77,8 +81,8 @@ public class TabelaParametrosMetalico extends TabelaParametros{
 	}
 
 	@Override
-	public void listarParametros() {
+	public List<Parametro> listarParametros() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

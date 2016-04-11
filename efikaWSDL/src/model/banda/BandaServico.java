@@ -6,6 +6,7 @@ import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import entidades.banda.BandaInterface;
+import entidades.cadastro.Cadastro;
 import entidades.cliente.Cliente;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
@@ -19,17 +20,23 @@ public class BandaServico {
 		this.osstbService = new OSSTurbonetProxy();
 	}
 	
-	public BandaInterface consultar(String designador){
+	public BandaInterface construirBanda(Cadastro cadastro) throws Exception{
 		
+		System.out.println(cadastro.getCadastro().getInfoTBS().getDslamVendor());
 		
-		return null;
-	}
-
-	public BandaInterface construirBanda(String modeloDslam) throws Exception{
-
-		BandaInterface banda = BandaFactory.criar(modeloDslam);
+		BandaInterface banda = BandaFactory.criar(cadastro.getCadastro().getInfoTBS().getDslamVendor());
+		
 		return banda;
 	}	
+
+	public BandaInterface construirBandaServico(Cadastro cadastro) throws Exception{
+				
+		BandaInterface banda = BandaFactory.criar(cadastro.getCadastro().getInfoTBS().getDslamVendor());
+		
+		return banda;
+	}	
+	
+	
 	
 	/**
 	 * Função referente ao informações TBS - WiseTool

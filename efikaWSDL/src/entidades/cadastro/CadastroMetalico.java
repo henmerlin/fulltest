@@ -17,5 +17,14 @@ public class CadastroMetalico implements Cadastro{
 	public void setCadastro(GetInfoOut cadastro) {
 		this.cadastro = cadastro;
 	}
-	
+
+	@Override
+	public Boolean isGpon() {
+		
+		if (this instanceof CadastroGpon) {
+			return true;
+		}
+		
+		return false;
+	}
 }

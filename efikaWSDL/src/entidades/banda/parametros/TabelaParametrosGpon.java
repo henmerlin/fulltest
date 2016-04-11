@@ -1,5 +1,9 @@
 package entidades.banda.parametros;
 
+import java.util.List;
+
+import entidades.parametros.Parametro;
+
 public class TabelaParametrosGpon extends TabelaParametros implements TabelaParametrosInter{
 		
 	private Double potenciaONT;
@@ -28,8 +32,8 @@ public class TabelaParametrosGpon extends TabelaParametros implements TabelaPara
 	}
 
 	@Override
-	public void listarParametros() {
+	public List<Parametro> listarParametros() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

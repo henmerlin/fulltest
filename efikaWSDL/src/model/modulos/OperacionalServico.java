@@ -1,7 +1,10 @@
 package model.modulos;
 
 import entidades.cliente.Cliente;
+import model.banda.BandaServico;
+import model.banda.BandaServicoInterface;
 import model.cliente.ClienteServico;
+import model.factory.BandaFactory;
 import model.factory.LinhaFactory;
 import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
@@ -10,20 +13,24 @@ public class OperacionalServico implements OperacionalInterface{
 
 	private LinhaServico servicoLinha;
 
-	//private BandaServico servicoBanda;
+	private BandaServico servicoBanda;
 
 	private ClienteServico servicoCadastro;
-
+	
 	// Serviço FullTest
 	private LinhaServicoInterface servicoVoz;
+	
+	private BandaServicoInterface servicoBandaEsp;
 
 	public OperacionalServico() {
 
 		this.servicoCadastro = new ClienteServico();
-
+		this.servicoBanda = new BandaServico();
+		
+		// Especifico
 		this.servicoLinha = new LinhaServico();
 		
-		//this.servicoBanda = new BandaServico();
+
 	}
 
 	/**
@@ -39,12 +46,21 @@ public class OperacionalServico implements OperacionalInterface{
 
 		// Consultas de Cadastro
 		cliente = this.servicoCadastro.consultarCadastro(cliente);	
+		
+		// Inicializa objetos v2
+		cliente = this.initObjects_2(cliente);
 
-		// Consulta Configurações
+		// Consulta Configurações Linha
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
+		
+		// Consulta Configurações Banda
+		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros(cliente.getCadastro()));
 
 		// Sets nos erros de configuração encontrados
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+		
+		
+		
 
 		return cliente;
 	}
@@ -79,7 +95,17 @@ public class OperacionalServico implements OperacionalInterface{
 
 		// Constroí serviços de acordo com cadastro
 		this.servicoVoz = LinhaFactory.criarServico(cliente.getLinha().getTecnologia());
-
+		
+		return cliente;
+	}
+	
+	public Cliente initObjects_2(Cliente cliente) throws Exception{
+		
+		// Constroí Objeto Banda de acordo com cadastro
+		cliente.setBanda(this.servicoBanda.construirBanda(cliente.getCadastro()));
+		
+		this.servicoBandaEsp = BandaFactory.criarServico(cliente.getCadastro().getCadastro().getInfoTBS().getDslamVendor());
+		
 		return cliente;
 	}
 
