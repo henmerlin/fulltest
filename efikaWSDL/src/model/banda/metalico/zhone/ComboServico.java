@@ -162,26 +162,19 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		
 		Bridge bridge = new Bridge();
 		
-		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/", 2)));
-		
-		
-		/*String rin = showVlan.substring(0, 3);
+		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
+	
+		String rin = showVlan.substring(24, 27);
+		String endSeqPort = showVlan.substring(20, 23);	
 		
 		String[] split  = showVlan.split("-");
 		
 		bridge.setSlot(split[1]);
 		bridge.setPort(split[2]);
-		bridge.setEndSeqPort(split[7]);
-		bridge.setVc(split[6]);
+		bridge.setEndSeqPort(endSeqPort);
+		String vc = split[6].substring(0, 2);
+		bridge.setVcAutenticacao(vc);
 		bridge.setRin(rin);
-		
-		System.out.println(" Slot - " + split[1]);
-		System.out.println(" Port - " + split[2]);
-		System.out.println(" End Seq Port - " + split[7]);
-		System.out.println(" Vc - " + split[6]);
-		System.out.println(" Rin - " + rin);*/
-		
-		System.out.println(showVlan);
 		
 		//TelnetUtil.debugger(retorno);
 

@@ -142,8 +142,18 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		bridge.setSlot(split[1]);
 		bridge.setPort(split[2]);
 		bridge.setEndSeqPort(split[7]);
-		bridge.setVc(split[6]);
+		bridge.setVcAutenticacao(split[6]);
 		bridge.setRin(rin);
+		
+		/*String showVlan2 = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 2)));
+		String rin3k = showVlan2.substring(0, 4);
+		String[] split2  = showVlan2.split("-");
+		bridge.setVcPvc(split2[6]);
+		bridge.setRin3k(rin3k);
+		
+		System.out.println(bridge.getVcPvc());
+		System.out.println(bridge.getRin3k());*/
+		
 		
 		TelnetUtil.debugger(retorno);		
 	}

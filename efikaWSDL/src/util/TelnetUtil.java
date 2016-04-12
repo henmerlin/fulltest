@@ -97,7 +97,7 @@ public class TelnetUtil {
 
 	public static String tratamentoStringBridgeShowVlan2(String string) throws Exception {
 
-		return (String) string.subSequence(string.lastIndexOf("/") , string.length());
+		return (String) string.subSequence(string.lastIndexOf("dwn"), string.length());
 
 	}
 
