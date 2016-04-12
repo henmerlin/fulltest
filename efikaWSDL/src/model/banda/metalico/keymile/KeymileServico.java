@@ -120,20 +120,29 @@ public class KeymileServico extends DslamGerenciavel{
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
 	}
 	
-
-	/*
+	/**
 	 * Retorna a velocidade de sincronismo do canal
 	 * @param tbs
-	 * @return String
+	 * @return
 	 */
-	
 	public String cmdChanStatus(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";
 	}
 	
+	/**
+	 * Consulta detalhe do Service
+	 * @param srvc
+	 * @return
+	 */
+	public String cmdSrvcDetail(String srvc){
+		return "get /services/packet/1to1doubletag/"+ srvc + "/cfgm/Service";
+	}
 	
-	/*
-	 * Retorna a lista de vccs do canal 	
+	
+	/**
+	 * Retorna a lista de vccs do canal 
+	 * @param tbs
+	 * @return
 	 */
 	public String cmdLsChanVccs(InfoTBS tbs){
 		

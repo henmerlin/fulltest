@@ -78,6 +78,34 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 		return tabela;
 	}
 
+	
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		
+		
+		//InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
+		
+		InfoTBS tbs = new InfoTBS();
+
+		tbs.setIpDslam("10.141.13.179");
+		tbs.setSlot(new BigInteger("16"));
+		tbs.setPortNumber(new BigInteger("12"));
+
+		this.getTelnet().setIp(tbs.getIpDslam());
+
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 1)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 2)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 3)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 4)));
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		
+		
+		
+		
+		
+	}
+	
 	public String cmdSnrMargin(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/snrmargin";
 	}
@@ -94,9 +122,18 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	public String cmdChanProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/profilename";
 	}
-
+	
 	public String cmdPortProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
 	}
-
+	
+	/**
+	 * 
+	 * @param tbs
+	 * @param nrBridge
+	 * @return
+	 */
+	public String cmdVccConfig(InfoTBS tbs, Integer nrBridge){
+		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/vcc-" + nrBridge + "/status/servicestatus";
+	}
 }

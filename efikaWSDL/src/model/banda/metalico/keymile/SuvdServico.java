@@ -141,5 +141,11 @@ public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws
 	public String cmdPortProfile(InfoTBS tbs){
 		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofiles";
 	}
+
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
