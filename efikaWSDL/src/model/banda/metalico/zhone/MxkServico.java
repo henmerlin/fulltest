@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -34,7 +35,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		tbs.setIpDslam("10.221.146.61");
 		tbs.setSlot(new BigInteger("16"));
 		tbs.setPortNumber(new BigInteger("10"));
-		tbs.setPortAddrSeq(new BigInteger("1418"));
+		tbs.setPortAddrSeq(new BigInteger("1418"));		
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
@@ -81,8 +82,8 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 				
 		//System.out.println(tabela.getProfile());		
 		
-		//TelnetUtil.debugger(retorno);
-
+		TelnetUtil.debugger(retorno);
+		
 		return tabela;
 	}
 
@@ -111,6 +112,34 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		
 		return "get vdsl-config  1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl";
 		
+	}
+
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		
+		InfoTBS tbs = new InfoTBS();
+
+		tbs.setIpDslam("10.221.146.61");
+		tbs.setSlot(new BigInteger("16"));
+		tbs.setPortNumber(new BigInteger("10"));
+		tbs.setPortAddrSeq(new BigInteger("1418"));		
+
+		this.getTelnet().setIp(tbs.getIpDslam());
+
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));
+		
+		this.getTelnet().setMode(ExecutionType.ZHONE_MXK);
+
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		
+		Bridge bridge = new Bridge();
+				
+		String endSeqPort = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
+				
+		String[] split  = endSeqPort.split("-");
+						
+		System.out.println(split);
+		//TelnetUtil.debugger(retorno);		
 	}
 
 }

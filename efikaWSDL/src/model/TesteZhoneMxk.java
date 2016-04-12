@@ -1,6 +1,8 @@
 package model;
 
 import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.Cadastro;
+import entidades.cadastro.CadastroMetalico;
 import model.banda.metalico.zhone.MxkServico;
 
 
@@ -10,10 +12,12 @@ public class TesteZhoneMxk {
 		
 		
 		try {
-			
+			Cadastro metalico = new CadastroMetalico();
 			MxkServico mxk = new MxkServico();			
-//			//TabelaParametrosMetalico tabela = mxk.consultarTabelaParametros();					
-//
+			//TabelaParametrosMetalico tabela = mxk.consultarTabelaParametros(metalico);	
+			
+			mxk.consultarBridges(metalico);
+
 //			System.out.println("Adm Status -> " + tabela.getPortaAdmStatus());
 //			System.out.println("Sinc Status -> " + tabela.getSincronismoStatus());
 //			System.out.println("Modulação -> " + tabela.getModulacao());

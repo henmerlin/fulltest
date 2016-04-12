@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,9 +48,7 @@ public class TelnetUtil {
 		return (String) string.subSequence(string.lastIndexOf("{") + 1, string.length() - 1);
 	}
 	
-	public static String tratamentoStringZhoneGpon(String string) throws Exception{
-		
-		
+	public static String tratamentoStringZhoneGpon(String string) throws Exception{	
 		
 		return "";
 	}
@@ -88,7 +87,13 @@ public class TelnetUtil {
 		
 	}
 	
-	 
+	public static String tratamentoStringBridgeShowVlan(String string1) throws Exception {
+		
+		String trat = (String) string1.subSequence(string1.lastIndexOf("/vdsl") + 17, string1.length() - 35);
+						
+		return trat;
+		
+	}
 	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		

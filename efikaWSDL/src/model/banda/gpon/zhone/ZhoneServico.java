@@ -109,6 +109,12 @@ public class ZhoneServico extends DslamGerenciavel implements BandaServicoInterf
 		
 		
 		return "onu find fsan " + sage;
+	}	
+	
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		
+		
+		
 	}
 
 }
