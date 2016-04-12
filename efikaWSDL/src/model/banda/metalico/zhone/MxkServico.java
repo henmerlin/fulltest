@@ -145,7 +145,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		bridge.setVc(split[6]);
 		bridge.setRin(rin);
 		
-		//TelnetUtil.debugger(retorno);		
+		TelnetUtil.debugger(retorno);		
 	}
 	
 	

@@ -144,7 +144,46 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 	public void consultarBridges(Cadastro cadastro) throws Exception {		
 
+		InfoTBS tbs = new InfoTBS();
+		
+		//5134703100		
+		tbs.setIpDslam("10.151.170.60");
+		tbs.setSlot(new BigInteger("12"));
+		tbs.setPortNumber(new BigInteger("3"));
+		tbs.setPortAddrSeq(new BigInteger("195"));		
 
+		this.getTelnet().setIp(tbs.getIpDslam());
+
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));
+		
+		this.getTelnet().setMode(ExecutionType.ZHONE);
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		
+		Bridge bridge = new Bridge();
+		
+		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/", 2)));
+		
+		
+		/*String rin = showVlan.substring(0, 3);
+		
+		String[] split  = showVlan.split("-");
+		
+		bridge.setSlot(split[1]);
+		bridge.setPort(split[2]);
+		bridge.setEndSeqPort(split[7]);
+		bridge.setVc(split[6]);
+		bridge.setRin(rin);
+		
+		System.out.println(" Slot - " + split[1]);
+		System.out.println(" Port - " + split[2]);
+		System.out.println(" End Seq Port - " + split[7]);
+		System.out.println(" Vc - " + split[6]);
+		System.out.println(" Rin - " + rin);*/
+		
+		System.out.println(showVlan);
+		
+		//TelnetUtil.debugger(retorno);
 
 	}
 }

@@ -12,9 +12,11 @@ public class TesteZhone {
 		
 		
 		try {
+			Cadastro metalico = new CadastroMetalico();
 			ComboServico combo = new ComboServico();			
 			//TabelaParametrosMetalico tabela = combo.consultarTabelaParametros(metalico);			
-						
+			
+			combo.consultarBridges(metalico);
 
 		/*	System.out.println(" ");
 			System.out.println("SUAD");
