@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.Telnet;
+import sun.misc.Regexp;
 import util.TelnetUtil;
 
 public class SuadServico extends KeymileServico implements BandaServicoInterface{
@@ -100,8 +102,22 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 		
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 		
+		String string = "\\ # ServicesCurrentConnected";
+		
+		String oi1 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 1)));
+		String oi2 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 2)));
+		String oi3 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 3)));
+		String oi4 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 4)));
 		
 		
+		
+		System.out.println(oi1.substring(oi1.indexOf("srvc"), oi1.length() - 1));
+		System.out.println(oi2.substring(oi2.indexOf("srvc"), oi2.length() - 1));
+		System.out.println(oi3.substring(oi3.indexOf("srvc"), oi3.length() - 1));
+		System.out.println(oi4.substring(oi4.indexOf("srvc"), oi4.length()));
+
+		
+		// TelnetUtil.debugger(retorno);
 		
 		
 	}
