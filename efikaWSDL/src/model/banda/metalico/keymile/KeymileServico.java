@@ -44,14 +44,15 @@ public class KeymileServico extends DslamMetalico{
 		tbs.setSlot(new BigInteger("16"));
 		tbs.setPortNumber(new BigInteger("12"));
 
-		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
+		this.getSocket().setAuth(BandaFactory.keymileCredencial());
 
-		this.getTelnet().setIp(tbs.getIpDslam());
+		this.getSocket().setIp(tbs.getIpDslam());
+		this.getSocket().init();
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
 
 
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
 		TabelaHistorico tabela = new TabelaHistorico();
 

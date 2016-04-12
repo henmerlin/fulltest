@@ -1,5 +1,7 @@
 package model.banda.metalico;
 
+import java.io.IOException;
+
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import model.telnet.SocketClass;
@@ -49,6 +51,11 @@ public abstract class DslamGerenciavel {
 	public void setGetInfo(GetInfoOut getInfo) {
 		this.getInfo = getInfo;
 	}
+	
+	public void disconnect() throws IOException{
+		this.getSocket().disconnect();
+	}
+	
 	
 	
 }

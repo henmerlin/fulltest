@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -27,24 +28,27 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 */
 	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
 
-		 InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
-		//InfoTBS tbs = new InfoTBS();
+		 //InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
+		InfoTBS tbs = new InfoTBS();
 
-//		tbs.setIpDslam("10.141.13.179");
-//		tbs.setSlot(new BigInteger("16"));
-//		tbs.setPortNumber(new BigInteger("12"));
+		tbs.setIpDslam("10.141.13.179");
+		tbs.setSlot(new BigInteger("16"));
+		tbs.setPortNumber(new BigInteger("12"));
 
-		this.getTelnet().setIp(tbs.getIpDslam());
-
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
+		this.getSocket().setIp(tbs.getIpDslam());
+		this.getSocket().init();
 		
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
+		
+		
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
 
@@ -120,7 +124,6 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 //		System.out.println(oi4);
 		
 		//TelnetUtil.debugger(retorno);
-		
 		
 	}
 	
