@@ -136,6 +136,12 @@ public class AlcatelServico extends DslamGerenciavel implements BandaServicoInte
 		Integer logica = 8;	
 
 		return "show equipment ont operational-data 1/1/"+ slot +"/"+ olt +"/" + logica + " xml";
+	}
+
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}	
 
 }

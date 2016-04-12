@@ -16,4 +16,10 @@ public class KeymileServico implements BandaServicoInterface{
 		return null;
 	}
 
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
