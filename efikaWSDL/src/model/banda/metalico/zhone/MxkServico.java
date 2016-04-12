@@ -118,11 +118,11 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 	public void consultarBridges(Cadastro cadastro) throws Exception {
 		
 		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.221.146.61");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("10"));
-		tbs.setPortAddrSeq(new BigInteger("1418"));		
+		//3330211625
+		tbs.setIpDslam("10.131.97.3");
+		tbs.setSlot(new BigInteger("3"));
+		tbs.setPortNumber(new BigInteger("21"));
+		tbs.setPortAddrSeq(new BigInteger("1117"));		
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
@@ -134,11 +134,19 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		
 		Bridge bridge = new Bridge();
 		
-		String endSeqPort = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
+		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
+		String rin = showVlan.substring(0, 3);
 		
-		String[] split  = endSeqPort.split("-");
+		String[] split  = showVlan.split("-");
+		
+		bridge.setSlot(split[1]);
+		bridge.setPort(split[2]);
+		bridge.setEndSeqPort(split[7]);
+		bridge.setVc(split[6]);
+		bridge.setRin(rin);
 		
 		//TelnetUtil.debugger(retorno);		
 	}
+	
 
 }

@@ -89,7 +89,7 @@ public class TelnetUtil {
 	
 	public static String tratamentoStringBridgeShowVlan(String string1) throws Exception {
 		
-		String trat = (String) string1.subSequence(string1.lastIndexOf("/vdsl") + 17, string1.length() - 35);
+		String trat = (String) string1.subSequence(string1.lastIndexOf("Tg") + 8, string1.length() - 35);
 						
 		return trat;
 		
