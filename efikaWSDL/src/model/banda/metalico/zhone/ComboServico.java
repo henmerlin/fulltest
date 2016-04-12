@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -41,10 +42,10 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
 
 		// DSLAM do Agi - 4130825270
-//		tbs.setIpDslam("10.141.228.42");
-//		tbs.setSlot(new BigInteger("8"));
-//		tbs.setPortNumber(new BigInteger("30"));
-//		tbs.setPortAddrSeq(new BigInteger("126"));
+		/*tbs.setIpDslam("10.141.228.42");
+		tbs.setSlot(new BigInteger("8"));
+		tbs.setPortNumber(new BigInteger("30"));
+		tbs.setPortAddrSeq(new BigInteger("126"));*/
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
@@ -60,11 +61,11 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		// Status Port
 		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdminStatus", 1))));
 		tabela.setSincronismoStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "LineStatus", 1))));
-		
+
 		// Velocidade Sincronizada
 		tabela.setDownload(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "DslDownLineRate", 1)))) /1000);
 		tabela.setUpload(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "DslUpLineRate", 1)))) /1000);
-		
+
 		// SNR
 		tabela.setSnrDown(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAturCurrLineSnrMgn", 1)))) /10);
 		tabela.setSnrUp(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdslAtucCurrLineSnrMgn", 1)))) /10);
@@ -75,29 +76,31 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 		// Execução dos outro comandos necessários
 		ArrayList<ComandoTelnet> comandos = new ArrayList<ComandoTelnet>();
-		
+
 		comandos.add(new ComandoTelnet(this.cmdProfileDown(tbs)));
 		comandos.add(new ComandoTelnet(this.cmdProfileUp(tbs)));
 		comandos.add(new ComandoTelnet(this.cmdModulacao(tbs)));
-		
+
 
 		this.getTelnet().setComandos(comandos);
-		
+
 		this.getTelnet().setMode(ExecutionType.ZHONE);
-		
+
 		ArrayList<String> retorno1 = (ArrayList<String>) this.getTelnet().run();
 
-		
+
 		// Profile Download e Upload
 		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "fastMaxTxRate", 1))))/1000;
 		Double profileUp =  new Double(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "fastMaxTxRate", 2))))/1000;
-		
+
 		tabela.setProfile(profileDown + " - " + profileUp);
-		
+
 		// Modulação
 		tabela.setModulacao(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "adslTransmissionMode", 1))));
 
-		//TelnetUtil.debugger(retorno);
+		TelnetUtil.debugger(retorno);		
+
+		consultarBridges(cadastro);
 
 		return tabela;
 	}
@@ -137,5 +140,11 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 */
 	public String cmdModulacao(InfoTBS tbs){
 		return "get adsl-profile 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
+	}
+
+	public void consultarBridges(Cadastro cadastro) throws Exception {		
+
+
+
 	}
 }

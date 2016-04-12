@@ -1,6 +1,8 @@
 package model;
 
 import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.Cadastro;
+import entidades.cadastro.CadastroMetalico;
 import model.banda.metalico.zhone.ComboServico;
 
 
@@ -10,9 +12,8 @@ public class TesteZhone {
 		
 		
 		try {
-			
 			ComboServico combo = new ComboServico();			
-			//TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();			
+			//TabelaParametrosMetalico tabela = combo.consultarTabelaParametros(metalico);			
 						
 
 		/*	System.out.println(" ");

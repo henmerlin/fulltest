@@ -20,6 +20,8 @@ public class ZhoneServico extends DslamGerenciavel{
 	 * 	 	estado das bridges
 	 * 		mac que comunica-se com as bridges
 	 */
+	
+	
 	public String cmdBridgesPort(InfoTBS tbs){
 		
 		BigInteger cvid = tbs.getPortAddrSeq().add(new BigInteger("100"));

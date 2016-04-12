@@ -42,7 +42,7 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 		// Status Port
 		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Administrative status", 1))));
 		tabela.setSincronismoStatus(TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "Operational status", 1))));
-				
+		
 		//TelnetUtil.debugger(retorno);
 
 		return tabela;
@@ -60,6 +60,12 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 
 		return "port show 1-" + infoTBS.getSlot() + "-" + infoTBS.getPortNumber() +"-0/eth";
 
+	}
+
+	@Override
+	public void consultarBridges(Cadastro cadastro) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 
