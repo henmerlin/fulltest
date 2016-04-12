@@ -8,6 +8,8 @@ public interface BandaServicoInterface {
 	
 	public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception;
 	
+	public void consultarBridges(Cadastro cadastro) throws Exception;
+	
 	
 
 }
