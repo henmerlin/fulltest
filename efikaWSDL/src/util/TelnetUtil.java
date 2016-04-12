@@ -95,6 +95,7 @@ public class TelnetUtil {
 		
 	}
 	
+	
 	public static Integer posicaoArrayDeSubString(ArrayList<String> array, String substring, Integer ocorrencia) throws Exception{
 		
 		int k = 1;

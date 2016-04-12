@@ -14,7 +14,7 @@ public class Bridge {
 	
 	public Bridge() {
 		
-	}
+	}	
 
 	public String getSlot() {
 		return slot;
