@@ -111,88 +111,57 @@
 				<p:tab id="banda" title="Banda">
 					<p:panel header="Configurações Banda">
 
-						<p:panelGrid columns="2" cellpadding="10">
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-5">
+									<p:panelGrid columns="2" cellpadding="10" style="margin-top: 15px;">
 
-							<f:facet name="header">
-								Informações
-							</f:facet>
+										<f:facet name="header">
+											Informações
+										</f:facet>
 
-							<h:outputText value="Designador:" />
-							<h:outputText id="designador"
-								value="#{operacionalBean.cliente.designador}" />
+										<h:outputText value="Designador:" />
+										<h:outputText id="designador"
+											value="#{operacionalBean.cliente.designador}" />
 
-							<h:outputText value="Designador de Acesso:"
-								rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
-							<h:outputText value="#{operacionalBean.cliente.designadorAcesso}"
-								rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
+										<h:outputText value="Designador de Acesso:"
+											rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
+										<h:outputText
+											value="#{operacionalBean.cliente.designadorAcesso}"
+											rendered="#{operacionalBean.cliente.cadastro.isGpon()}" />
 
-							<h:outputText value="Perfil Radius:" />
-							<h:outputText id="perfil_radius"
-								value="#{operacionalBean.cliente.cadastro.cadastro.infoRadius.radiusProfile}" />
+										<h:outputText value="Perfil Radius:" />
+										<h:outputText id="perfil_radius"
+											value="#{operacionalBean.cliente.cadastro.cadastro.infoRadius.radiusProfile}" />
 
-						</p:panelGrid>
+									</p:panelGrid>
+								</div>
+								<div class="ui-grid-col-3"></div>
+								<div class="ui-grid-col-4">
+									<p:panelGrid columns="2" cellpadding="10"
+										style="margin-top: 15px;">
 
-						<p:panelGrid columns="2" cellpadding="10"
-							style="margin-top: 15px;">
+										<f:facet name="header">
+											Porta
+										</f:facet>
+										<h:outputText value="Estado Administrativo:" />
+										<h:outputText id="port_adm"
+											value="#{operacionalBean.cliente.banda.parametros.portaAdmStatus}" />
 
-							<f:facet name="header">
-								Porta
-							</f:facet>
-							<h:outputText value="Estado Administrativo:" />
-							<h:outputText id="port_adm"
-								value="#{operacionalBean.cliente.banda.parametros.portaAdmStatus}" />
+										<h:outputText value="Estado Operacional:" />
+										<h:outputText id="port_fis"
+											value="#{operacionalBean.cliente.banda.parametros.sincronismoStatus}" />
 
-							<h:outputText value="Estado Operacional:" />
-							<h:outputText id="port_fis"
-								value="#{operacionalBean.cliente.banda.parametros.sincronismoStatus}" />
-
-							<h:outputText value="Profile:" />
-							<h:outputText id="port_profile"
-								value="#{operacionalBean.cliente.banda.parametros.profile}" />
-						</p:panelGrid>
-
-
-							<p:dataTable var="team" value="#{dtSubTableView.teams}" style="margin-top: 15px;">
-								<f:facet name="header">
-						            NBA Teams
-						        </f:facet>
-
-								<p:columnGroup type="header">
-									<p:row>
-										<p:column rowspan="2" headerText="Team" />
-										<p:column colspan="2" headerText="Stats" />
-									</p:row>
-									<p:row>
-										<p:column headerText="Wins" />
-										<p:column headerText="Losses" />
-									</p:row>
-								</p:columnGroup>
-
-								<p:subTable var="stats" value="#{team.stats}">
-									<f:facet name="header">
-										<h:outputText value="#{team.name}" />
-									</f:facet>
-									<p:column>
-										<h:outputText value="#{stats.season}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{stats.win}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{stats.loss}" />
-									</p:column>
-									<p:columnGroup type="footer">
-										<p:row>
-											<p:column footerText="Totals: " style="text-align:right" />
-											<p:column footerText="#{team.allWins}" />
-											<p:column footerText="#{team.allLosses}" />
-										</p:row>
-									</p:columnGroup>
-								</p:subTable>
-							</p:dataTable>
-
-
-
+										<h:outputText value="Profile:" />
+										<h:outputText id="port_profile"
+											value="#{operacionalBean.cliente.banda.parametros.profile}" />
+									</p:panelGrid>
+								</div>
+							</div>
+						</div>
+						
+						
+						
 
 					</p:panel>
 				</p:tab>

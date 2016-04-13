@@ -6,10 +6,6 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaHistorico;
 import entidades.banda.parametros.TabelaParametrosInter;
-import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.cadastro.Cadastro;
-import entidades.cadastro.CadastroMetalico;
-import model.banda.metalico.keymile.SuadServico;
 import model.banda.metalico.keymile.SuvdServico;
 
 public class Teste {
@@ -22,7 +18,6 @@ public class Teste {
 		try {
 			
 			SuvdServico suvd = new SuvdServico();	
-			Cadastro cadastro = new CadastroMetalico();
 			GetInfoOut get = new GetInfoOut();
 			
 			InfoTBS tbs = new InfoTBS();
@@ -35,7 +30,7 @@ public class Teste {
 			
 			suvd.connect();
 			
-			TabelaParametrosInter oi = suvd.consultarTabelaParametros(cadastro);
+			TabelaParametrosInter oi = suvd.consultarTabelaParametros();
 			TabelaHistorico tabela = suvd.consultarTabelaHistorico();
 			
 			System.out.println(tabela.getDias().get(0).getPcktsDown());

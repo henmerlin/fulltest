@@ -52,10 +52,14 @@ public class OperacionalServico implements OperacionalInterface{
 		
 		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
 		this.servicoBandaEsp.setGetInfo(cliente.getCadastro().getCadastro());
+		this.servicoBandaEsp.connect();
 		
 		TabelaParametrosInter tabela = this.servicoBandaEsp.consultarTabelaParametros();
 		tabela.listarParametros();
 		cliente.getBanda().setParametros(tabela);
+		
+		this.servicoBandaEsp.disconnect();
+
 		
 		// Sets nos erros de configuração encontrados
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
