@@ -2,6 +2,7 @@ package model.banda.metalico.keymile;
 
 import java.util.ArrayList;
 
+import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.banda.parametros.TabelaParametrosMetalicoVdsl;
@@ -123,9 +124,9 @@ public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws
 	}
 
 	@Override
-	public void consultarBridges(Cadastro cadastro) throws Exception {
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
-	
+
 }

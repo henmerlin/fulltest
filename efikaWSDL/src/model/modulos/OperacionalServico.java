@@ -50,7 +50,8 @@ public class OperacionalServico implements OperacionalInterface{
 		// Consulta Configurações Linha
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 		
-		// Consulta Configurações Banda
+		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
+		this.servicoBandaEsp.setGetInfo(cliente.getCadastro().getCadastro());
 		
 		TabelaParametrosInter tabela = this.servicoBandaEsp.consultarTabelaParametros(cliente.getCadastro());
 		tabela.listarParametros();

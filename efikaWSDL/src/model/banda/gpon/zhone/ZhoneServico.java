@@ -2,6 +2,7 @@ package model.banda.gpon.zhone;
 
 import java.util.ArrayList;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosGpon;
 import entidades.cadastro.Cadastro;
 import entidades.cadastro.CadastroGpon;
@@ -111,10 +112,11 @@ public class ZhoneServico extends DslamGerenciavel implements BandaServicoInterf
 		return "onu find fsan " + sage;
 	}	
 	
-	public void consultarBridges(Cadastro cadastro) throws Exception {
-		
-		
-		
+
+	@Override
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

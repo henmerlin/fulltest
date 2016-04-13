@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
+import entidades.banda.metalico.keymile.Suad;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -71,7 +73,11 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 
 	
 	@Override
-	public void consultarBridges(Cadastro cadastro) throws Exception {
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
+		
+		
+		Suad suad = (Suad) banda;
+		
 
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(1)));
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(2)));
@@ -92,6 +98,7 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 		System.out.println(oi2.substring(oi2.indexOf("srvc"), oi2.length() - 1));
 		System.out.println(oi3.substring(oi3.indexOf("srvc"), oi3.length() - 1));
 		System.out.println(oi4.substring(oi4.indexOf("srvc"), oi4.length()));
+		
 //		System.out.println(oi1);
 //		System.out.println(oi2);
 //		System.out.println(oi3);
@@ -99,6 +106,7 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 		
 		//TelnetUtil.debugger(retorno);
 		
+		return suad;
 	}
 	
 	public String cmdSnrMargin(){

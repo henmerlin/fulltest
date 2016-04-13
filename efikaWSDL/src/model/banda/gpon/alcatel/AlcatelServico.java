@@ -3,6 +3,7 @@ package model.banda.gpon.alcatel;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosGpon;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -139,9 +140,10 @@ public class AlcatelServico extends DslamGerenciavel implements BandaServicoInte
 	}
 
 	@Override
-	public void consultarBridges(Cadastro cadastro) throws Exception {
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
 		// TODO Auto-generated method stub
-		
-	}	
+		return null;
+	}
+
 
 }
