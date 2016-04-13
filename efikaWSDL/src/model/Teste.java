@@ -1,30 +1,47 @@
 package model;
 
+import java.math.BigInteger;
+
+import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaHistorico;
+import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import entidades.cadastro.CadastroMetalico;
 import model.banda.metalico.keymile.SuadServico;
+import model.banda.metalico.keymile.SuvdServico;
 
 public class Teste {
 
 	public static void main(String[] args) throws Exception {
 		
 		
-		SuadServico suad = new SuadServico();	
+		
 		
 		try {
 			
+			SuvdServico suvd = new SuvdServico();	
 			Cadastro cadastro = new CadastroMetalico();
+			GetInfoOut get = new GetInfoOut();
 			
-			TabelaParametrosMetalico oi = suad.consultarTabelaParametros(cadastro);
+			InfoTBS tbs = new InfoTBS();
+			tbs.setIpDslam("10.141.249.209");
+			tbs.setSlot(new BigInteger("7"));
+			tbs.setPortNumber(new BigInteger("26"));
 			
-			TabelaHistorico tabela = suad.consultarTabelaHistorico();
+			get.setInfoTBS(tbs);
+			suvd.setGetInfo(get);
+			
+			suvd.connect();
+			
+			TabelaParametrosInter oi = suvd.consultarTabelaParametros(cadastro);
+			TabelaHistorico tabela = suvd.consultarTabelaHistorico();
 			
 			System.out.println(tabela.getDias().get(0).getPcktsDown());
 			System.out.println(oi.getPortaAdmStatus());
 			
-			suad.disconnect();
+			suvd.disconnect();
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

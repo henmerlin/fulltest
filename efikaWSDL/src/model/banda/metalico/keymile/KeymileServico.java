@@ -37,19 +37,7 @@ public class KeymileServico extends DslamMetalico{
 	 */
 	public TabelaHistorico consultarTabelaHistorico() throws Exception {
 
-		// InfoTBS tbs = cadastro.getInfoTBS();
-		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.141.13.179");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("12"));
-
-		this.getSocket().setAuth(BandaFactory.keymileCredencial());
-
-		this.getSocket().setIp(tbs.getIpDslam());
-		this.getSocket().init();
-
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdHistoryTable(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdHistoryTable()));
 
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
@@ -104,9 +92,9 @@ public class KeymileServico extends DslamMetalico{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdAdminStatus(InfoTBS tbs){
+	public String cmdAdminStatus(){
 
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/administrativestatus";
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/main/administrativestatus";
 	}
 
 	/**
@@ -114,9 +102,9 @@ public class KeymileServico extends DslamMetalico{
 	 * @param tbs
 	 * @return String
 	 */
-	public String cmdOperStatus(InfoTBS tbs){
+	public String cmdOperStatus(){
 
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/main/operationalstatus";
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/main/operationalstatus";
 	}
 
 	/**
@@ -124,8 +112,8 @@ public class KeymileServico extends DslamMetalico{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdChanStatus(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/status/status";
+	public String cmdChanStatus(){
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/chan-1/status/status";
 	}
 
 	/**
@@ -143,18 +131,18 @@ public class KeymileServico extends DslamMetalico{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdLsChanVccs(InfoTBS tbs){
+	public String cmdLsChanVccs(){
 
-		return "ls /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/";
+		return "ls /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/chan-1/";
 	}
 
 
 	/*
 	 * Retorna srvcs das vccs do canal 	
 	 */
-	public String srvcs(InfoTBS tbs, String vcc){
+	public String srvcs(Integer vcc){
 
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/" + vcc + "/status/servicestatus";
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/chan-1/" + vcc + "/status/servicestatus";
 	}
 
 	/**
@@ -162,22 +150,22 @@ public class KeymileServico extends DslamMetalico{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdHistoryTable(InfoTBS tbs){		
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/history24htable";
+	public String cmdHistoryTable(){		
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/pm/history24htable";
 	}
 	/*
 	 * Retorna tabela atual da porta (crc, fec...) 	
 	 */
-	public String cmdCurrentTable(InfoTBS tbs){
+	public String cmdCurrentTable(){
 
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercountertable";
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/pm/usercountertable";
 	}
 	/*
 	 * Reseta tabela atual da porta (crc, fec...) 	
 	 */
-	public String cmdResetcurrentTable(InfoTBS tbs){
+	public String cmdResetcurrentTable(){
 
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/pm/usercounterreset";
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/pm/usercounterreset";
 	}
 
 	/*

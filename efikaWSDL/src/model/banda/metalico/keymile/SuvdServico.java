@@ -1,15 +1,12 @@
 package model.banda.metalico.keymile;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
-import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.banda.parametros.TabelaParametrosMetalicoVdsl;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
-import model.factory.BandaFactory;
 import model.telnet.ComandoTelnet;
 import util.TelnetUtil;
 
@@ -21,29 +18,14 @@ public class SuvdServico extends KeymileServico implements BandaServicoInterface
 
 public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception {
 		
-		InfoTBS tbs = new InfoTBS();
-
-//		tbs.setIpDslam("10.185.129.46");
-//		tbs.setSlot(new BigInteger("9"));
-//		tbs.setPortNumber(new BigInteger("18"));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBandStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanProfile()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortProfile()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAdminStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdOperStatus()));
 		
-		tbs.setIpDslam("10.185.9.211");
-		tbs.setSlot(new BigInteger("15"));
-		tbs.setPortNumber(new BigInteger("4"));
-		
-
-		this.getTelnet().setAuth(BandaFactory.keymileCredencial());
-
-		this.getTelnet().setIp(tbs.getIpDslam());
-
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBandStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
-
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 		
 		if(TelnetUtil.contarOcorrenciaStringArray(retorno, "CurrAttenuation") == 6){
 					
@@ -80,8 +62,6 @@ public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws
 		
 			// AdministrativeStatus
 			tabela.setSincronismoStatus(new String(TelnetUtil.tratamentoStringKeymile("\\ # State", retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "State", 2)))));
-			
-			
 			
 			//System.out.println(lele);
 			//TelnetUtil.debugger(retorno);
@@ -124,22 +104,22 @@ public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdBandStatus(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/bandstatus";
+	public String cmdBandStatus(){
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/status/bandstatus";
 	}
 	
 	/*
 	 * Retorna o perfil do canal (profile) 	
 	 */
-	public String cmdChanProfile(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/chanprofile";
+	public String cmdChanProfile(){
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/chan-1/cfgm/chanprofile";
 	}
 	
 	/*
 	 * Retorna o perfil da porta (modulação) 	
 	 */
-	public String cmdPortProfile(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofiles";
+	public String cmdPortProfile(){
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/cfgm/portprofiles";
 	}
 
 	@Override

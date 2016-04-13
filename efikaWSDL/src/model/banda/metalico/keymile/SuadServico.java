@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
-import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -27,26 +26,14 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 * @throws Exception 
 	 */
 	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
-
-		 //InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
-		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.141.13.179");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("12"));
-
-		this.getSocket().setIp(tbs.getIpDslam());
-		this.getSocket().init();
 		
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSnrMargin(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAttenuation(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanProfile(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortProfile(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAdminStatus(tbs)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdOperStatus(tbs)));
-		
-		
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSnrMargin()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAttenuation()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanProfile()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortProfile()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdAdminStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdOperStatus()));		
 		
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
@@ -85,24 +72,11 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	
 	@Override
 	public void consultarBridges(Cadastro cadastro) throws Exception {
-		
-		
-		//InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
-		
-		InfoTBS tbs = new InfoTBS();
 
-		tbs.setIpDslam("10.141.13.179");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("12"));
-		
-		this.getSocket().setIp(tbs.getIpDslam());
-		this.getSocket().init();
-		
-
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 1)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 2)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 3)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(tbs, 4)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(1)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(2)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(3)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(4)));
 		
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 		
@@ -127,12 +101,12 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 		
 	}
 	
-	public String cmdSnrMargin(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/snrmargin";
+	public String cmdSnrMargin(){
+		return "get /unit-" + this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/status/snrmargin";
 	}
 
-	public String cmdAttenuation(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/status/attenuation";
+	public String cmdAttenuation(){
+		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/status/attenuation";
 	}	
 
 	/**
@@ -140,12 +114,12 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 * @param tbs
 	 * @return String 
 	 */
-	public String cmdChanProfile(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/cfgm/profilename";
+	public String cmdChanProfile(){
+		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/chan-1/cfgm/profilename";
 	}
 	
-	public String cmdPortProfile(InfoTBS tbs){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/cfgm/portprofile";
+	public String cmdPortProfile(){
+		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/cfgm/portprofile";
 	}
 	
 	/**
@@ -154,7 +128,7 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 * @param nrBridge
 	 * @return
 	 */
-	public String cmdVccConfig(InfoTBS tbs, Integer seqVcc){
-		return "get /unit-" + tbs.getSlot() + "/port-" + tbs.getPortNumber() + "/chan-1/vcc-" + seqVcc + "/status/servicestatus";
+	public String cmdVccConfig(Integer vcc){
+		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/chan-1/vcc-" + vcc + "/status/servicestatus";
 	}
 }

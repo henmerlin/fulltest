@@ -56,6 +56,9 @@ public abstract class DslamGerenciavel {
 		this.getSocket().disconnect();
 	}
 	
-	
+	public void connect() throws Exception{
+		this.getSocket().setIp(this.getTbs().getIpDslam());
+		this.getSocket().init();
+	}	
 	
 }
