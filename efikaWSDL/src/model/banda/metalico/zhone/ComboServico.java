@@ -146,21 +146,23 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 		InfoTBS tbs = new InfoTBS();
 		
-		//5134703100		
-		tbs.setIpDslam("10.151.170.60");
-		tbs.setSlot(new BigInteger("12"));
-		tbs.setPortNumber(new BigInteger("3"));
-		tbs.setPortAddrSeq(new BigInteger("195"));		
-
-		this.getTelnet().setIp(tbs.getIpDslam());
-
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));
+		//5532219304		
+		tbs.setIpDslam("10.151.180.31");
+		tbs.setSlot(new BigInteger("10"));
+		tbs.setPortNumber(new BigInteger("42"));
+		tbs.setPortAddrSeq(new BigInteger("186"));
 		
-		this.getTelnet().setMode(ExecutionType.ZHONE);
+		this.getSocket().setIp(tbs.getIpDslam());
 		
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		this.getSocket().setMode(ExecutionType.ZHONE);
 		
-		Bridge bridge = new Bridge();
+		this.getSocket().init();	
+		
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));		
+				
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
+		
+		/*Bridge bridge = new Bridge();
 		
 		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
 	
@@ -168,15 +170,15 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		String endSeqPort = showVlan.substring(20, 23);	
 		
 		String[] split  = showVlan.split("-");
-		
+				
 		bridge.setSlot(split[1]);
 		bridge.setPort(split[2]);
 		bridge.setEndSeqPort(endSeqPort);
 		String vc = split[6].substring(0, 2);
 		bridge.setVcAutenticacao(vc);
-		bridge.setRin(rin);
+		bridge.setRin(rin);*/
 		
-		//TelnetUtil.debugger(retorno);
+		TelnetUtil.debugger(retorno);
 
 	}
 }

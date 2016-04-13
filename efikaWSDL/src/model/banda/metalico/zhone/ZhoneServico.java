@@ -11,8 +11,8 @@ import model.telnet.ExecutionType;
 public class ZhoneServico extends DslamGerenciavel{
 
 	public ZhoneServico() {
-		this.getTelnet().setMode(ExecutionType.ZHONE);
-		this.getTelnet().setAuth(BandaFactory.zhoneCredencial());
+		this.getSocket().setMode(ExecutionType.ZHONE);
+		this.getSocket().setAuth(BandaFactory.zhoneCredencial());
 	}
 	/*
 	 * Retorna:
