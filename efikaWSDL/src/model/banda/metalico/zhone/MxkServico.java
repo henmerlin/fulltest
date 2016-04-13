@@ -126,7 +126,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 		this.getTelnet().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdBridgesPort()));
 		
 		this.getTelnet().setMode(ExecutionType.ZHONE_MXK);
 		
@@ -137,7 +137,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
 		String rin = showVlan.substring(0, 3);
 		
-		String[] split  = showVlan.split("-");
+		/*String[] split  = showVlan.split("-");
 		
 		bridge.setSlot(split[1]);
 		bridge.setPort(split[2]);

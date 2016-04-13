@@ -22,9 +22,9 @@ public class ZhoneServico extends DslamGerenciavel{
 	 */
 	
 	
-	public String cmdBridgesPort(InfoTBS tbs){
+	public String cmdBridgesPort(){
 		
-		BigInteger cvid = tbs.getPortAddrSeq().add(new BigInteger("100"));
+		BigInteger cvid = this.getTbs().getPortAddrSeq().add(new BigInteger("100"));
 		
 		return "bridge show vlan " + cvid;
 	}

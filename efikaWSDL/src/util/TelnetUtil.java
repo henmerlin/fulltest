@@ -119,6 +119,20 @@ public class TelnetUtil {
 		throw new Exception("Falha ao tratar resposta do DSLAM.");
 	}
 
+	public static Integer contagemDeBridges(ArrayList<String> array) {
+
+		Integer contagem = 1;
+
+		for (int i = 0; i < array.size(); i++) {
+			if(array.get(i).contains("dwn")) {				
+				contagem++;				
+			}
+		}
+
+		return contagem;
+
+	}
+
 	public static void debugger(ArrayList<String> retorno){
 
 		for (int i = 0; i < retorno.size(); i++) {

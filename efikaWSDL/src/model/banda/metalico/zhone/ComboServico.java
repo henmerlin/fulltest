@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
+import entidades.banda.metalico.zhone.Combo;
+import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -131,49 +133,87 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		return "get adsl-profile 1/" + this.getTbs().getSlot() + "/" +this.getTbs().getPortNumber();
 	}
 
-	public void consultarBridges(Cadastro cadastro) throws Exception {		
-
-		InfoTBS tbs = new InfoTBS();
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
 		
-		//5532219304		
-		tbs.setIpDslam("10.151.180.31");
-		tbs.setSlot(new BigInteger("10"));
-		tbs.setPortNumber(new BigInteger("42"));
-		tbs.setPortAddrSeq(new BigInteger("186"));
-		
-		this.getSocket().setIp(tbs.getIpDslam());
+		Combo combo = (Combo) banda;
 		
 		this.getSocket().setMode(ExecutionType.ZHONE);
-		
-		this.getSocket().init();	
-		
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBridgesPort(tbs)));		
-				
+
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBridgesPort()));		
+
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 		
-		/*Bridge bridge = new Bridge();
-		
-		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
-	
-		String rin = showVlan.substring(24, 27);
-		String endSeqPort = showVlan.substring(20, 23);	
-		
-		String[] split  = showVlan.split("-");
+		Integer contagem = TelnetUtil.contagemDeBridges(retorno);
 				
-		bridge.setSlot(split[1]);
-		bridge.setPort(split[2]);
-		bridge.setEndSeqPort(endSeqPort);
-		String vc = split[6].substring(0, 2);
-		bridge.setVcAutenticacao(vc);
-		bridge.setRin(rin);*/
+		String showVlan = null;
 		
-		TelnetUtil.debugger(retorno);
-
-	}
-
-	@Override
-	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
-		// TODO Auto-generated method stub
+		for (int i = 1; i < contagem; i++) {
+			
+			showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", i)));			
+			
+			String[] split  = showVlan.split("-");	
+			
+			if (split[6].substring(0, 2).equalsIgnoreCase("35")) {
+				
+				Bridge autenticacao = new Bridge();
+				
+				autenticacao.setSlot(split[1]);
+				autenticacao.setPort(split[2]);
+				autenticacao.setRin(showVlan.substring(24, 27));
+				autenticacao.setEndSeqPort(showVlan.substring(20, 23));
+				autenticacao.setVc("35");
+								
+				combo.setAutenticacao(autenticacao);
+				
+				System.out.println(combo.getAutenticacao().getVc());
+				
+			}else if (split[6].substring(0, 2).equalsIgnoreCase("36")) {
+				
+				Bridge voip = new Bridge();
+				
+				voip.setSlot(split[1]);
+				voip.setPort(split[2]);
+				voip.setRin(showVlan.substring(24, 27));
+				voip.setEndSeqPort(showVlan.substring(20, 23));
+				voip.setVc("36");
+				
+				combo.setVoip(voip);
+				
+				System.out.println(combo.getVoip().getVc());
+				
+			}else if (split[6].substring(0, 2).equalsIgnoreCase("37")) {
+				
+				Bridge pvc = new Bridge();
+				
+				pvc.setSlot(split[1]);
+				pvc.setPort(split[2]);
+				pvc.setRin(showVlan.substring(24, 27));
+				pvc.setEndSeqPort(showVlan.substring(20, 23));
+				pvc.setVc("37");
+				
+				combo.setTv(pvc);
+				
+				System.out.println(combo.getTv().getVc());
+				
+			}else if (split[6].substring(0, 2).equalsIgnoreCase("38")) {
+				
+				Bridge multicast = new Bridge();
+				
+				multicast.setSlot(split[1]);
+				multicast.setPort(split[2]);
+				multicast.setRin(showVlan.substring(24, 27));
+				multicast.setEndSeqPort(showVlan.substring(20, 23));
+				multicast.setVc("38");
+				
+				combo.setMulticast(multicast);
+				
+				System.out.println(combo.getMulticast().getVc());
+				
+			}			
+		}
+		
+		//TelnetUtil.debugger(retorno);
+		
 		return null;
 	}
 }
