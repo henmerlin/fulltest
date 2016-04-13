@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
 import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
@@ -114,7 +115,6 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		
 	}
 
-	@Override
 	public void consultarBridges(Cadastro cadastro) throws Exception {
 		
 		InfoTBS tbs = new InfoTBS();
@@ -156,6 +156,12 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		
 		
 		TelnetUtil.debugger(retorno);		
+	}
+
+	@Override
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

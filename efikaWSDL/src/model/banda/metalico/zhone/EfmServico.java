@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
@@ -62,10 +63,11 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 
 	}
 
+
 	@Override
-	public void consultarBridges(Cadastro cadastro) throws Exception {
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 
