@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
-import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
@@ -38,19 +37,10 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @return
 	 * @throws Exception
 	 */
-	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
-
-		InfoTBS tbs = cadastro.getCadastro().getInfoTBS();
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 
 		// DSLAM do Agi - 4130825270
-		/*tbs.setIpDslam("10.141.228.42");
-		tbs.setSlot(new BigInteger("8"));
-		tbs.setPortNumber(new BigInteger("30"));
-		tbs.setPortAddrSeq(new BigInteger("126"));*/
-
-		this.getTelnet().setIp(tbs.getIpDslam());
-
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus(tbs)));
+		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus()));
 		this.getTelnet().getComandos().add(new ComandoTelnet("A"));
 
 		this.getTelnet().setMode(ExecutionType.ZHONE_SLOW);
@@ -78,9 +68,9 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		// Execução dos outro comandos necessários
 		ArrayList<ComandoTelnet> comandos = new ArrayList<ComandoTelnet>();
 
-		comandos.add(new ComandoTelnet(this.cmdProfileDown(tbs)));
-		comandos.add(new ComandoTelnet(this.cmdProfileUp(tbs)));
-		comandos.add(new ComandoTelnet(this.cmdModulacao(tbs)));
+		comandos.add(new ComandoTelnet(this.cmdProfileDown()));
+		comandos.add(new ComandoTelnet(this.cmdProfileUp()));
+		comandos.add(new ComandoTelnet(this.cmdModulacao()));
 
 
 		this.getTelnet().setComandos(comandos);
@@ -101,8 +91,6 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 		TelnetUtil.debugger(retorno);		
 
-		consultarBridges(cadastro);
-
 		return tabela;
 	}
 
@@ -111,8 +99,8 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdPortStatus(InfoTBS tbs){
-		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/adsl -v";
+	public String cmdPortStatus(){
+		return "dslstat 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/adsl -v";
 	}
 
 
@@ -121,8 +109,8 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdProfileDown(InfoTBS tbs){	
-		return  "get adsl-co-profile 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
+	public String cmdProfileDown(){	
+		return  "get adsl-co-profile 1/" + this.getTbs().getSlot() + "/" +this.getTbs().getPortNumber();
 	}
 
 	/**
@@ -130,8 +118,8 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @param cadastro
 	 * @return
 	 */
-	public String cmdProfileUp(InfoTBS tbs){		
-		return "get adsl-cpe-profile 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
+	public String cmdProfileUp(){		
+		return "get adsl-cpe-profile 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber();
 	}
 
 	/**
@@ -139,8 +127,8 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @param tbs
 	 * @return
 	 */
-	public String cmdModulacao(InfoTBS tbs){
-		return "get adsl-profile 1/" + tbs.getSlot() + "/" +tbs.getPortNumber();
+	public String cmdModulacao(){
+		return "get adsl-profile 1/" + this.getTbs().getSlot() + "/" +this.getTbs().getPortNumber();
 	}
 
 	public void consultarBridges(Cadastro cadastro) throws Exception {		

@@ -21,7 +21,7 @@ public class AlcatelServico extends DslamGerenciavel implements BandaServicoInte
 		this.getTelnet().setAuth(BandaFactory.alcatelCredencial());
 	}
 
-	public TabelaParametrosGpon consultarTabelaParametros(Cadastro cadastro) throws Exception {
+	public TabelaParametrosGpon consultarTabelaParametros() throws Exception {
 
 		/*Cadastro cadastro = new CadastroGpon();
 

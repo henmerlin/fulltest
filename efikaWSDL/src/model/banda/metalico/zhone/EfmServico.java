@@ -20,7 +20,7 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 	}
 
 	@Override
-	public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception {
+	public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 
 		InfoTBS tbs = new InfoTBS();
 

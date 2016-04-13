@@ -29,7 +29,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 	 * 		crc (up ou down ou a media dos dois, desconhecido)
 	 */
 
-	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 
 		InfoTBS tbs = new InfoTBS();
 

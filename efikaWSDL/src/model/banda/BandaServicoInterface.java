@@ -15,7 +15,7 @@ public interface BandaServicoInterface {
 	
 	public void connect() throws Exception;
 	
-	public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception;
+	public TabelaParametrosInter consultarTabelaParametros() throws Exception;
 	
 	public BandaInterface consultarBridges(BandaInterface banda) throws Exception;
 	

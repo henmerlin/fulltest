@@ -17,7 +17,7 @@ public class SuvdServico extends KeymileServico implements BandaServicoInterface
 		
 	}
 
-public TabelaParametrosInter consultarTabelaParametros(Cadastro cadastro) throws Exception {
+public TabelaParametrosInter consultarTabelaParametros() throws Exception {
 		
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus()));
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBandStatus()));

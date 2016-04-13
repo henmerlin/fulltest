@@ -27,7 +27,7 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	 * @return
 	 * @throws Exception 
 	 */
-	public TabelaParametrosMetalico consultarTabelaParametros(Cadastro cadastro) throws Exception{
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 		
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdChanStatus()));
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSnrMargin()));

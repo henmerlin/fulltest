@@ -20,7 +20,7 @@ public class ZhoneServico extends DslamGerenciavel implements BandaServicoInterf
 		this.getTelnet().setAuth(BandaFactory.zhoneCredencial());
 	}
 	
-	public TabelaParametrosGpon consultarTabelaParametros(Cadastro cadastro) throws Exception {
+	public TabelaParametrosGpon consultarTabelaParametros() throws Exception {
 
 //		Cadastro cadastro = new CadastroGpon();
 //		
