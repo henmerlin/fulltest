@@ -1,10 +1,8 @@
 package model.modulos;
 
-import entidades.cadastro.CadastroGpon;
 import entidades.cliente.Cliente;
 import model.banda.BandaServico;
 import model.banda.BandaServicoInterface;
-import model.banda.metalico.DslamGpon;
 import model.cliente.ClienteServico;
 import model.factory.BandaFactory;
 import model.factory.LinhaFactory;
@@ -52,21 +50,15 @@ public class OperacionalServico implements OperacionalInterface{
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 
 		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
-		this.servicoBandaEsp.setGetInfo(cliente.getCadastro().getCadastro());
-		
-		if (cliente.getCadastro() instanceof CadastroGpon) {
-			System.out.println("oi");
-			CadastroGpon cadastro = (CadastroGpon) cliente.getCadastro();			
-			((DslamGpon)this.servicoBandaEsp).setAcessInfo(cadastro.getCadastroGpon());
-		}
-
+		this.servicoBandaEsp.setCadastro(cliente.getCadastro());
+			
 		//this.servicoBandaEsp;
 		this.servicoBandaEsp.connect();
 		
+		//
 		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
 
 		this.servicoBandaEsp.disconnect();
-
 
 		// Sets nos erros de configuração encontrados
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));

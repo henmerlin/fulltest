@@ -2,15 +2,14 @@ package model.banda;
 
 import java.io.IOException;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.cadastro.Cadastro;
 
 public interface BandaServicoInterface {
 	
-	public void setGetInfo(GetInfoOut getInfo);
-	
+	public void setCadastro(Cadastro cadastro);
+		
 	public void disconnect() throws IOException;
 	
 	public void connect() throws Exception;

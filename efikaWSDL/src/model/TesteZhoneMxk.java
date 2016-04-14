@@ -31,7 +31,7 @@ public class TesteZhoneMxk {
 			tbs.setPortAddrSeq(new BigInteger("1292"));
 
 			get.setInfoTBS(tbs);
-			mxk.setGetInfo(get);
+			//mxk.setGetInfo(get);
 
 			mxk.connect();
 

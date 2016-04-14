@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
+import entidades.cadastro.Cadastro;
 import model.telnet.SocketClass;
 import model.telnet.Telnet;
 
@@ -13,7 +14,7 @@ public abstract class DslamGerenciavel {
 	
 	private SocketClass socket;
 	
-	private GetInfoOut getInfo;
+	private Cadastro cadastro;
 	
 	@SuppressWarnings("unused")
 	private InfoTBS tbs;
@@ -41,15 +42,11 @@ public abstract class DslamGerenciavel {
 	}
 	
 	public InfoTBS getTbs() {
-		return this.getInfo.getInfoTBS();
+		return this.getCadastro().getCadastro().getInfoTBS();
 	}
 
 	public GetInfoOut getGetInfo() {
-		return getInfo;
-	}
-
-	public void setGetInfo(GetInfoOut getInfo) {
-		this.getInfo = getInfo;
+		return this.getCadastro().getCadastro();
 	}
 	
 	public void disconnect() throws IOException{
@@ -59,6 +56,14 @@ public abstract class DslamGerenciavel {
 	public void connect() throws Exception{
 		this.getSocket().setIp(this.getTbs().getIpDslam());
 		this.getSocket().init();
+	}
+
+	public Cadastro getCadastro() {
+		return cadastro;
+	}
+
+	public void setCadastro(Cadastro cadastro) {
+		this.cadastro = cadastro;
 	}	
 	
 }

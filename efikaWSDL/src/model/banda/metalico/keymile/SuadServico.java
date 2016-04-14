@@ -3,6 +3,7 @@ package model.banda.metalico.keymile;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
 import entidades.banda.metalico.keymile.Suad;
@@ -139,4 +140,5 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	public String cmdVccConfig(Integer vcc){
 		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/chan-1/vcc-" + vcc + "/status/servicestatus";
 	}
+
 }

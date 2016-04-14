@@ -25,7 +25,7 @@ public class TesteZhone {
 			tbs.setPortAddrSeq(new BigInteger("186"));
 			
 			get.setInfoTBS(tbs);
-			combo.setGetInfo(get);
+			//combo.setGetInfo(get);
 			
 			combo.connect();
 			

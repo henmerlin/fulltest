@@ -1,6 +1,5 @@
 package util;
 
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,11 +72,11 @@ public class TelnetUtil {
 	 * @return
 	 * @throws Exception
 	 * */	
-	public static String tratamentoStringAlcatel2(String string) throws Exception {
+	public static String tratamentoStringAlcatel2(String string, String substring) throws Exception {
 
-		String trat = (String) string.subSequence(string.lastIndexOf("e\">") +3, string.length() - 7);
+		String trat = (String) string.subSequence(string.lastIndexOf(substring) + substring.length(), string.length() - 7);
 
-		if (trat.equals("no")){
+		if (trat.trim().equalsIgnoreCase("no")){
 			trat = "UP";
 		}else{
 			trat = "DOWN";

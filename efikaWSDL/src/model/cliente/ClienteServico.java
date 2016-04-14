@@ -83,12 +83,8 @@ public class ClienteServico implements OperacionalInterface{
 
 		// Bloco especifico para GPON (consulta de Infos de OLT/ONT/Porta Lógica
 		if (preCad instanceof CadastroGpon) {
-			
-			System.out.println("Cadastro GPON");
-			
 			CadastroGpon cadastro = (CadastroGpon) preCad;
 			cadastro.setCadastroGpon(this.getAccessInfo(cliente));			
-
 			return cadastro;
 		}
 
