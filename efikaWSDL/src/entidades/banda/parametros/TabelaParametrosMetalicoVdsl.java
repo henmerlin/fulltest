@@ -85,10 +85,5 @@ public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico imple
 		this.atnDown3 = atnDown3;
 	}
 	
-	@Override
-	public TabelaParametrosMetalicoVdsl getTabelaMetalicoVdsl() {
-		// TODO Auto-generated method stub
-		return this;
-	}	
 	
 }

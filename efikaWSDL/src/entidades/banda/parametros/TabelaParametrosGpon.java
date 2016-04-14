@@ -36,21 +36,4 @@ public class TabelaParametrosGpon extends TabelaParametros implements TabelaPara
 		this.getParametros().add(new Parametro("Potência OLT", this.potenciaOLT.toString()));
 		
 	}
-
-	@Override
-	public TabelaParametrosMetalico getTabelaMetalico() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TabelaParametrosMetalicoVdsl getTabelaMetalicoVdsl() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TabelaParametrosGpon getTabelaParametrosGpon() {
-		return this;
-	}
 }

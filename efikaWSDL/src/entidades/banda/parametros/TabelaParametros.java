@@ -55,8 +55,4 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 		return this.parametros.get(index);
 	}
 	
-	@Override
-	public String getName() {
-		return this.getClass().getSimpleName();
-	}
 }

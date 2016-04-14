@@ -14,13 +14,4 @@ public interface TabelaParametrosInter {
 	
 	public String getProfile();
 	
-	public TabelaParametrosMetalico getTabelaMetalico();
-	
-	public TabelaParametrosMetalicoVdsl getTabelaMetalicoVdsl();
-	
-	public TabelaParametrosGpon getTabelaParametrosGpon();
-	
-	public String getName();
-
-	
 }
