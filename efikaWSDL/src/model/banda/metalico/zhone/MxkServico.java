@@ -117,6 +117,85 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 	}
 
+	/**
+	 * Comando de cria bridge 
+	 * @param tbs
+	 * @return
+	 */
+	public String cmdCriaBridge(Bridge bridge){
+
+		String comando = null;
+
+		Integer port100 = Integer.parseInt(bridge.getEndSeqPort()) + 100;
+
+		Integer rin = null;
+
+		if (bridge.getVc().equalsIgnoreCase("35")) {
+
+			comando = "bridge add 1-" + bridge.getSlot() + "-" + bridge.getPort() + "-0/vdsl vc 0/35 downlink vlan 600 xlate-to " + port100 + " slan " + bridge.getRin() + " tagged";
+
+		}else if (bridge.getVc().equalsIgnoreCase("36")) {
+
+			rin = Integer.parseInt(bridge.getRin()) + 1000;
+
+			comando = "bridge add 1-" + bridge.getSlot() + "-" + bridge.getPort() + "-0/vdsl vc 0/36 downlink vlan 601 xlate-to " + port100 + " slan " + rin + " tagged";
+
+		}else if (bridge.getVc().equalsIgnoreCase("37")) {
+
+			rin = Integer.parseInt(bridge.getRin()) + 3000;
+
+			comando = "bridge add 1-" + bridge.getSlot() + "-" + bridge.getPort() + "-0/vdsl vc 0/37 downlink vlan 602 xlate-to " + port100 + " slan " + rin + " tagged cos 3 outcosall 3 scos 3 soutcosall 3";
+
+		}else if (bridge.getVc().equalsIgnoreCase("38")) {
+
+			comando = "bridge add 1-" + bridge.getSlot() + "-" + bridge.getPort() + "-0/vdsl vc 0/38 downlink vlan 4000 cos 4 outcosall 4 ipktrule 1 video 0/3";
+
+		}
+
+		return comando;
+	}
+
+	/**
+	 * Comando de deleta bridge.
+	 * @param tbs
+	 * @return
+	 */
+	public String cmdDeletaBridge(Bridge bridge){
+
+		Integer rin = null;
+
+		String comando = "";
+
+		BigInteger port100 = this.getTbs().getPortAddrSeq().add(new BigInteger("100"));
+
+		if (bridge.getVc().equalsIgnoreCase("35")){
+
+			rin = Integer.parseInt(bridge.getRin());
+
+		}else if (bridge.getVc().equalsIgnoreCase("36")) {
+
+			rin = Integer.parseInt(bridge.getRin()) + 1000;
+
+		}else if (bridge.getVc().equalsIgnoreCase("37")) {
+
+			rin = Integer.parseInt(bridge.getRin()) + 3000;
+
+		}
+
+		if (bridge.getVc().equalsIgnoreCase("38")){
+
+			comando = "bridge delete 1-" + this.getTbs().getSlot() + "-" + this.getTbs().getPortNumber() + "-0/vdsl vc 0/38";
+
+		}else{
+
+			comando = "bridge delete 1-" + this.getTbs().getSlot() + "-" + this.getTbs().getPortNumber() + "-0/vdsl vc 0/" + bridge.getVc() + " vlan " + port100 + " slan " + rin;
+
+		}
+
+		return comando;
+
+	}	
+
 	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
 
 		Mxk mxk = (Mxk) banda;
@@ -132,11 +211,11 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		String showVlan = null;
 
 		for (int i = 1; i < contagem; i++) {
-			
+
 			showVlan = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", i)));
-			
+
 			String[] split  = showVlan.split("-");
-			
+
 			if (split[6].equalsIgnoreCase("35")) {
 
 				Bridge autenticacao = new Bridge();
@@ -144,9 +223,9 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 				autenticacao.setSlot(split[1]);
 				autenticacao.setPort(split[2]);								
 				autenticacao.setRin(split[0].substring(0, 3));
-				
+
 				Integer enSeqPort = Integer.parseInt(split[7].substring(0, 4))-100;
-				
+
 				autenticacao.setEndSeqPort(Integer.toString(enSeqPort));				
 				autenticacao.setVc("35");
 
@@ -195,7 +274,4 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 		return mxk;
 	}
-
-
-
 }
