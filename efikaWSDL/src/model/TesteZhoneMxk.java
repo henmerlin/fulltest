@@ -4,12 +4,7 @@ import java.math.BigInteger;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
-import entidades.banda.metalico.zhone.Combo;
 import entidades.banda.metalico.zhone.Mxk;
-import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.cadastro.Cadastro;
-import entidades.cadastro.CadastroMetalico;
-import model.banda.metalico.zhone.ComboServico;
 import model.banda.metalico.zhone.MxkServico;
 
 
