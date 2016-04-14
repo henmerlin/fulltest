@@ -15,11 +15,7 @@ public abstract class DslamGerenciavel {
 	private SocketClass socket;
 	
 	private Cadastro cadastro;
-	
-	@SuppressWarnings("unused")
-	private InfoTBS tbs;
 
-	
 	public DslamGerenciavel() {
 		this.telnet = new Telnet();
 		this.socket = new SocketClass();

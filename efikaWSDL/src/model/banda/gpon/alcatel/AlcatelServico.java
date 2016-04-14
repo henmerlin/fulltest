@@ -26,8 +26,6 @@ public class AlcatelServico extends DslamGpon implements BandaServicoInterface{
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 		
-		//TelnetUtil.debugger(retorno);
-
 		TabelaParametrosGpon tabela = new TabelaParametrosGpon();
 
 		String profileDown = TelnetUtil.tratamentoStringAlcatel(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "NGLT_Default", 2)));

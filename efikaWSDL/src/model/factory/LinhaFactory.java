@@ -29,9 +29,7 @@ public final class LinhaFactory {
  	 * @throws Exception
 	 */
 	public static LinhaInterface criar(String tecnologia) throws Exception{
-		
-		//System.out.println(tecnologia);
-				
+						
 		if(tecnologia.equalsIgnoreCase(LinhaFactory.NORTEL)){
 			return new Nortel();
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.SIP)) {
