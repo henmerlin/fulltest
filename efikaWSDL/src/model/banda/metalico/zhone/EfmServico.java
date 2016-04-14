@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
+import entidades.banda.metalico.zhone.Efm;
+import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.cadastro.Cadastro;
@@ -66,8 +68,36 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 
 	@Override
 	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Efm efm = (Efm) banda;
+		
+		this.getSocket().setMode(ExecutionType.ZHONE);
+		
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdBridgesPort()));
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
+		
+		String showVlan = TelnetUtil.tratamentoStringBridgeShowVlan2(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", 1)));
+				
+		String[] split  = showVlan.split("-");
+				
+		if (split[4].equalsIgnoreCase("eth")) {
+			
+			Bridge autenticacao = new Bridge();
+			
+			autenticacao.setSlot(split[1]);
+			autenticacao.setPort(split[2]);			
+			Integer endSeqPort = Integer.parseInt(split[5].substring(0, 4))-100;			
+			autenticacao.setEndSeqPort(Integer.toString(endSeqPort));
+			autenticacao.setRin(split[0].substring(24, 27));
+			autenticacao.setVc("35");
+			
+			efm.setAutenticacao(autenticacao);
+		}
+		
+		//TelnetUtil.debugger(retorno);
+		
+		return efm;
 	}
 
 
