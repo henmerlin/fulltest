@@ -102,7 +102,23 @@ public class TabelaParametrosMetalico extends TabelaParametros implements Tabela
 		this.setParametros(param);
 				
 	}
-	
-	
 
+	@Override
+	public TabelaParametrosMetalico getTabelaMetalico() {
+		return this;
+	}
+
+	@Override
+	public TabelaParametrosMetalicoVdsl getTabelaMetalicoVdsl() {
+		//throw new Exception("Não foi possivel exibir a tabela de parâmetros");
+		return null;
+	}
+
+	@Override
+	public TabelaParametrosGpon getTabelaParametrosGpon() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+	
+	
 }

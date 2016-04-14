@@ -54,36 +54,55 @@
 					<p:panel header="Configurações Linha" style="margin-top: 15px;"
 						rendered="#{not empty operacionalBean.cliente.linha.instancia}">
 
-						<p:panelGrid columns="2" cellpadding="10">
-
-							<h:outputText value="Instância:" />
-							<h:outputText id="instancia"
-								value="#{operacionalBean.cliente.linha.instancia}" />
-
-							<h:outputText value="Tipo da Central:" />
-							<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
-
-							<h:outputText value="Central:" />
-							<h:outputText
-								value="#{operacionalBean.cliente.linha.infoSwitch.switchName}" />
-						</p:panelGrid>
 
 
-						<p:dataTable var="conf" style="margin-top: 15px;"
-							emptyMessage="Configurações não encontradas"
-							value="#{operacionalBean.cliente.linha.configuracao.parametros}">
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-6">
 
-							<f:facet name="header">
-						        Configurações #{operacionalBean.cliente.linha.nome}
-						    </f:facet>
+									<p:panelGrid columns="2" cellpadding="10">
 
-							<p:column headerText="Nome">
-								<h:outputText value="#{conf.nome}" />
-							</p:column>
-							<p:column headerText="Valor">
-								<h:outputText value="#{conf.valor}" />
-							</p:column>
-						</p:dataTable>
+										<f:facet name="header">
+											Informações da Central
+										</f:facet>
+										<h:outputText value="Instância:" />
+										<h:outputText id="instancia"
+											value="#{operacionalBean.cliente.linha.instancia}" />
+
+										<h:outputText value="Tipo da Central:" />
+										<h:outputText value="#{operacionalBean.cliente.linha.nome}" />
+
+										<h:outputText value="Central:" />
+										<h:outputText
+											value="#{operacionalBean.cliente.linha.infoSwitch.switchName}" />
+									</p:panelGrid>
+
+
+								</div>
+								<div class="ui-grid-col-6">
+
+
+									<p:dataTable var="conf" style="margin-top: 15px;"
+										emptyMessage="Configurações não encontradas"
+										value="#{operacionalBean.cliente.linha.configuracao.parametros}">
+
+										<f:facet name="header">
+									        Configurações #{operacionalBean.cliente.linha.nome}
+									    </f:facet>
+
+										<p:column headerText="Nome">
+											<h:outputText value="#{conf.nome}" />
+										</p:column>
+										<p:column headerText="Valor">
+											<h:outputText value="#{conf.valor}" />
+										</p:column>
+									</p:dataTable>
+
+
+								</div>
+							</div>
+						</div>
+
 
 						<p:dataTable var="error" type="unordered"
 							style="margin-top: 15px;"
@@ -113,8 +132,9 @@
 
 						<div class="ui-grid ui-grid-responsive">
 							<div class="ui-grid-row">
-								<div class="ui-grid-col-5">
-									<p:panelGrid columns="2" cellpadding="10" style="margin-top: 15px;">
+								<div class="ui-grid-col-4">
+									<p:panelGrid columns="2" cellpadding="10"
+										style="margin-top: 15px;">
 
 										<f:facet name="header">
 											Informações
@@ -136,7 +156,136 @@
 
 									</p:panelGrid>
 								</div>
-								<div class="ui-grid-col-3"></div>
+								<div class="ui-grid-col-4">
+
+									<p:panelGrid columns="3" cellpadding="10"
+										rendered="#{operacionalBean.cliente.banda.parametros.name.equalsIgnoreCase('TabelaParametrosMetalico')}"
+										style="margin-top: 15px;">
+
+										<f:facet name="header">
+											Tabela de Parâmetros
+										</f:facet>
+
+										<h:outputText value=" " />
+										<h:outputText value="Download" />
+										<h:outputText value="Upload" />
+
+										<h:outputText value="Velocidade Sincronizada (Mbps)" />
+										<h:outputText id="down_sinc"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.download}" />
+										<h:outputText id="up_sinc"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.upload}" />
+
+										<h:outputText value="Sinal Ruído (dB)" />
+										<h:outputText id="down_snr"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.snrDown}" />
+
+										<h:outputText id="up_snr"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.snrUp}" />
+
+
+
+										<h:outputText value="Atenuação (dB)" />
+										<h:outputText id="down_atn"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.atnDown}" />
+
+										<h:outputText id="up_atn"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalico.atnUp}" />
+
+									</p:panelGrid>
+
+
+
+									<p:panelGrid columns="3" cellpadding="10"
+										rendered="#{operacionalBean.cliente.banda.parametros.name.equalsIgnoreCase('TabelaParametrosMetalicoVdsl')}"
+										style="margin-top: 15px;">
+
+										<f:facet name="header">
+											Tabela de Parâmetros
+										</f:facet>
+
+										<h:outputText value=" " />
+										<h:outputText value="Download" />
+										<h:outputText value="Upload" />
+
+										<h:outputText value="Velocidade Sincronizada (Mbps)" />
+										<h:outputText id="down_sincVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.download}" />
+										<h:outputText id="up_sincVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.upload}" />
+
+										<p:column>
+											<h:outputText value="Sinal Ruído Sinal Ruído (dB)" />
+										</p:column>
+										<h:outputText id="down_snrVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrDown}" />
+
+										<h:outputText id="up_snrVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrUp}" />
+
+
+										<h:outputText value="Sinal Ruído Sinal Ruído (dB)" />
+										<h:outputText id="down_snr2VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrDown2}" />
+
+										<h:outputText id="up_snr2VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrUp2}" />
+
+
+										<h:outputText value="Sinal Ruído Sinal Ruído (dB)" />
+										<h:outputText id="down_snr3VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrDown3}" />
+
+										<h:outputText id="up_snr3VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.snrUp3}" />
+
+
+										<h:outputText value="Atenuação (dB)" />
+										<h:outputText id="down_atnVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnDown}" />
+
+										<h:outputText id="up_atnVDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnUp}" />
+
+										<h:outputText value="Atenuação (dB)" />
+										<h:outputText id="down_atn2VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnDown2}" />
+
+										<h:outputText id="up_atn2VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnUp2}" />
+
+										<h:outputText value="Atenuação (dB)" />
+										<h:outputText id="down_atn3VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnDown3}" />
+
+										<h:outputText id="up_atn3VDSL"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaMetalicoVdsl.atnUp3}" />
+									</p:panelGrid>
+
+
+									<p:panelGrid columns="2" cellpadding="10"
+										rendered="#{operacionalBean.cliente.banda.parametros.name.equalsIgnoreCase('TabelaParametrosGpon')}"
+										style="margin-top: 15px;">
+
+										<f:facet name="header">
+											Tabela de Parâmetros
+										</f:facet>
+
+										<h:outputText value="Potência ONT" />
+											<h:outputText id="ont_param"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaONT}" />									
+										
+										<h:outputText value="Potência OLT" />
+
+										<h:outputText id="olt_param"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaOLT}" />
+
+									</p:panelGrid>
+
+
+
+
+								</div>
 								<div class="ui-grid-col-4">
 									<p:panelGrid columns="2" cellpadding="10"
 										style="margin-top: 15px;">
@@ -159,10 +308,6 @@
 								</div>
 							</div>
 						</div>
-						
-						
-						
-
 					</p:panel>
 				</p:tab>
 
