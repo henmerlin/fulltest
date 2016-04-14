@@ -144,7 +144,7 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 		
 		Integer contagem = TelnetUtil.contagemDeBridges(retorno);
-				
+						
 		String showVlan = null;
 		
 		for (int i = 1; i < contagem; i++) {
@@ -160,13 +160,16 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 				autenticacao.setSlot(split[1]);
 				autenticacao.setPort(split[2]);
 				autenticacao.setRin(showVlan.substring(24, 27));
-				autenticacao.setEndSeqPort(showVlan.substring(20, 23));
+				
+				Integer enSeqPort = Integer.parseInt(showVlan.substring(20, 23))-100;
+				
+				autenticacao.setEndSeqPort(Integer.toString(enSeqPort));
 				autenticacao.setVc("35");
 								
 				combo.setAutenticacao(autenticacao);
 				
 				System.out.println(combo.getAutenticacao().getVc());
-				
+								
 			}else if (split[6].substring(0, 2).equalsIgnoreCase("36")) {
 				
 				Bridge voip = new Bridge();
@@ -180,7 +183,7 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 				combo.setVoip(voip);
 				
 				System.out.println(combo.getVoip().getVc());
-				
+								
 			}else if (split[6].substring(0, 2).equalsIgnoreCase("37")) {
 				
 				Bridge pvc = new Bridge();
@@ -194,7 +197,7 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 				combo.setTv(pvc);
 				
 				System.out.println(combo.getTv().getVc());
-				
+								
 			}else if (split[6].substring(0, 2).equalsIgnoreCase("38")) {
 				
 				Bridge multicast = new Bridge();
@@ -208,7 +211,7 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 				combo.setMulticast(multicast);
 				
 				System.out.println(combo.getMulticast().getVc());
-				
+								
 			}			
 		}
 		

@@ -250,7 +250,7 @@ public class SocketClass {
 	public List<String> zhoneMxkMode(PrintWriter out, BufferedReader in) throws Exception{
 
 		ArrayList<String> retorno = new ArrayList<String>();
-		Thread.sleep(800);
+		Thread.sleep(1000);
 		out.println(this.auth.getUser() + "\r\n");
 		Thread.sleep(1000);
 		out.println(this.auth.getPass() + "\r\n");
