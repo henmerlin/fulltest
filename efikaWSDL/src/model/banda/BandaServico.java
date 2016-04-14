@@ -21,9 +21,7 @@ public class BandaServico {
 	}
 	
 	public BandaInterface construirBanda(Cadastro cadastro) throws Exception{
-		
-		System.out.println(cadastro.getCadastro().getInfoTBS().getDslamVendor());
-		
+				
 		BandaInterface banda = BandaFactory.criar(cadastro.getCadastro().getInfoTBS().getDslamVendor());
 		
 		return banda;
