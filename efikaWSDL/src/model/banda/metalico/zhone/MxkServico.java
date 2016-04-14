@@ -5,11 +5,9 @@ import java.util.ArrayList;
 
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
-import entidades.banda.metalico.zhone.Combo;
 import entidades.banda.metalico.zhone.Mxk;
 import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
@@ -209,7 +207,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		Integer contagem = TelnetUtil.contagemDeBridges(retorno);
 
 		String showVlan = null;
-
+		
 		for (int i = 1; i < contagem; i++) {
 
 			showVlan = TelnetUtil.tratamentoStringBridgeShowVlan(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "/bridge", i)));
