@@ -4,6 +4,7 @@ import entidades.banda.metalico.zhone.configs.Bridge;
 
 public class Efm extends Zhone {
 
+	
 	private Bridge autenticacao;
 
 	private Bridge voip;
