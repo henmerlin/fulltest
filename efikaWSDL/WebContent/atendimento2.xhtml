@@ -8,7 +8,7 @@
 <ui:composition template="/recursos/template/template.xhtml">
 
 	<ui:define name="tituloPagina">
-		 InÃ­cio
+		 Início
 	</ui:define>
 	<ui:define name="tituloPrincipal">
 		<i class="fa fa-wrench"> </i> Atendimento</ui:define>
@@ -22,10 +22,10 @@
 			<p:panel header="Consultar">
 				<h:panelGrid columns="4" cellpadding="5">
 
-					<p:outputLabel for="instancia" value="InstÃ¢ncia:" />
+					<p:outputLabel for="instancia" value="Instância:" />
 					<p:inputText id="instancia"
 						value="#{operacionalBean.cliente.instancia}"
-						placeholder="InstÃ¢ncia..." />
+						placeholder="Instância..." />
 
 					<p:commandButton action="#{operacionalBean.consultar()}"
 						value="Consultar" update="@all">
@@ -49,9 +49,9 @@
 		<h:form>
 			<p:wizard flowListener="#{atendimentoWizard.onFlowProcess}"
 				rendered="#{not empty operacionalBean.cliente.linha.instancia}"
-				style="margin-top: 15px;" nextLabel="PrÃ³ximo" backLabel="Voltar">
+				style="margin-top: 15px;" nextLabel="Próximo" backLabel="Voltar">
 				<p:tab id="linha" title="Linha" disabled="false">
-					<p:panel header="ConfiguraÃ§Ãµes Linha" style="margin-top: 15px;"
+					<p:panel header="Configurações Linha" style="margin-top: 15px;"
 						rendered="#{not empty operacionalBean.cliente.linha.instancia}">
 
 
@@ -63,9 +63,9 @@
 									<p:panelGrid columns="2" cellpadding="10">
 
 										<f:facet name="header">
-											InformaÃ§Ãµes da Central
+											Informações da Central
 										</f:facet>
-										<h:outputText value="InstÃ¢ncia:" />
+										<h:outputText value="Instância:" />
 										<h:outputText id="instancia"
 											value="#{operacionalBean.cliente.linha.instancia}" />
 
@@ -83,11 +83,11 @@
 
 
 									<p:dataTable var="conf" style="margin-top: 15px;"
-										emptyMessage="ConfiguraÃ§Ãµes nÃ£o encontradas"
+										emptyMessage="Configurações não encontradas"
 										value="#{operacionalBean.cliente.linha.configuracao.parametros}">
 
 										<f:facet name="header">
-									        ConfiguraÃ§Ãµes #{operacionalBean.cliente.linha.nome}
+									        Configurações #{operacionalBean.cliente.linha.nome}
 									    </f:facet>
 
 										<p:column headerText="Nome">
@@ -108,9 +108,9 @@
 							style="margin-top: 15px;"
 							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
 							value="#{operacionalBean.cliente.linha.configErrors}"
-							emptyMessage="NÃ£o foram encontrados erros de configuraÃ§Ã£o.">
+							emptyMessage="NÃ£o foram encontrados erros de Configuração.">
 
-							<p:column headerText="Erros de ConfiguraÃ§Ã£o">
+							<p:column headerText="Erros de Configuração">
 								<h:outputText value="#{error.message}" />
 							</p:column>
 
@@ -128,16 +128,16 @@
 				</p:tab>
 
 				<p:tab id="banda" title="Banda">
-					<p:panel header="ConfiguraÃ§Ãµes Banda">
+					<p:panel header="Configurações Banda">
 
 						<div class="ui-grid ui-grid-responsive">
 							<div class="ui-grid-row">
-								<div class="ui-grid-col-4">
+								<div class="ui-grid-col-3">
 									<p:panelGrid columns="2" cellpadding="10"
 										style="margin-top: 15px;">
 
 										<f:facet name="header">
-											InformaÃ§Ãµes
+											Informações
 										</f:facet>
 
 										<h:outputText value="Designador:" />
@@ -156,14 +156,14 @@
 
 									</p:panelGrid>
 								</div>
-								<div class="ui-grid-col-4">
+								<div class="ui-grid-col-5">
 
 									<p:panelGrid columns="3" cellpadding="10"
 										rendered="#{operacionalBean.cliente.banda.parametros.name.equalsIgnoreCase('TabelaParametrosMetalico')}"
 										style="margin-top: 15px;">
 
 										<f:facet name="header">
-											Tabela de ParÃ¢metros
+											Tabela de Parâmetros
 										</f:facet>
 
 										<h:outputText value=" " />
@@ -201,7 +201,7 @@
 										style="margin-top: 15px;">
 
 										<f:facet name="header">
-											Tabela de ParÃ¢metros
+											Tabela de Parâmetros
 										</f:facet>
 
 										<h:outputText value=" " />

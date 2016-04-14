@@ -89,6 +89,5 @@ public class TabelaParametrosMetalicoVdsl extends TabelaParametrosMetalico imple
 	public TabelaParametrosMetalicoVdsl getTabelaMetalicoVdsl() {
 		// TODO Auto-generated method stub
 		return this;
-	}	
-	
+	}
 }

@@ -18,6 +18,7 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 		
 	}
 	
+	@Override
 	public String getSincronismoStatus() {
 		return sincronismoStatus;
 	}
@@ -26,6 +27,7 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 		this.sincronismoStatus = sincronismoStatus;
 	}
 
+	@Override
 	public String getPortaAdmStatus() {
 		return portaAdmStatus;
 	}
@@ -34,6 +36,7 @@ abstract class TabelaParametros implements TabelaParametrosInter{
 		this.portaAdmStatus = portaAdmStatus;
 	}
 
+	@Override
 	public String getProfile() {
 		return profile;
 	}

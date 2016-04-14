@@ -53,4 +53,5 @@ public class TabelaParametrosGpon extends TabelaParametros implements TabelaPara
 	public TabelaParametrosGpon getTabelaParametrosGpon() {
 		return this;
 	}
+
 }

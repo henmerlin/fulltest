@@ -21,6 +21,5 @@ public interface TabelaParametrosInter {
 	public TabelaParametrosGpon getTabelaParametrosGpon();
 	
 	public String getName();
-
 	
 }
