@@ -1,12 +1,7 @@
 package model;
 
-import java.math.BigInteger;
-
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import bean.ossturbonet.oss.gvt.com.InfoTBS;
-import entidades.banda.parametros.TabelaHistorico;
-import entidades.banda.parametros.TabelaParametrosInter;
-import model.banda.metalico.keymile.SuvdServico;
+import entidades.cliente.Cliente;
+import model.modulos.OperacionalServico;
 
 public class Teste {
 
@@ -17,26 +12,17 @@ public class Teste {
 		
 		try {
 			
-			SuvdServico suvd = new SuvdServico();	
-			GetInfoOut get = new GetInfoOut();
+		
+			OperacionalServico fulltest = new OperacionalServico();
 			
-			InfoTBS tbs = new InfoTBS();
-			tbs.setIpDslam("10.141.249.209");
-			tbs.setSlot(new BigInteger("7"));
-			tbs.setPortNumber(new BigInteger("26"));
+			Cliente cliente = new Cliente();
 			
-			get.setInfoTBS(tbs);
-			suvd.setGetInfo(get);
+			cliente.setInstancia("1630105408");
 			
-			suvd.connect();
+			fulltest.consultar(cliente);
 			
-			TabelaParametrosInter oi = suvd.consultarTabelaParametros();
-			TabelaHistorico tabela = suvd.consultarTabelaHistorico();
 			
-			System.out.println(tabela.getDias().get(0).getPcktsDown());
-			System.out.println(oi.getPortaAdmStatus());
 			
-			suvd.disconnect();
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

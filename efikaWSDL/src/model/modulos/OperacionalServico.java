@@ -1,9 +1,10 @@
 package model.modulos;
 
-import entidades.banda.parametros.TabelaParametrosInter;
+import entidades.cadastro.CadastroGpon;
 import entidades.cliente.Cliente;
 import model.banda.BandaServico;
 import model.banda.BandaServicoInterface;
+import model.banda.metalico.DslamGpon;
 import model.cliente.ClienteServico;
 import model.factory.BandaFactory;
 import model.factory.LinhaFactory;
@@ -17,10 +18,10 @@ public class OperacionalServico implements OperacionalInterface{
 	private BandaServico servicoBanda;
 
 	private ClienteServico servicoCadastro;
-	
+
 	// Serviço FullTest
 	private LinhaServicoInterface servicoVoz;
-	
+
 	private BandaServicoInterface servicoBandaEsp;
 
 	public OperacionalServico() {
@@ -43,27 +44,33 @@ public class OperacionalServico implements OperacionalInterface{
 
 		// Consultas de Cadastro
 		cliente = this.servicoCadastro.consultarCadastro(cliente);	
-		
+
 		// Inicializa objetos v2
 		cliente = this.initObjects_2(cliente);
 
 		// Consulta Configurações Linha
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
-		
+
 		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
 		this.servicoBandaEsp.setGetInfo(cliente.getCadastro().getCadastro());
+		
+		if (cliente.getCadastro() instanceof CadastroGpon) {
+			System.out.println("oi");
+			CadastroGpon cadastro = (CadastroGpon) cliente.getCadastro();			
+			((DslamGpon)this.servicoBandaEsp).setAcessInfo(cadastro.getCadastroGpon());
+		}
+
+		//this.servicoBandaEsp;
 		this.servicoBandaEsp.connect();
 		
-		TabelaParametrosInter tabela = this.servicoBandaEsp.consultarTabelaParametros();
-		tabela.listarParametros();
-		cliente.getBanda().setParametros(tabela);
-		
+		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
+
 		this.servicoBandaEsp.disconnect();
 
-		
+
 		// Sets nos erros de configuração encontrados
 		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
-		
+
 		return cliente;
 	}
 
@@ -76,8 +83,8 @@ public class OperacionalServico implements OperacionalInterface{
 	public Cliente realizarCorrecoes(Cliente cliente) throws Exception{
 
 		// Realiza as Correções
-		
-		
+
+
 		//this.servicoVoz.realizarCorrecoes(cliente);
 
 		return cliente;
@@ -97,17 +104,17 @@ public class OperacionalServico implements OperacionalInterface{
 
 		// Constroí serviços de acordo com cadastro
 		this.servicoVoz = LinhaFactory.criarServico(cliente.getLinha().getTecnologia());
-		
+
 		return cliente;
 	}
-	
+
 	public Cliente initObjects_2(Cliente cliente) throws Exception{
-		
+
 		// Constroí Objeto Banda de acordo com cadastro
 		cliente.setBanda(this.servicoBanda.construirBanda(cliente.getCadastro()));
-		
+
 		this.servicoBandaEsp = BandaFactory.criarServico(cliente.getCadastro().getCadastro().getInfoTBS().getDslamVendor());
-		
+
 		return cliente;
 	}
 
