@@ -157,7 +157,8 @@
 
 									</p:panelGrid>
 								</div>
-								<div class="ui-grid-col-5">
+								<div class="ui-grid-col-1"></div>
+								<div class="ui-grid-col-3">
 
 									<p:panelGrid columns="3" cellpadding="10"
 										rendered="#{operacionalBean.cliente.banda.parametros.name.equalsIgnoreCase('TabelaParametrosMetalico')}"
@@ -277,7 +278,6 @@
 											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaONT}" />									
 										
 										<h:outputText value="Potência OLT" />
-
 										<h:outputText id="olt_param"
 											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaOLT}" />
 
@@ -287,6 +287,7 @@
 
 
 								</div>
+								<div class="ui-grid-col-1"></div>
 								<div class="ui-grid-col-4">
 									<p:panelGrid columns="2" cellpadding="10"
 										style="margin-top: 15px;">
