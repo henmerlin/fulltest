@@ -1,5 +1,6 @@
 package entidades.cadastro;
 
+import bean.ossturbonet.oss.gvt.com.AccessInfo;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 
 public class CadastroMetalico implements Cadastro{
@@ -26,5 +27,11 @@ public class CadastroMetalico implements Cadastro{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public AccessInfo getCadastroGpon() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

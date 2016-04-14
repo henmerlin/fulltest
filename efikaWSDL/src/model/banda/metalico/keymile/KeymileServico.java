@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.parametros.DiaTabelaHistorico;
 import entidades.banda.parametros.TabelaHistorico;
 import model.banda.metalico.DslamMetalico;
