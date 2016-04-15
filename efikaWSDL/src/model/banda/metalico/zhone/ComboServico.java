@@ -43,10 +43,10 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 		this.getSocket().setMode(ExecutionType.ZHONE_SLOW);
 
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
-
+		
 		// Status Port
 		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdminStatus", 1))));
 		tabela.setSincronismoStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "LineStatus", 1))));
@@ -70,13 +70,11 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		comandos.add(new ComandoTelnet(this.cmdProfileUp()));
 		comandos.add(new ComandoTelnet(this.cmdModulacao()));
 
+		this.getSocket().setComandos(comandos);
 
-		this.getTelnet().setComandos(comandos);
+		this.getSocket().setMode(ExecutionType.ZHONE);
 
-		this.getTelnet().setMode(ExecutionType.ZHONE);
-
-		ArrayList<String> retorno1 = (ArrayList<String>) this.getTelnet().run();
-
+		ArrayList<String> retorno1 = (ArrayList<String>) this.getSocket().run();
 
 		// Profile Download e Upload
 		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "fastMaxTxRate", 1))))/1000;
@@ -86,8 +84,8 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 
 		// Modulação
 		tabela.setModulacao(TelnetUtil.tratamentoStringZhoneDif(retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "adslTransmissionMode", 1))));
-
-		TelnetUtil.debugger(retorno);		
+		
+		//TelnetUtil.debugger(retorno);		
 
 		return tabela;
 	}
@@ -98,7 +96,9 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @return
 	 */
 	public String cmdPortStatus(){
+		
 		return "dslstat 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/adsl -v";
+		
 	}
 
 
