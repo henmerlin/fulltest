@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.metalico.zhone.Combo;
+import entidades.banda.parametros.TabelaParametrosMetalico;
+import entidades.cadastro.CadastroMetalico;
 import model.banda.metalico.zhone.ComboServico;
 
 
@@ -16,6 +18,7 @@ public class TesteZhone {
 			ComboServico combo = new ComboServico();		
 			
 			GetInfoOut get = new GetInfoOut();
+			
 			InfoTBS tbs = new InfoTBS();
 			
 			//5532219304		
@@ -24,16 +27,26 @@ public class TesteZhone {
 			tbs.setPortNumber(new BigInteger("42"));
 			tbs.setPortAddrSeq(new BigInteger("186"));
 			
-			get.setInfoTBS(tbs);
-			//combo.setGetInfo(get);
+			get.setInfoTBS(tbs);			
+			
+			CadastroMetalico cadastro = new CadastroMetalico();
+			
+			cadastro.setCadastro(get);
+			
+			combo.setCadastro(cadastro);
 			
 			combo.connect();
 			
 			Combo banda = new Combo();
+			//combo.consultarBridges(banda);
 			
-			combo.consultarBridges(banda);
+			TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();
 			
-			combo.disconnect();
+			
+			System.out.println(tabela.getProfile());
+			
+						
+			combo.disconnect();			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
