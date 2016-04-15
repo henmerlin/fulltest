@@ -21,11 +21,11 @@ public class TesteZhone {
 			
 			InfoTBS tbs = new InfoTBS();
 			
-			//5532219304		
-			tbs.setIpDslam("10.151.180.31");
+			//4730252687		
+			tbs.setIpDslam("10.141.155.39");
 			tbs.setSlot(new BigInteger("10"));
-			tbs.setPortNumber(new BigInteger("42"));
-			tbs.setPortAddrSeq(new BigInteger("186"));
+			tbs.setPortNumber(new BigInteger("21"));
+			tbs.setPortAddrSeq(new BigInteger("165"));
 			
 			get.setInfoTBS(tbs);			
 			
@@ -43,9 +43,11 @@ public class TesteZhone {
 			TabelaParametrosMetalico tabela = combo.consultarTabelaParametros();
 			
 			
-			System.out.println(tabela.getProfile());
+			System.out.println("Adm Sinc: " + tabela.getPortaAdmStatus());
+			System.out.println("Sinc: " + tabela.getSincronismoStatus());
+			System.out.println("Modulação: " + tabela.getModulacao());
+			System.out.println("Profile: " + tabela.getProfile());
 			
-						
 			combo.disconnect();			
 
 		} catch (Exception e) {
