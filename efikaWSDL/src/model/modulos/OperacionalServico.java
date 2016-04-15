@@ -9,7 +9,7 @@ import model.factory.LinhaFactory;
 import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
 
-public class OperacionalServico implements OperacionalInterface{
+public class OperacionalServico{
 
 	private LinhaServico servicoLinha;
 

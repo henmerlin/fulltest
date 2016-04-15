@@ -22,9 +22,8 @@ import entidades.cliente.produto.ProdutoTv;
 import exception.ossturbonet.oss.gvt.com.DataNotFoundException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.factory.CadastroFactory;
-import model.modulos.OperacionalInterface;
 
-public class ClienteServico implements OperacionalInterface{
+public class ClienteServico{
 
 	private InventoryImplProxy invService;
 

@@ -23,10 +23,9 @@ import br.com.gvt.www.oss.necservice.ConsultElement;
 import entidades.cliente.Cliente;
 import entidades.linha.LinhaInterface;
 import model.factory.LinhaFactory;
-import model.modulos.OperacionalInterface;
 
 
-public class LinhaServico implements OperacionalInterface{
+public class LinhaServico{
 
 	private UraServicesProxy uraService;
 
