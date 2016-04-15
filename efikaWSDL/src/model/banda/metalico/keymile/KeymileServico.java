@@ -115,10 +115,13 @@ public class KeymileServico extends DslamMetalico{
 				keymile.setVideo(vcc3);
 			}
 			
-			Vcc vcc4 = this.tratamentoVcc("4", string);
-			if(vcc4 != null){
-				keymile.setMultitela(vcc4);
-			}
+			/**
+			 * Pendente desenvolvimento de exceção
+			 */
+//			Vcc vcc4 = this.tratamentoVcc("4", string);
+//			if(vcc4 != null){
+//				keymile.setMultitela(vcc4);
+//			}
 			
 		}
 

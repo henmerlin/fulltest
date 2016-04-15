@@ -15,7 +15,7 @@ public class Teste {
 		try {
 						
 			Cliente cliente = new Cliente();
-			cliente.setInstancia("2131762236");
+			cliente.setInstancia("4130222839");
 			OperacionalServico servico = new OperacionalServico();
 			cliente = servico.consultarCadastro(cliente);
 						
@@ -26,7 +26,7 @@ public class Teste {
 			Keymile banda = new Keymile();
 			
 			milho.consultarBridges(banda);
-						
+									
 			milho.disconnect();
 			
 			
