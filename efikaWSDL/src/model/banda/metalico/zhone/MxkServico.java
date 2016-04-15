@@ -3,7 +3,6 @@ package model.banda.metalico.zhone;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
 import entidades.banda.metalico.zhone.Mxk;
 import entidades.banda.metalico.zhone.configs.Bridge;

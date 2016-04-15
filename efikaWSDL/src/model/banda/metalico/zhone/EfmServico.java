@@ -1,13 +1,10 @@
 package model.banda.metalico.zhone;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
-import bean.ossturbonet.oss.gvt.com.InfoTBS;
 import entidades.banda.BandaInterface;
 import entidades.banda.metalico.zhone.Efm;
 import entidades.banda.metalico.zhone.configs.Bridge;
-import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
@@ -21,23 +18,14 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 	}
 
 	@Override
-	public TabelaParametrosInter consultarTabelaParametros() throws Exception {
-
-		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.151.11.130");
-		tbs.setSlot(new BigInteger("3"));
-		tbs.setPortNumber(new BigInteger("3"));
-		tbs.setPortAddrSeq(new BigInteger("2003"));
-
-		this.getSocket().setIp(tbs.getIpDslam());
+	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception {
 
 		this.getSocket().getComandos().add(new ComandoTelnet(cmdGetStatusPorta()));
 		this.getSocket().getComandos().add(new ComandoTelnet(cmdGetStatusAdmPorta()));
 
 		this.getSocket().setMode(ExecutionType.ZHONE);
 
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
 
