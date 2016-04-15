@@ -38,18 +38,18 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		tbs.setPortNumber(new BigInteger("10"));
 		tbs.setPortAddrSeq(new BigInteger("1418"));		
 
-		this.getTelnet().setIp(tbs.getIpDslam());
+		this.getSocket().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet("A"));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet("A"));
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdModulacao(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdModulacao()));
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.profileDown(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.profileDown()));
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdProfileUp(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdProfileUp()));
 
-		this.getTelnet().setMode(ExecutionType.ZHONE_MXK);
+		this.getSocket().setMode(ExecutionType.ZHONE_MXK);
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
@@ -88,30 +88,30 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		return tabela;
 	}
 
-	public String cmdPortStatus(InfoTBS tbs){
+	public String cmdPortStatus(){
 
-		return "dslstat 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl -v";
+		return "dslstat 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/vdsl -v";
 	}
 	/*
 	 * Retorna o profile de down da porta
 	 */
-	public String profileDown(InfoTBS tbs){
+	public String profileDown(){
 
-		return "get vdsl-co-config 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl";
+		return "get vdsl-co-config 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/vdsl";
 	}
 	/*
 	 * Retorna o profile de up da porta
 	 */
-	public String cmdProfileUp(InfoTBS tbs){
+	public String cmdProfileUp(){
 
-		return "get vdsl-cpe-config 1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl";
+		return "get vdsl-cpe-config 1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/vdsl";
 	}
 	/*
 	 * Retorna a modulação da porta
 	 */
-	public String cmdModulacao(InfoTBS tbs){	
+	public String cmdModulacao(){	
 
-		return "get vdsl-config  1/" + tbs.getSlot() + "/" + tbs.getPortNumber() + "/0/vdsl";
+		return "get vdsl-config  1/" + this.getTbs().getSlot() + "/" + this.getTbs().getPortNumber() + "/0/vdsl";
 
 	}
 

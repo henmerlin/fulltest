@@ -9,7 +9,6 @@ import entidades.banda.metalico.zhone.Efm;
 import entidades.banda.metalico.zhone.configs.Bridge;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
-import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import model.telnet.ExecutionType;
@@ -31,12 +30,12 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 		tbs.setPortNumber(new BigInteger("3"));
 		tbs.setPortAddrSeq(new BigInteger("2003"));
 
-		this.getTelnet().setIp(tbs.getIpDslam());
+		this.getSocket().setIp(tbs.getIpDslam());
 
-		this.getTelnet().getComandos().add(new ComandoTelnet(cmdGetStatusPorta(tbs)));
-		this.getTelnet().getComandos().add(new ComandoTelnet(cmdGetStatusAdmPorta(tbs)));
+		this.getSocket().getComandos().add(new ComandoTelnet(cmdGetStatusPorta()));
+		this.getSocket().getComandos().add(new ComandoTelnet(cmdGetStatusAdmPorta()));
 
-		this.getTelnet().setMode(ExecutionType.ZHONE);
+		this.getSocket().setMode(ExecutionType.ZHONE);
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
@@ -52,16 +51,16 @@ public class EfmServico extends ZhoneServico implements BandaServicoInterface{
 	}
 
 	// Status Operacional.
-	public String cmdGetStatusPorta(InfoTBS infoTBS) {
+	public String cmdGetStatusPorta() {
 
-		return "port status 1-" + infoTBS.getSlot() + "-" + infoTBS.getPortNumber() +"-0/eth";
+		return "port status 1-" + this.getTbs().getSlot() + "-" + this.getTbs().getPortNumber() +"-0/eth";
 
 	}
 
 	// Adm Status.
-	public String cmdGetStatusAdmPorta(InfoTBS infoTBS) {
+	public String cmdGetStatusAdmPorta() {
 
-		return "port show 1-" + infoTBS.getSlot() + "-" + infoTBS.getPortNumber() +"-0/eth";
+		return "port show 1-" + this.getTbs().getSlot() + "-" + this.getTbs().getPortNumber() +"-0/eth";
 
 	}
 

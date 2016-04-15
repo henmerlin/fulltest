@@ -37,12 +37,11 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 	 * @throws Exception
 	 */
 	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
+				
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortStatus()));
+		this.getSocket().getComandos().add(new ComandoTelnet("A"));
 
-		// DSLAM do Agi - 4130825270
-		this.getTelnet().getComandos().add(new ComandoTelnet(this.cmdPortStatus()));
-		this.getTelnet().getComandos().add(new ComandoTelnet("A"));
-
-		this.getTelnet().setMode(ExecutionType.ZHONE_SLOW);
+		this.getSocket().setMode(ExecutionType.ZHONE_SLOW);
 
 		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
 
