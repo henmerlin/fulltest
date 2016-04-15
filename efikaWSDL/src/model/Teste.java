@@ -15,14 +15,13 @@ public class Teste {
 		try {
 						
 			Cliente cliente = new Cliente();
-			cliente.setInstancia("8532836631");
+			cliente.setInstancia("2131762236");
 			OperacionalServico servico = new OperacionalServico();
 			cliente = servico.consultarCadastro(cliente);
 						
 			KeymileServico milho = new KeymileServico();
 			milho.setCadastro(cliente.getCadastro());
 			milho.connect();
-			
 			
 			Keymile banda = new Keymile();
 			

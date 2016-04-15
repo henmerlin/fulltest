@@ -39,7 +39,8 @@ public class SocketClass {
 	// Buffer
 	private BufferedReader in;
 	
-	// Retorno
+	// Login
+	private Boolean logado;
 
 	public SocketClass(){
 
@@ -51,6 +52,7 @@ public class SocketClass {
 		this.out = new PrintWriter(this.pingSocket.getOutputStream(), true);
 		this.in = new BufferedReader(new InputStreamReader(this.pingSocket.getInputStream()));
 		this.comandos = new ArrayList<ComandoTelnet>();
+		this.logado = false;
 	}
 
 	public SocketClass(String ip, Credencial auth) {
@@ -97,8 +99,12 @@ public class SocketClass {
 
 		ArrayList<String> retorno = new ArrayList<String>();
 
-		out.println(this.auth.getUser());
-		out.println(this.auth.getPass());
+		if(!this.logado){
+			out.println(this.auth.getUser());
+			out.println(this.auth.getPass());	
+			this.logado = true;
+		}
+
 
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 			out.println(comandoTelnet.getSintaxe());
@@ -142,11 +148,15 @@ public class SocketClass {
 
 		ArrayList<String> retorno = new ArrayList<String>();
 		Thread.sleep(800);
-		out.println(this.auth.getUser() + "\r\n");
-		Thread.sleep(800);
-		out.println(this.auth.getPass() + "\r\n");
-		Thread.sleep(800);
-
+		
+		if(!this.logado){
+			out.println(this.auth.getUser() + "\r\n");
+			Thread.sleep(800);
+			out.println(this.auth.getPass() + "\r\n");
+			Thread.sleep(800);
+		}
+		
+		
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 
 			out.println(comandoTelnet.getSintaxe() + "\n");
@@ -176,11 +186,13 @@ public class SocketClass {
 
 		ArrayList<String> retorno = new ArrayList<String>();
 
-		out.println(this.auth.getUser() + "\r\n");
-		Thread.sleep(1000);
-		out.println(this.auth.getPass() + "\r\n");
-		Thread.sleep(1000);
-
+		if(!this.logado){
+			out.println(this.auth.getUser() + "\r\n");
+			Thread.sleep(1000);
+			out.println(this.auth.getPass() + "\r\n");
+			Thread.sleep(1000);
+		}
+		
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 
 			out.println(comandoTelnet.getSintaxe() + "\n");
@@ -212,12 +224,15 @@ public class SocketClass {
 	public List<String> zhoneSlowMode(PrintWriter out, BufferedReader in) throws Exception{
 
 		ArrayList<String> retorno = new ArrayList<String>();
-
 		Thread.sleep(800);
-		out.println(this.auth.getUser() + "\r\n");
-		Thread.sleep(1000);
-		out.println(this.auth.getPass() + "\r\n");
-		Thread.sleep(1000);
+		
+		if(!this.logado){
+			out.println(this.auth.getUser() + "\r\n");
+			Thread.sleep(1000);
+			out.println(this.auth.getPass() + "\r\n");
+			Thread.sleep(1000);		
+		}
+
 
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 
@@ -251,11 +266,14 @@ public class SocketClass {
 
 		ArrayList<String> retorno = new ArrayList<String>();
 		Thread.sleep(1000);
-		out.println(this.auth.getUser() + "\r\n");
-		Thread.sleep(1000);
-		out.println(this.auth.getPass() + "\r\n");
-		Thread.sleep(1000);
-
+		
+		if(!this.logado){
+			out.println(this.auth.getUser() + "\r\n");
+			Thread.sleep(1000);
+			out.println(this.auth.getPass() + "\r\n");
+			Thread.sleep(1000);
+		}
+		
 		for (ComandoTelnet comandoTelnet : this.getComandos()) {
 
 			out.println(comandoTelnet.getSintaxe() + "\n");
@@ -351,5 +369,13 @@ public class SocketClass {
 
 	public void setMode(ExecutionType mode) {
 		this.mode = mode;
+	}
+
+	public Boolean getLogado() {
+		return logado;
+	}
+
+	public void setLogado(Boolean logado) {
+		this.logado = logado;
 	}
 }

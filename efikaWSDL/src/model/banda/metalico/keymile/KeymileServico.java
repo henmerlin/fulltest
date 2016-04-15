@@ -100,79 +100,75 @@ public class KeymileServico extends DslamMetalico{
 
 		for (String string : retorno) {
 			
-			if(string.trim().contentEquals("interface-1") || string.trim().contentEquals("vcc-1")){
-							
-				Vcc vcc = new Vcc();
-				Srvc srvc = new Srvc();
-				vcc.setSeq(1);
-				
-				// Limpa buffer de comandos
-				this.getSocket().getComandos().clear();				
-				this.getSocket().getComandos().add(new ComandoTelnet(this.srvcs(string.trim())));
-
-				ArrayList<String> retConsultaVcc = (ArrayList<String>) this.getSocket().run();
-								
-				String serviceString = TelnetUtil.tratamentoStringKeymile("\\ # ServicesCurrentConnected", retConsultaVcc.get(TelnetUtil.posicaoArrayDeSubString(retConsultaVcc, "ServicesCurrentConnected", 1)));
-				Integer inicio = serviceString.indexOf("srvc-")+5;
-				Integer fim = serviceString.indexOf(";");
-				String idService = serviceString.substring(inicio, fim);
-
-				srvc.setSrvc(idService);
-				
-				
-				// Limpa buffer de comandos
-				this.getSocket().getComandos().clear();
-				this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSrvcDetail(srvc.getSrvc())));
-				
-				ArrayList<String> retorno2 = (ArrayList<String>) this.getSocket().run();
-				
-				TelnetUtil.debugger(retorno2);
-
-				
-				srvc.setCvid(TelnetUtil.tratamentoStringKeymile("\\ # CVID", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CVID", 1))));
-				srvc.setcTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # CTagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CTagPriority", 1))));
-				srvc.setsTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # STagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "STagPriority", 1))));
-				srvc.setSvid(TelnetUtil.tratamentoStringKeymile("\\ # Svid", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "Svid", 1))));
-				srvc.setVlanHandling(TelnetUtil.tratamentoStringKeymile("\\ # VlanHandling", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "VlanHandling", 1))));
-				
-				vcc.setService(srvc);				
+			Vcc vcc1 = this.tratamentoVcc("1", string);
+			if(vcc1 != null){
+				keymile.setAutenticacao(vcc1);
 			}
 			
+			Vcc vcc2 = this.tratamentoVcc("2", string);
+			if(vcc2 != null){
+				keymile.setVoip(vcc2);
+			}		
 			
-			//keymile.setAutenticacao(vcc);
-
-			
-			if(string.trim().contentEquals("interface-2") || string.trim().contentEquals("vcc-2")){
-				Vcc voip = new Vcc();
-				voip.setSeq(2);
+			Vcc vcc3 = this.tratamentoVcc("3", string);
+			if(vcc3 != null){
+				keymile.setVideo(vcc3);
 			}
 			
-			if(string.trim().contentEquals("interface-3") || string.trim().contentEquals("vcc-3")){
-				Vcc video = new Vcc();
-				video.setSeq(3);
-			}
-			
-			if(string.trim().contentEquals("interface-4") || string.trim().contentEquals("vcc-4")){
-				Vcc multitela = new Vcc();
-				multitela.setSeq(4);
+			Vcc vcc4 = this.tratamentoVcc("4", string);
+			if(vcc4 != null){
+				keymile.setMultitela(vcc4);
 			}
 			
 		}
-		
 
-		
-		
-		//TelnetUtil.debugger(retorno);
-		
 		return keymile;
 	}
 	
-	public Vcc tratamentoVcc(String idVcc){
+	public Vcc tratamentoVcc(String idVcc, String linha) throws Exception{
 		
+		if(linha.trim().contentEquals("interface-" + idVcc) || linha.trim().contentEquals("vcc-" + idVcc)){
+
+			Vcc vcc = new Vcc();
+			Srvc srvc = new Srvc();
+			vcc.setSeq(new Integer(idVcc));
+			
+			// Limpa buffer de comandos
+			this.getSocket().getComandos().clear();				
+			this.getSocket().getComandos().add(new ComandoTelnet(this.srvcs(linha.trim())));
+	
+			ArrayList<String> retConsultaVcc = (ArrayList<String>) this.getSocket().run();
+	
+			String serviceString = TelnetUtil.tratamentoStringKeymile("\\ # ServicesCurrentConnected", retConsultaVcc.get(TelnetUtil.posicaoArrayDeSubString(retConsultaVcc, "ServicesCurrentConnected", 1)));
+			
+			
+			Integer inicio = serviceString.indexOf("srvc-")+5;
+			Integer fim = serviceString.indexOf(";");
+			
+			String idService = serviceString.substring(inicio, fim);
+
+			//System.out.println(serviceString);
+			
+			srvc.setSrvc(idService);
+				
+			// Limpa buffer de comandos
+			this.getSocket().getComandos().clear();
+			this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSrvcDetail(srvc.getSrvc())));
+			
+			ArrayList<String> retorno2 = (ArrayList<String>) this.getSocket().run();
+				
 		
-		
-		
-		
+			srvc.setCvid(TelnetUtil.tratamentoStringKeymile("\\ # CVID", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CVID", 1))));
+			srvc.setcTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # CTagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CTagPriority", 1))));
+			srvc.setsTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # STagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "STagPriority", 1))));
+			srvc.setSvid(TelnetUtil.tratamentoStringKeymile("\\ # Svid", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "Svid", 1))));
+			srvc.setVlanHandling(TelnetUtil.tratamentoStringKeymile("\\ # VlanHandling", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "VlanHandling", 1))));
+			
+			vcc.setService(srvc);
+			
+			return vcc;
+		}	
+			
 		return null;
 	}
 	
