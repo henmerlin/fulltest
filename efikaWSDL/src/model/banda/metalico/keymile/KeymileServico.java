@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import entidades.banda.BandaInterface;
+import entidades.banda.metalico.keymile.Keymile;
+import entidades.banda.metalico.keymile.configs.Srvc;
+import entidades.banda.metalico.keymile.configs.Vcc;
 import entidades.banda.parametros.DiaTabelaHistorico;
 import entidades.banda.parametros.TabelaHistorico;
 import model.banda.metalico.DslamMetalico;
@@ -81,11 +85,65 @@ public class KeymileServico extends DslamMetalico{
 
 			tabela.getDias().add(dia);
 		}
-
+		
 		return tabela;
 	}
 
 
+	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
+		
+		Keymile keymile = (Keymile) banda;
+
+		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdLsChanVccs()));
+		
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
+
+		for (String string : retorno) {
+			
+			if(string.trim().contentEquals("interface-1") || string.trim().contentEquals("vcc-1")){
+				Vcc autenticacao_ = new Vcc();
+				Srvc autenticacao = new Srvc();
+				autenticacao_.setSeq(1);
+				
+				this.getSocket().getComandos().clear();
+				this.getSocket().getComandos().add(new ComandoTelnet(this.srvcs(string.trim())));
+				ArrayList<String> retorno1 = (ArrayList<String>) this.getSocket().run();
+				String qimporta = TelnetUtil.tratamentoStringKeymile("\\ # ServicesCurrentConnected", retorno1.get(TelnetUtil.posicaoArrayDeSubString(retorno1, "ServicesCurrentConnected", 1)));
+				Integer inicio = qimporta.indexOf("srvc-")+5;
+				Integer fim = qimporta.indexOf(";");
+				String oqimporta = qimporta.substring(inicio, fim);
+				autenticacao.setSrvc(oqimporta);
+				this.getSocket().getComandos().clear();
+				this.getSocket().getComandos().add(new ComandoTelnet(this.cmdSrvcDetail(autenticacao.getSrvc())));
+				ArrayList<String> retorno2 = (ArrayList<String>) this.getSocket().run();
+				autenticacao.setCvid(TelnetUtil.tratamentoStringKeymile("\\ # CVID", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CVID", 1))));
+				autenticacao.setcTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # CTagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "CTagPriority", 1))));
+				autenticacao.setsTagPriority(TelnetUtil.tratamentoStringKeymile("\\ # STagPriority", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "STagPriority", 1))));
+				autenticacao.setSvid(TelnetUtil.tratamentoStringKeymile("\\ # Svid", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "Svid", 1))));
+				autenticacao.setVlanHandling(TelnetUtil.tratamentoStringKeymile("\\ # VlanHandling", retorno2.get(TelnetUtil.posicaoArrayDeSubString(retorno2, "VlanHandling", 1))));
+				
+			}
+			if(string.trim().contentEquals("interface-2") || string.trim().contentEquals("vcc-2")){
+				Vcc voip = new Vcc();
+				voip.setSeq(2);
+			}
+			if(string.trim().contentEquals("interface-3") || string.trim().contentEquals("vcc-3")){
+				Vcc video = new Vcc();
+				video.setSeq(3);
+			}
+			if(string.trim().contentEquals("interface-4") || string.trim().contentEquals("vcc-4")){
+				Vcc multitela = new Vcc();
+				multitela.setSeq(4);
+			}
+			
+		}
+		
+		
+		//TelnetUtil.debugger(retorno);
+		
+		return keymile;
+	}
+	
 	/**
 	 * Retorna o estado administrativo da porta 
 	 * @param tbs
@@ -121,7 +179,7 @@ public class KeymileServico extends DslamMetalico{
 	 * @return
 	 */
 	public String cmdSrvcDetail(String srvc){
-		return "get /services/packet/1to1doubletag/"+ srvc + "/cfgm/Service";
+		return "get /services/packet/1to1doubletag/srvc-"+ srvc + "/cfgm/Service";
 	}
 
 
@@ -139,7 +197,7 @@ public class KeymileServico extends DslamMetalico{
 	/*
 	 * Retorna srvcs das vccs do canal 	
 	 */
-	public String srvcs(Integer vcc){
+	public String srvcs(String vcc){
 
 		return "get /unit-" + this.getTbs().getSlot() + "/port-" + this.getTbs().getPortNumber() + "/chan-1/" + vcc + "/status/servicestatus";
 	}

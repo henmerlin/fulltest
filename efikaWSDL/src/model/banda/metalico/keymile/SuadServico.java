@@ -73,42 +73,42 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	}
 
 	
-	@Override
-	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
-		
-		
-		Suad suad = (Suad) banda;
-		
-
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(1)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(2)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(3)));
-		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(4)));
-		
-		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
-		
-		String string = "\\ # ServicesCurrentConnected";
-		
-		String oi1 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 1)));
-		String oi2 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 2)));
-		String oi3 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 3)));
-		String oi4 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 4)));
-		
-		
-		System.out.println(oi1.substring(oi1.indexOf("srvc"), oi1.length() - 1));
-		System.out.println(oi2.substring(oi2.indexOf("srvc"), oi2.length() - 1));
-		System.out.println(oi3.substring(oi3.indexOf("srvc"), oi3.length() - 1));
-		System.out.println(oi4.substring(oi4.indexOf("srvc"), oi4.length()));
-		
-//		System.out.println(oi1);
-//		System.out.println(oi2);
-//		System.out.println(oi3);
-//		System.out.println(oi4);
-		
-		//TelnetUtil.debugger(retorno);
-		
-		return suad;
-	}
+//	@Override
+//	public BandaInterface consultarBridges(BandaInterface banda) throws Exception {
+//		
+//		
+//		Suad suad = (Suad) banda;
+//		
+//
+//		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(1)));
+//		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(2)));
+//		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(3)));
+//		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdVccConfig(4)));
+//		
+//		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
+//		
+//		String string = "\\ # ServicesCurrentConnected";
+//		
+//		String oi1 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 1)));
+//		String oi2 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 2)));
+//		String oi3 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 3)));
+//		String oi4 = TelnetUtil.tratamentoStringKeymile(string, retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, string, 4)));
+//		
+//		
+//		System.out.println(oi1.substring(oi1.indexOf("srvc"), oi1.length() - 1));
+//		System.out.println(oi2.substring(oi2.indexOf("srvc"), oi2.length() - 1));
+//		System.out.println(oi3.substring(oi3.indexOf("srvc"), oi3.length() - 1));
+//		System.out.println(oi4.substring(oi4.indexOf("srvc"), oi4.length()));
+//		
+////		System.out.println(oi1);
+////		System.out.println(oi2);
+////		System.out.println(oi3);
+////		System.out.println(oi4);
+//		
+//		//TelnetUtil.debugger(retorno);
+//		
+//		return suad;
+//	}
 	
 	public String cmdSnrMargin(){
 		return "get /unit-" + this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/status/snrmargin";
@@ -129,16 +129,6 @@ public class SuadServico extends KeymileServico implements BandaServicoInterface
 	
 	public String cmdPortProfile(){
 		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/cfgm/portprofile";
-	}
-	
-	/**
-	 * 
-	 * @param tbs
-	 * @param nrBridge
-	 * @return
-	 */
-	public String cmdVccConfig(Integer vcc){
-		return "get /unit-" +  this.getTbs().getSlot() + "/port-" +  this.getTbs().getPortNumber() + "/chan-1/vcc-" + vcc + "/status/servicestatus";
 	}
 
 }

@@ -12,17 +12,20 @@ public class Srvc {
 	
 	private String vlanHandling;
 	
+	private String srvc;
+	
 	public Srvc() {
 
 	}
 	
-	public Srvc(String cvid, String cTagPriority, String svid, String sTagPriority, String vlanHandling) {
+	public Srvc(String cvid, String cTagPriority, String svid, String sTagPriority, String vlanHandling, String srvc) {
 		super();
 		this.cvid = cvid;
 		this.cTagPriority = cTagPriority;
 		this.svid = svid;
 		this.sTagPriority = sTagPriority;
 		this.vlanHandling = vlanHandling;
+		this.srvc = srvc;
 	}
 
 	public String getCvid() {
@@ -63,5 +66,13 @@ public class Srvc {
 
 	public void setVlanHandling(String vlanHandling) {
 		this.vlanHandling = vlanHandling;
+	}
+
+	public String getSrvc() {
+		return srvc;
+	}
+
+	public void setSrvc(String srvc) {
+		this.srvc = srvc;
 	}
 }
