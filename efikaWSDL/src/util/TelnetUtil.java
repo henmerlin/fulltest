@@ -47,9 +47,9 @@ public class TelnetUtil {
 		return (String) string.subSequence(string.lastIndexOf("{") + 1, string.length() - 1);
 	}
 
-	public static String tratamentoStringZhoneGpon(String string) throws Exception{	
+	public static String tratamentoStringZhone2(String string) throws Exception{	
 
-		return "";
+		return (String) string.subSequence(string.lastIndexOf("->") + 1, string.length());
 	}
 
 	/**

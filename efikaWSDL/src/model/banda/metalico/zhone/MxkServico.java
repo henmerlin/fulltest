@@ -31,15 +31,6 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 	public TabelaParametrosMetalico consultarTabelaParametros() throws Exception{
 
-		InfoTBS tbs = new InfoTBS();
-
-		tbs.setIpDslam("10.221.146.61");
-		tbs.setSlot(new BigInteger("16"));
-		tbs.setPortNumber(new BigInteger("10"));
-		tbs.setPortAddrSeq(new BigInteger("1418"));		
-
-		this.getSocket().setIp(tbs.getIpDslam());
-
 		this.getSocket().getComandos().add(new ComandoTelnet(this.cmdPortStatus()));
 		this.getSocket().getComandos().add(new ComandoTelnet("A"));
 
@@ -51,7 +42,7 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 
 		this.getSocket().setMode(ExecutionType.ZHONE_MXK);
 
-		ArrayList<String> retorno = (ArrayList<String>) this.getTelnet().run();
+		ArrayList<String> retorno = (ArrayList<String>) this.getSocket().run();
 
 		TabelaParametrosMetalico tabela = new TabelaParametrosMetalico();
 
@@ -76,14 +67,14 @@ public class MxkServico extends ZhoneServico implements BandaServicoInterface{
 		tabela.setModulacao(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "transmit-mode", 1))));
 
 		//Profile da porta Down/Up
-		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "interleaveMaxTxRate", 1))));
-		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "interleaveMaxTxRate", 2))));
+		Double profileDown = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "fastMaxTxRate", 1))));
+		Double profileUp = new Double(TelnetUtil.tratamentoStringZhoneDif(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "fastMaxTxRate", 2))));
 
 		tabela.setProfile(profileDown + " - " + profileUp);
 
 		//System.out.println(tabela.getProfile());		
 
-		TelnetUtil.debugger(retorno);
+		//TelnetUtil.debugger(retorno);
 
 		return tabela;
 	}

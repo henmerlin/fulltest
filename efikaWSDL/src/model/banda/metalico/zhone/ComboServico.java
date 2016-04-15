@@ -49,7 +49,16 @@ public class ComboServico extends ZhoneServico implements BandaServicoInterface{
 		
 		// Status Port
 		tabela.setPortaAdmStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "AdminStatus", 1))));
-		tabela.setSincronismoStatus(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "LineStatus", 1))));
+		
+		String sinc = TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "LineStatus", 1)));
+		
+		if (sinc.equalsIgnoreCase("DATA")){
+			
+			sinc = "ATIVO";
+			
+		}
+		
+		tabela.setSincronismoStatus(sinc);
 
 		// Velocidade Sincronizada
 		tabela.setDownload(new Double(TelnetUtil.tratamentoStringZhone(retorno.get(TelnetUtil.posicaoArrayDeSubString(retorno, "DslDownLineRate", 1)))) /1000);

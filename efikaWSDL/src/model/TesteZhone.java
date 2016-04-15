@@ -47,6 +47,8 @@ public class TesteZhone {
 			System.out.println("Sinc: " + tabela.getSincronismoStatus());
 			System.out.println("Modulação: " + tabela.getModulacao());
 			System.out.println("Profile: " + tabela.getProfile());
+			System.out.println("Down: " + tabela.getDownload());
+			System.out.println("Up: " + tabela.getUpload());
 			
 			combo.disconnect();			
 
