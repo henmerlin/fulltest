@@ -6,104 +6,58 @@ import entidades.banda.metalico.keymile.configs.Srvc;
 import entidades.banda.metalico.keymile.configs.Vcc;
 
 public class Keymile extends Banda implements BandaInterface{
+		
+	private Vcc autenticacao;
 	
-	private Srvc autenticacao;
+	private Vcc voip;
 	
-	private Srvc voip;
+	private Vcc video;
 	
-	private Srvc video;
+	private Vcc multitela;
 	
-	private Srvc multitela;
-	
-	private Vcc autenticacao_vcc;
-	
-	private Vcc voip_vcc;
-	
-	private Vcc video_vcc;
-	
-	private Vcc multitela_vcc;
-	
-	
+
 	public Keymile() {
 		
 	}
 
 
-	public Srvc getAutenticacao() {
+	public Vcc getAutenticacao() {
 		return autenticacao;
 	}
 
-	public void setAutenticacao(Srvc autenticacao) {
+
+	public void setAutenticacao(Vcc autenticacao) {
 		this.autenticacao = autenticacao;
 	}
 
 
-	public Srvc getVoip() {
+	public Vcc getVoip() {
 		return voip;
 	}
 
 
-	public void setVoip(Srvc voip) {
+	public void setVoip(Vcc voip) {
 		this.voip = voip;
 	}
 
 
-	public Srvc getVideo() {
+	public Vcc getVideo() {
 		return video;
 	}
 
 
-	public void setVideo(Srvc video) {
+	public void setVideo(Vcc video) {
 		this.video = video;
 	}
 
 
-	public Srvc getMultitela() {
+	public Vcc getMultitela() {
 		return multitela;
 	}
 
 
-	public void setMultitela(Srvc multitela) {
+	public void setMultitela(Vcc multitela) {
 		this.multitela = multitela;
 	}
 
-
-	public Vcc getAutenticacao_vcc() {
-		return autenticacao_vcc;
-	}
-
-
-	public void setAutenticacao_vcc(Vcc autenticacao_vcc) {
-		this.autenticacao_vcc = autenticacao_vcc;
-	}
-
-
-	public Vcc getVoip_vcc() {
-		return voip_vcc;
-	}
-
-
-	public void setVoip_vcc(Vcc voip_vcc) {
-		this.voip_vcc = voip_vcc;
-	}
-
-
-	public Vcc getVideo_vcc() {
-		return video_vcc;
-	}
-
-
-	public void setVideo_vcc(Vcc video_vcc) {
-		this.video_vcc = video_vcc;
-	}
-
-
-	public Vcc getMultitela_vcc() {
-		return multitela_vcc;
-	}
-
-
-	public void setMultitela_vcc(Vcc multitela_vcc) {
-		this.multitela_vcc = multitela_vcc;
-	}
 }

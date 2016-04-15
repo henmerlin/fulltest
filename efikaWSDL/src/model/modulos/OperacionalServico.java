@@ -23,7 +23,6 @@ public class OperacionalServico implements OperacionalInterface{
 	private BandaServicoInterface servicoBandaEsp;
 
 	public OperacionalServico() {
-
 		this.servicoCadastro = new ClienteServico();
 		this.servicoBanda = new BandaServico();
 		this.servicoLinha = new LinhaServico();
@@ -80,6 +79,11 @@ public class OperacionalServico implements OperacionalInterface{
 		//this.servicoVoz.realizarCorrecoes(cliente);
 
 		return cliente;
+	}
+	
+	
+	public Cliente consultarCadastro(Cliente cliente) throws Exception{
+		return this.servicoCadastro.consultarCadastro(cliente);
 	}
 
 
