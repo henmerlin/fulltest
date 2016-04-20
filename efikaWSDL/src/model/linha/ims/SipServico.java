@@ -19,7 +19,6 @@ import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.ResetSIP
 
 import br.com.gvt.telefonia.ura.co.services.ResendFxsIn;
 import br.com.gvt.telefonia.ura.co.services.ResendFxsOut;
-import br.com.gvt.telefonia.ura.co.services.ResetModemSipInterfaceIn;
 import br.com.gvt.telefonia.ura.co.services.SIPProxy;
 import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import entidades.cliente.Cliente;
@@ -176,7 +175,6 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		if(config.getStatus().getValor().equalsIgnoreCase("Disabled") 
 			|| config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
 			// Sip Profile reset
-			 
 			Thread thread = new Thread()
 			    {
 			        public void run()
@@ -194,12 +192,11 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		}
 		
 		
-//		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
-//			// Reenviar FXS 
-//			this.reenviarFxs(cliente.getDesignador());
-//		}
+		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
+			// Reenviar FXS 
+			this.reenviarFxs(cliente.getDesignador());
+		}
 		
-
 	}
 	
 	public ResetSIPAgentOut resetarSipProfile(String designador, String instancia) throws RemoteException{
