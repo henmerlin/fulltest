@@ -16,6 +16,12 @@
 
 	<ui:define name="botoesAcao"></ui:define>
 
+	<ui:define name="eventos">
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
 	<ui:define name="conteudo">
 
 		<h:form>
@@ -47,11 +53,11 @@
 
 
 		<h:form>
-	
+
 			<p:wizard flowListener="#{atendimentoWizard.onFlowProcess}"
 				rendered="#{not empty operacionalBean.cliente.linha.instancia}"
 				style="margin-top: 15px;" nextLabel="Próximo" backLabel="Voltar">
-				
+
 				<p:tab id="linha" title="Linha" disabled="false">
 					<p:panel header="Configurações Linha" style="margin-top: 15px;"
 						rendered="#{not empty operacionalBean.cliente.linha.instancia}">
@@ -60,7 +66,8 @@
 							<div class="ui-grid-row">
 								<div class="ui-grid-col-3">
 
-									<p:panelGrid columns="2" cellpadding="10"  style="margin-top: 15px;">
+									<p:panelGrid columns="2" cellpadding="10"
+										style="margin-top: 15px;">
 
 										<f:facet name="header">
 											Informações da Central
@@ -126,7 +133,7 @@
 				</p:tab>
 
 				<p:tab id="banda" title="Banda">
-			
+
 					<p:panel header="Configurações Banda" style="margin-top: 15px;">
 
 						<div class="ui-grid ui-grid-responsive">
@@ -272,9 +279,9 @@
 										</f:facet>
 
 										<h:outputText value="Potência ONT" />
-											<h:outputText id="ont_param"
-											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaONT}" />									
-										
+										<h:outputText id="ont_param"
+											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaONT}" />
+
 										<h:outputText value="Potência OLT" />
 										<h:outputText id="olt_param"
 											value="#{operacionalBean.cliente.banda.parametros.tabelaParametrosGpon.potenciaOLT}" />

@@ -8,22 +8,20 @@
 <ui:composition template="/recursos/template/template.xhtml">
 
 	<ui:define name="tituloPagina">
-		 Início
+		 Erro
 	</ui:define>
 	<ui:define name="tituloPrincipal">
-		<i class="fa fa-wrench"> </i> Atendimento</ui:define>
+		<i class="fa fa-user-times"> </i> Acesso restrito
+	</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
 
-	<ui:define name="botoesAcao"></ui:define>
+		<ui:define name="botoesAcao"></ui:define>
 
-	<ui:define name="conteudo">
-		<h:form>
-			<p:fileUpload fileUploadListener="#{fileUploadView.handleFileUpload}"
-				mode="advanced" dragDropSupport="true" multiple="true"
-				update="messages" sizeLimit="100000" fileLimit="5"
-				allowTypes="/(\.|\/)(csv)$/" />
-		</h:form>
+		<ui:define name="conteudo">
 
-	</ui:define>
+			<h:outputLabel value="Acesso restrito"
+				style="font-weight:bold;"/>
+
+		</ui:define>
 </ui:composition>
 </html>

@@ -23,11 +23,8 @@ public class FileUploadView {
 		UploadedFile file = event.getFile();
 	
 		try {
-			
 			Lote lote = this.massivo.criarLote(file);
-			
 			JSFUtil.addInfoMessage("Lote " + lote.getNome() + " carregado!");
-						
 		} catch (IOException e) {
 			JSFUtil.addErrorMessage(e.getMessage());
 		}

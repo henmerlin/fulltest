@@ -771,3 +771,8 @@ encoding//src/com/gvt/www/ws/eai/sisnum/liberarNumeroEquip/LiberarNumeroEquipIn.
 encoding//src/exception/ossturbonet/oss/gvt/com/DataNotFoundException.java=UTF-8
 encoding//src/exception/ossturbonet/oss/gvt/com/OSSTurbonetException.java=UTF-8
 encoding//src/rpc/xml/javax/ServiceException.java=UTF-8
+encoding//src/webservices/EfikaUsersSoapBindingStub.java=UTF-8
+encoding//src/webservices/EfikaUsers_PortType.java=UTF-8
+encoding//src/webservices/EfikaUsers_Service.java=UTF-8
+encoding//src/webservices/EfikaUsers_ServiceLocator.java=UTF-8
+encoding//src/webservices/Usuario.java=UTF-8

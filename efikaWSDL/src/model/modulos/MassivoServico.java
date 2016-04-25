@@ -35,6 +35,7 @@ public class MassivoServico {
 		ArrayList<String> instancias = csv.run();
 		
 		Lote lote = new Lote();
+		lote.setNome(nome);
 		lote.setDataUpload(new Date());
 		lote.setInstancias(instancias);
 		
