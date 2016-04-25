@@ -10,7 +10,7 @@ import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
 
 public class OperacionalServico{
-
+	
 	private LinhaServico servicoLinha;
 
 	private BandaServico servicoBanda;
@@ -48,16 +48,16 @@ public class OperacionalServico{
 		// Consulta Configurações Linha
 		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 
-//		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
-//		this.servicoBandaEsp.setCadastro(cliente.getCadastro());
-//			
-//		
-//		this.servicoBandaEsp.connect();
-//		
-//		// Consultar Tabela de Parâmetros (polimorfico)
-//		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
-//
-//		this.servicoBandaEsp.disconnect();
+		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
+		this.servicoBandaEsp.setCadastro(cliente.getCadastro());
+			
+		
+		this.servicoBandaEsp.connect();
+		
+		// Consultar Tabela de Parâmetros (polimorfico)
+		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
+
+		this.servicoBandaEsp.disconnect();
 
 		// Sets nos erros de configuração encontrados
 		//cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
@@ -111,5 +111,4 @@ public class OperacionalServico{
 
 		return cliente;
 	}
-
 }

@@ -20,6 +20,7 @@ public abstract class DslamGerenciavel {
 		this.telnet = new Telnet();
 		this.socket = new SocketClass();
 	}
+		
 
 	public Telnet getTelnet() {
 		return telnet;
