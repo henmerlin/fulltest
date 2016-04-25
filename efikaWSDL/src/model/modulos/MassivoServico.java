@@ -3,6 +3,7 @@ package model.modulos;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.primefaces.model.UploadedFile;
 
@@ -34,7 +35,8 @@ public class MassivoServico {
 		ArrayList<String> instancias = csv.run();
 		
 		Lote lote = new Lote();
-		
+		lote.setDataUpload(new Date());
+		lote.setInstancias(instancias);
 		
 		return lote;
 	}

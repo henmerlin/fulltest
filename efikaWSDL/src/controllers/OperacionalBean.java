@@ -2,7 +2,6 @@ package controllers;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlDataTable;
 
 import entidades.cliente.Cliente;
 import model.modulos.OperacionalServico;

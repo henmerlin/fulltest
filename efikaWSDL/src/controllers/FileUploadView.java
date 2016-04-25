@@ -1,4 +1,4 @@
-package util;
+package controllers;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import org.primefaces.model.UploadedFile;
 
 import entidades.massivo.Lote;
 import model.modulos.MassivoServico;
+import util.JSFUtil;
 
 @ManagedBean
 public class FileUploadView {
@@ -27,8 +28,6 @@ public class FileUploadView {
 		try {
 			
 			Lote lote = this.massivo.criarLote(file);
-			
-			
 			
 			JSFUtil.addInfoMessage("Lote " + lote.getNome() + " carregado!");
 						
