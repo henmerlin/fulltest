@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -13,8 +11,7 @@ import util.JSFUtil;
 
 @ManagedBean
 public class FileUploadView {
-	
-	@EJB
+
 	private MassivoServico massivo;
 	
 	public FileUploadView() {

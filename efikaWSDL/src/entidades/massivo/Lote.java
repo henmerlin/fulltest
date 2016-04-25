@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Lote {
@@ -16,6 +17,7 @@ public class Lote {
 	
 	private String nome;
 	
+	@Transient
 	private List<String> instancias;
 		
 	private Date dataUpload;
