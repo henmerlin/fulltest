@@ -1,6 +1,5 @@
 package model.factory;
 
-import entidades.credenciais.Credencial;
 import entidades.linha.LinhaInterface;
 import entidades.linha.ims.Sip;
 import entidades.linha.ims.V52;
@@ -40,6 +39,7 @@ public final class LinhaFactory {
 			return new V52();
 		}
 		else{
+			System.out.println(tecnologia);
 			throw new Exception("Técnologia de voz não implementada.");
 		}
 	}
@@ -55,38 +55,8 @@ public final class LinhaFactory {
 		}else if (tecnologia.equalsIgnoreCase(LinhaFactory.V52)) {
 			return new V52Servico();
 		}else{
+			System.out.println(tecnologia);
 			throw new Exception("Técnologia de voz não implementada.");
 		}
-	}
-	/**
-	 * Método utilizado para criar entidade Credencial de acordo com tipo
-	 * @param tipo
-	 * @return Credencial utilizada para autenticação Telnet / Serviço
-	 * @throws Exception Linha não implementada
-	 */
-	public Credencial createCredencial(String tipo) throws Exception{
-
-		if(tipo.equalsIgnoreCase(LinhaFactory.NORTEL)){
-			return this.nortelCredencial();
-		}else{
-			throw new Exception("Técnologia de voz não implementada.");
-		}
-	}
-	
-	
-	/**
-	 * Implementar login ciclico (verificar com Gerente de Projeto);
-	 * @return
-	 * @author G0042204
-	 */
-	public Credencial nortelCredencial(){
-		
-		Credencial credencial = new Credencial();
-
-		credencial.setUser("admin");
-		credencial.setPass("zhone");
-
-		return credencial;
-		
 	}
 }

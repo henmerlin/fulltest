@@ -167,9 +167,9 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 
 
 	@Override
-	public List<Exception> validarConfiguracoes(Cliente cliente) {
+	public List<String> validarConfiguracoes(Cliente cliente) {
 
-		return new ArrayList<Exception>();
+		return new ArrayList<String>();
 	}
 
 	@Override

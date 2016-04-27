@@ -116,22 +116,30 @@
 							emptyMessage="NÃ£o foram encontrados erros de Configuração.">
 
 							<p:column headerText="Erros de Configuração">
-								<h:outputText value="#{error.message}" />
+								<h:outputText value="#{error}" />
 							</p:column>
 
 						</p:dataTable>
+						
+						<p:commandButton
+							action="#{operacionalBean.realizarCorrecoesLinha()}"
+							value="Realizar Correções!"
+							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
+							style="margin-top: 15px;" />
 
-						<h:outputText
-							rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}"
-							value="Linha configurada corretamente!" />
+						<h:panelGroup layout="block"
+							rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}">
+							<div class="alert alert-success" style="margin-top: 15px;">
+								<h3>Não foram encontrados erros lógicos de configuração!</h3>
+							</div>
+						</h:panelGroup>
 
-						<p:commandButton action="#{operacionalBean.realizarCorrecoes()}"
-							value="Realizar CorreÃ§Ãµes!"
-							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}" />
+
 
 					</p:panel>
 				</p:tab>
 
+				<!-- 
 				<p:tab id="banda" title="Banda">
 
 					<p:panel header="Configurações Banda" style="margin-top: 15px;">
@@ -316,7 +324,7 @@
 							</div>
 						</div>
 					</p:panel>
-				</p:tab>
+				</p:tab> -->
 
 
 				<p:tab id="confirm" title="Confirmation">

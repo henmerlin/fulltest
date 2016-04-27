@@ -8,15 +8,18 @@
 <ui:composition>
 
 	<ul id="menu">
-		<li>
-			<a href="index.jsf"> <i class="fa fa-home" /> Início</a>
-		</li>
-		<li>
-			<a href="atendimento2.jsf"> <i class="fa fa-wrench" /> Atendimento</a>
-		</li>		
-		<li>
-			<a href="massivo.jsf"> <i class="fa fa-list-ul" /> Massivo</a>
-		</li>				
+		<li><a href="index.jsf"> <i class="fa fa-home" /> Início
+		</a></li>
+		<li><a href="atendimento_wizard.jsf"> <i class="fa fa-wrench" />
+				Atendimento
+		</a></li>
+		<h:panelGroup layout="block" rendered="#{loginBean.usuario.nivel > 7}">
+			<li><a href="massivo.jsf"> <i class="fa fa-list-ul" />
+					Massivo
+			</a></li>
+		</h:panelGroup>
+				
 	</ul>
+
 </ui:composition>
 </html>

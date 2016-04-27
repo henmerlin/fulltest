@@ -32,8 +32,8 @@ public interface LinhaInterface {
 
 	public void setInfoInstancia(GetInformacoesInstanciaOut infoInstancia);
 	
-	public List<Exception> getConfigErrors();
+	public List<String> getConfigErrors();
 	
-	public void setConfigErrors(List<Exception> oi);
+	public void setConfigErrors(List<String> erros);
 
 }

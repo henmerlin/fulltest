@@ -38,7 +38,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 	private ConfiguradorOnlineDeviceManagementProxy codService;
 
 	private ConfiguradorOnlineServicesProxy configOnline;
-	
+
 	private SIPProxy sip;
 
 	public SipServico() {
@@ -64,104 +64,159 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 	@Override
 	public Cliente consultarConfiguracoes(Cliente cliente) throws Exception {
 
-		cliente = super.consultarConfiguracoes(cliente);
+		try {
+			cliente = super.consultarConfiguracoes(cliente);
 
-		DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
+			DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
 
-		ElementoDiagnosticoSIP device = diag.getHomegateway();
+			ElementoDiagnosticoSIP device = diag.getHomegateway();
 
-		ConfiguracaoSip config = new ConfiguracaoSip();
+			ConfiguracaoSip config = new ConfiguracaoSip();
 
-		config.setTipo(new Parametro("Tipo", device.getTipo()));
-		config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
-		config.setMac(new Parametro("Mac Address", device.getMacAddress()));
-		config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
+			config.setTipo(new Parametro("Tipo", device.getTipo()));
+			config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
+			config.setMac(new Parametro("Mac Address", device.getMacAddress()));
+			config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
 
-		if(diag.getCodigo() == 0){
+			if(diag.getCodigo() == 0){
 
-			DiagnosticoSIP[] diagSip = device.getDiagnosticosSIP();
+				DiagnosticoSIP[] diagSip = device.getDiagnosticosSIP();
 
-			for (DiagnosticoSIP diagnosticoSIP : diagSip) {
+				for (DiagnosticoSIP diagnosticoSIP : diagSip) {
 
-				config.setDn(new Parametro("dn", diagnosticoSIP.getInstancia()));	
-
-				DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
-
-				for (DiagnosticoParam param : parametros) {
-
-					if(param.getNome().equalsIgnoreCase("AuthUserName")){
-						config.setAuthUser(new Parametro("AuthUserName", param.getValor()));
+					if(!diagnosticoSIP.getInstancia().isEmpty()){
+						config.setDn(new Parametro("dn", diagnosticoSIP.getInstancia()));	
+					}else{
+						config.setDn(null);
 					}
 
-					if(param.getNome().equalsIgnoreCase("OutboundProxy")){
-						config.setOutboundProxy(new Parametro("OutboundProxy", param.getValor()));
+
+					DiagnosticoParam[] parametros = diagnosticoSIP.getParams();
+
+					for (DiagnosticoParam param : parametros) {
+
+						if(param.getNome().equalsIgnoreCase("AuthUserName")){
+
+							if(param.getValor().isEmpty()){
+								config.setAuthUser(null);
+							}else{
+								config.setAuthUser(new Parametro("AuthUserName", param.getValor()));
+							}	
+						}
+
+						if(param.getNome().equalsIgnoreCase("OutboundProxy")){
+							if(param.getValor().isEmpty()){
+								config.setOutboundProxy(null);
+							}else{
+								config.setOutboundProxy(new Parametro("OutboundProxy", param.getValor()));
+							}	
+						}
+
+
+						if(param.getNome().equalsIgnoreCase("UserAgentDomain")){
+							if(param.getValor().isEmpty()){
+								config.setUserAgentDomain(null);
+							}else{
+								config.setUserAgentDomain(new Parametro("UserAgentDomain", param.getValor()));
+							}	
+						}
+
+
+						if(param.getNome().equalsIgnoreCase("RegistrarServer")){
+							if(param.getValor().isEmpty()){
+								config.setRegistrarServer(null);
+							}else{
+								config.setRegistrarServer(new Parametro("RegistrarServer", param.getValor()));
+							}	
+						}	
+
+						if(param.getNome().equalsIgnoreCase("ProxyServer")){
+							if(param.getValor().isEmpty()){
+								config.setProxyServer(null);
+							}else{
+								config.setProxyServer(new Parametro("ProxyServer", param.getValor()));
+							}
+						}					
+
+						if(param.getNome().equalsIgnoreCase("Status")){
+							if(param.getValor().isEmpty()){
+								config.setStatus(null);
+							}else{
+								config.setStatus(new Parametro("Status", param.getValor()));
+							}
+						}		
+
+						if(param.getNome().equalsIgnoreCase("IPAddress")){
+							if(param.getValor().isEmpty()){
+								config.setIpAddress(null);
+							}else{
+								config.setIpAddress(new Parametro("IPAddress", param.getValor()));
+							}
+						}	
 					}
-
-					if(param.getNome().equalsIgnoreCase("UserAgentDomain")){
-						config.setUserAgentDomain(new Parametro("UserAgentDomain", param.getValor()));
-					}
-
-					if(param.getNome().equalsIgnoreCase("RegistrarServer")){
-						config.setRegistrarServer(new Parametro("RegistrarServer", param.getValor()));
-					}	
-
-					if(param.getNome().equalsIgnoreCase("ProxyServer")){
-						config.setProxyServer(new Parametro("ProxyServer", param.getValor()));
-					}					
-
-					if(param.getNome().equalsIgnoreCase("Status")){
-						config.setStatus(new Parametro("Status", param.getValor()));
-					}		
-
-					if(param.getNome().equalsIgnoreCase("IPAddress")){
-						config.setIpAddress(new Parametro("IPAddress", param.getValor()));
-					}	
 				}
 			}
+
+			config.setRegistro(super.consultarRegistroCentral(cliente.getInstancia(), cliente.getLinha()));
+
+			cliente.getLinha().setConfiguracao(config);
+
+			return cliente;
+		} catch (Exception e) {
+			throw new Exception("Erro ao Consultar Configuracoes!" + e.getMessage());
 		}
-
-		config.setRegistro(super.consultarRegistroCentral(cliente.getInstancia(), cliente.getLinha()));
-		
-		//config.setFxs(this.consultarPortaFxs(cliente));
-
-		cliente.getLinha().setConfiguracao(config);
-
-		return cliente;
 	}
 
 	@Override
-	public List<Exception> validarConfiguracoes(Cliente cliente) {
+	public List<String> validarConfiguracoes(Cliente cliente) {
 
-		List<Exception> erros = new ArrayList<Exception>();
+		List<String> erros = new ArrayList<String>();
 
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-		if (!config.getDn().getValor().trim().equalsIgnoreCase(cliente.getLinha().getInstancia().trim())) {
-			erros.add(new Exception("Instância configurada incorretamente no modem."));
+		if(config.getStatusCpe() != null){
+			if (config.getStatusCpe().getValor().contains("Inativo")) {
+				erros.add(new String("CPE inativo."));
+			}			
 		}
 
-		if(config.getIpAddress().getValor().equalsIgnoreCase("0")){
-			erros.add(new Exception("Sem ip de voz."));
+		if(config.getDn() != null){
+			if (!config.getDn().getValor().trim().equalsIgnoreCase(cliente.getLinha().getInstancia().trim())) {
+				erros.add(new String("Instância configurada incorretamente no modem."));
+			}
 		}
 
-		if(config.getAuthUser().getValor().equalsIgnoreCase("0")){
-			erros.add(new Exception("AuthUser configurado incorretamente."));
-		}		
+		if(config.getIpAddress() != null){
+			if(config.getIpAddress().getValor().equalsIgnoreCase("0")){
+				erros.add(new String("Sem ip de voz."));
+			}			
+		}
 
-		if(config.getProxyServer().getValor().equalsIgnoreCase("0")){
-			erros.add(new Exception("ProxyServer configurado incorretamente."));
-		}	
+		if(config.getAuthUser() != null){
+			if(config.getAuthUser().getValor().equalsIgnoreCase("0")){
+				erros.add(new String("AuthUser configurado incorretamente."));
+			}	
+		}
 
-		if(!config.getOutboundProxy().getValor().trim().equalsIgnoreCase("192.168.80.1")){
-			erros.add(new Exception("OutboundProxy configurado incorretamente."));
-		}			
+		if(config.getProxyServer() != null){
+			if(config.getProxyServer().getValor().equalsIgnoreCase("0")){
+				erros.add(new String("ProxyServer configurado incorretamente."));
+			}	
+		}
 
-		if(!config.getProxyServer().getValor().trim().equalsIgnoreCase("192.168.80.1")){
-			erros.add(new Exception("ProxyServer configurado incorretamente."));
-		}		
 
-		if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
-			erros.add(new Exception("Status error."));
+
+		if(config.getOutboundProxy() != null){
+			if(!config.getOutboundProxy().getValor().trim().equalsIgnoreCase("192.168.80.1")){
+				erros.add(new String("OutboundProxy configurado incorretamente."));
+			}			
+
+		}
+
+		if(config.getStatus() != null){
+			if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
+				erros.add(new String("Status error."));
+			}
 		}
 
 		return erros;
@@ -169,38 +224,23 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	@Override
 	public void realizarCorrecoes(Cliente cliente) throws Exception {
-		
+
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
 		if(config.getStatus().getValor().equalsIgnoreCase("Disabled") 
-			|| config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
-			// Sip Profile reset
-			Thread thread = new Thread()
-			    {
-			        public void run()
-			        {
-
-		                try {
-							resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
-						} catch (RemoteException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-			        }
-			    };
-			    thread.start();
+				|| config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
+			this.resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
 		}
-		
-		
+
 		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
 			// Reenviar FXS 
 			this.reenviarFxs(cliente.getDesignador());
 		}
-		
+
 	}
-	
+
 	public ResetSIPAgentOut resetarSipProfile(String designador, String instancia) throws RemoteException{
-				
+
 		DiagnosticoSIPIn in = new DiagnosticoSIPIn();
 
 		Credenciais credencial = new Credenciais("URA", "URA", "URA");
@@ -208,7 +248,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		in.setInstancia(instancia);
 		in.setDesignadorTurbonet(designador);
 		in.setCredencial(credencial);		
-		
+
 		return this.codService.executarResetSIPAgent(in);
 	}
 
@@ -240,7 +280,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 				fxs.setProxyServerIp(new Parametro("[FXS] ProxyServer", consulta.getSessionBorder().getProxyServerIp()));
 				fxs.setUserAgentDomain(new Parametro("[FXS] UserAgentDomain", consulta.getSessionBorder().getUserAgentDomain()));
 				fxs.setRegistraServer(new Parametro("[FXS] RegistrarServer", consulta.getSessionBorder().getRegistraServer()));
-				
+
 			}
 
 		}
@@ -250,7 +290,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 	public ResendFxsOut reenviarFxs(String designador) throws RemoteException{
 
 		ResendFxsIn in = new ResendFxsIn();
-		
+
 		in.setDesignator(designador);
 		in.setIsGpon("false");
 

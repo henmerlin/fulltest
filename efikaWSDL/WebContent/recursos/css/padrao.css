@@ -1,33 +1,36 @@
-@import
-	url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800)
-	;
-
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-
-.gradienteTelefonica{
-
+.gradienteTelefonica {
 	font-family: Telefonica_Header;
-	background: rgba(0,51,69,1);
-	background: -moz-linear-gradient(left, rgba(0,51,69,1) 0%, rgba(0,140,158,1) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,51,69,1)), color-stop(100%, rgba(0,140,158,1)));
-	background: -webkit-linear-gradient(left, rgba(0,51,69,1) 0%, rgba(0,140,158,1) 100%);
-	background: -o-linear-gradient(left, rgba(0,51,69,1) 0%, rgba(0,140,158,1) 100%);
-	background: -ms-linear-gradient(left, rgba(0,51,69,1) 0%, rgba(0,140,158,1) 100%);
-	background: linear-gradient(to right, rgba(0,51,69,1) 0%, rgba(0,140,158,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003345', endColorstr='#008c9e', GradientType=1 );f84f32', endColorstr='#3c00ff', GradientType=1 );
-
+	background: rgba(0, 51, 69, 1);
+	background: -moz-linear-gradient(left, rgba(0, 51, 69, 1) 0%,
+		rgba(0, 140, 158, 1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 51, 69, 1)),
+		color-stop(100%, rgba(0, 140, 158, 1)));
+	background: -webkit-linear-gradient(left, rgba(0, 51, 69, 1) 0%,
+		rgba(0, 140, 158, 1) 100%);
+	background: -o-linear-gradient(left, rgba(0, 51, 69, 1) 0%,
+		rgba(0, 140, 158, 1) 100%);
+	background: -ms-linear-gradient(left, rgba(0, 51, 69, 1) 0%,
+		rgba(0, 140, 158, 1) 100%);
+	background: linear-gradient(to right, rgba(0, 51, 69, 1) 0%,
+		rgba(0, 140, 158, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003345',
+		endColorstr='#008c9e', GradientType=1);
+	f84f32
+	',
+	endColorstr='#3c00ff',
+	GradientType=1
+	);
 }
 
-
 .ui-widget {
-	
 	font-family: Telefonica_Header !important;
-	font-size: 0.9em !important;
+	font-size: 13px;
 }
 
 .ui-growl {
@@ -36,38 +39,45 @@
 
 body {
 	font-family: Telefonica_;
+	font-size: 13px;
 	background-color: blank;
 }
 
 @font-face {
-    font-family: 'Telefonica_Header'; /*a name to be used later*/
-    src: url("../fonts_telefonica/TelefonicaHeadline-Light.otf"); /*URL to font*/
+	font-family: 'Telefonica_Header'; /*a name to be used later*/
+	src: url("../fonts_telefonica/TelefonicaHeadline-Light.otf");
+	/*URL to font*/
 }
+
 @font-face {
-    font-family: 'Telefonica_Script'; /*a name to be used later*/
-    src: url("../fonts_telefonica/TelefonicaScript.otf"); /*URL to font*/
+	font-family: 'Telefonica_Script'; /*a name to be used later*/
+	src: url("../fonts_telefonica/TelefonicaScript.otf"); /*URL to font*/
 }
+
 @font-face {
-    font-family: 'Telefonica_Bold'; /*a name to be used later*/
-    src: url("../fonts_telefonica/TelefonicaText-Bold.otf"); /*URL to font*/
+	font-family: 'Telefonica_Bold'; /*a name to be used later*/
+	src: url("../fonts_telefonica/TelefonicaText-Bold.otf");
+	/*URL to font*/
 }
+
 @font-face {
-    font-family: 'Telefonica_Italic'; /*a name to be used later*/
-    src: url("../fonts_telefonica/TelefonicaText-Italic.otf"); /*URL to font*/
+	font-family: 'Telefonica_Italic'; /*a name to be used later*/
+	src: url("../fonts_telefonica/TelefonicaText-Italic.otf");
+	/*URL to font*/
 }
+
 @font-face {
-    font-family: 'Telefonica_'; /*a name to be used later*/
-    src: url("../fonts_telefonica/TelefonicaText-Regular.otf"); /*URL to font*/
+	font-family: 'Telefonica_'; /*a name to be used later*/
+	src: url("../fonts_telefonica/TelefonicaText-Regular.otf");
+	/*URL to font*/
 }
 
 a {
 	text-decoration: none;
 }
 
-.linhaDif{
-
-	color: rgba(221, 234, 48,1);
-	
+.linhaDif {
+	color: rgba(221, 234, 48, 1);
 }
 
 div#topo {
@@ -101,20 +111,17 @@ div#corpo {
 }
 
 .conteudo {
-	
 	width: auto;
 	height: auto;
 	font-size: 16px;
 	margin-left: 250px;
-	
 	padding-top: 5px;
 	padding-left: 15px;
 	padding-right: 15px;
-	
 }
 
 .conteudo h1 {
-	color: rgba(0,51,69,1);
+	color: rgba(0, 51, 69, 1);
 	text-shadow: 0px 0px 1px;
 }
 
@@ -126,7 +133,6 @@ div#corpo {
 }
 
 .conteudo .barraAcoesDesabilitado {
-	
 	margin-top: 15px;
 	padding: 5px;
 	min-height: 25px;
@@ -148,7 +154,7 @@ div#corpo {
 }
 
 ul#menu {
-	
+	font-size: 15px;
 }
 
 ul#menu li {
@@ -172,7 +178,6 @@ ul#menu li a {
 }
 
 ul#menu li a:HOVER {
-	
 	background-color: #0095A7;
 	color: #fff;
 	font-size: 1.1em;
@@ -183,7 +188,6 @@ ul#menu li a:HOVER {
 }
 
 ul#menu li a.selected {
-	
 	background-color: #0095A7;
 	color: #fff;
 	font-size: 1.1em;

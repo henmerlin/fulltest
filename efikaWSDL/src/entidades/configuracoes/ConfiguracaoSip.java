@@ -47,24 +47,49 @@ public class ConfiguracaoSip extends ConfiguracaolIms implements ConfiguracaoLin
 			retorno.add(serialNumber);
 		}
 		
-		retorno.add(mac);
-		retorno.add(tipo);
-		retorno.add(statusCpe);
-		retorno.add(status);
-		retorno.add(dn);
-		retorno.add(authUser);
-		retorno.add(outboundProxy);
-		retorno.add(proxyServer);
-		retorno.add(registrarServer);
-		retorno.add(userAgentDomain);
-		retorno.add(ipAddress);
+		if(mac != null){
+			retorno.add(mac);
+		}
 		
-//		List<Parametro> oi = this.fxs.getParametros();
-//		
-//		for (Parametro parametro : oi) {
-//			retorno.add(parametro);
-//		}
+		if(tipo != null){
+			retorno.add(tipo);
+		}
 		
+		if(statusCpe != null){
+			retorno.add(statusCpe);
+		}
+		
+		if(status != null){
+			retorno.add(status);
+		}
+		
+		if(dn != null){
+			retorno.add(dn);
+		}
+		
+		if(authUser != null){
+			retorno.add(authUser);
+		}
+		
+		if(outboundProxy != null){
+			retorno.add(outboundProxy);
+		}
+		
+		if(proxyServer != null){
+			retorno.add(proxyServer);
+		}
+		
+		if(registrarServer != null){
+			retorno.add(registrarServer);
+		}
+		
+		if(userAgentDomain != null){
+			retorno.add(userAgentDomain);
+		}
+		
+		if(ipAddress != null){
+			retorno.add(ipAddress);
+		}			
 
 		return retorno;
 	}

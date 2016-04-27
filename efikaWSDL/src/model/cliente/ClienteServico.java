@@ -43,26 +43,33 @@ public class ClienteServico{
 	 *  - Designador de Acesso;
 	 * @return Cliente
 	 * @author G0042204
+	 * @throws Exception 
 	 */
 	public Cliente consultarCadastro(Cliente cliente) throws Exception{
+		
+		try {
+			// Consulta Produtos Contratados
+			InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
 
-		// Consulta Produtos Contratados
-		InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
+			// Aciona método para obter designador
+			String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
 
-		// Aciona método para obter designador
-		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
+			// Consulta Designador de Acesso
+			String designadorAcesso = this.getAccessDesignator(designador);
 
-		// Consulta Designador de Acesso
-		String designadorAcesso = this.getAccessDesignator(designador);
+			// Sets
+			cliente.setInventario(inventario);
+			cliente.setDesignador(designador);
+			cliente.setDesignadorAcesso(designadorAcesso);
 
-		// Sets
-		cliente.setInventario(inventario);
-		cliente.setDesignador(designador);
-		cliente.setDesignadorAcesso(designadorAcesso);
+			cliente.setCadastro(this.consultarCadastroTbs(cliente));
 
-		cliente.setCadastro(this.consultarCadastroTbs(cliente));
-
-		return cliente;
+			return cliente;
+			
+		} catch (Exception e) {
+			throw new Exception("Erro ao consultar cadastro: " + e.getMessage());
+		}
+		
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package model.linha.ims;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.cliente.Cliente;
@@ -31,9 +32,9 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public List<Exception> validarConfiguracoes(Cliente cliente) {
+	public List<String> validarConfiguracoes(Cliente cliente) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<String>();
 	}
 
 	@Override

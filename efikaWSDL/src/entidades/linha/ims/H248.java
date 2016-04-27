@@ -1,5 +1,7 @@
 package entidades.linha.ims;
 
+import java.util.List;
+
 import entidades.configuracoes.ConfiguracaoLinha;
 import entidades.linha.LinhaInterface;
 
@@ -25,5 +27,6 @@ public class H248 extends Ims implements LinhaInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

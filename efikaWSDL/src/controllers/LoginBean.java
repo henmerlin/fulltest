@@ -4,7 +4,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import entidades.massivo.UsuarioFullTest;
 import model.modulos.UsuarioServico;
 import util.JSFUtil;
 import webservices.Usuario;
@@ -44,25 +43,28 @@ public class LoginBean implements Serializable{
 		return null;
 	}
 
-	public String logar() {
+	public void logar() {
 
 		try {		
-			this.service.autenticaLogin(this.usuario.getLogin(), this.usuario.getSenha());
+			this.usuario = this.service.autenticaLogin(this.usuario.getLogin(), this.usuario.getSenha());
 			this.logado = true;		
-			
-			return "index.jsf"; 
+			FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
 
 		} catch (Exception e) {
-
 			JSFUtil.addErrorMessage(e.getMessage());
 			this.usuario = new Usuario();
-			return "";
+			this.logado = false;
 		}
 
 	} 
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+	
+	public Boolean isAdmin(){
+		
+		return this.usuario.getNivel() > 7;
 	}
 
 	public void setUsuario(Usuario usuario) {

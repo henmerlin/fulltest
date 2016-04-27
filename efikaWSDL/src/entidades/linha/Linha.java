@@ -22,7 +22,7 @@ public class Linha{
 	
 	private GetInformacoesInstanciaOut infoInstancia;
 	
-	private List<Exception> configErrors;
+	private List<String> configErrors;
 
 		
 	public Linha() {
@@ -69,11 +69,11 @@ public class Linha{
 		this.infoInstancia = infoInstancia;
 	}
 
-	public List<Exception> getConfigErrors() {
+	public List<String> getConfigErrors() {
 		return configErrors;
 	}
 
-	public void setConfigErrors(List<Exception> configErrors) {
+	public void setConfigErrors(List<String> configErrors) {
 		this.configErrors = configErrors;
 	}	
 }

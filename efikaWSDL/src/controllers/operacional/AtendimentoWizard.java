@@ -3,10 +3,12 @@ package controllers.operacional;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
+import controllers.LoginBean;
 import entidades.cliente.Cliente;
  
 @SuppressWarnings("serial")
@@ -17,7 +19,9 @@ public class AtendimentoWizard implements Serializable {
 	private Cliente cliente;	
      
     private boolean skip;
-     
+    
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean sessao;
 
     public void save() {        
         
@@ -51,4 +55,14 @@ public class AtendimentoWizard implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public LoginBean getSessao() {
+		return sessao;
+	}
+
+	public void setSessao(LoginBean sessao) {
+		this.sessao = sessao;
+	}
+	
+	
 }

@@ -51,16 +51,15 @@ public class OperacionalServico{
 		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
 		this.servicoBandaEsp.setCadastro(cliente.getCadastro());
 			
-		
-		this.servicoBandaEsp.connect();
+		//this.servicoBandaEsp.connect();
 		
 		// Consultar Tabela de Parâmetros (polimorfico)
-		cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
-
-		this.servicoBandaEsp.disconnect();
+		//cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
+		
+		//this.servicoBandaEsp.disconnect();
 
 		// Sets nos erros de configuração encontrados
-		//cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
 
 		return cliente;
 	}
@@ -71,7 +70,7 @@ public class OperacionalServico{
 	 * @return
 	 * @throws Exception
 	 */
-	public Cliente realizarCorrecoes(Cliente cliente) throws Exception{
+	public Cliente realizarCorrecoesLinha(Cliente cliente) throws Exception{
 
 		// Realiza as Correções			
 		this.servicoVoz.realizarCorrecoes(cliente);

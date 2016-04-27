@@ -15,23 +15,28 @@ public class ImsServico extends LinhaServico{
 
 	}
 	
-	public Parametro consultarRegistroCentral(String instancia, LinhaInterface linha) throws RemoteException{
+	public Parametro consultarRegistroCentral(String instancia, LinhaInterface linha){
 
 		String reg = null;
 		
-		for (ConsultElement consultElement : super.consultarElemento(instancia, linha)) {
+		try {
 			
-			String init = "<IMSUSERST>";
-			String finit = "</IMSUSERST>";
-			
-			int inicio = consultElement.getElementAnswer().indexOf(init);
-			int fim = consultElement.getElementAnswer().indexOf(finit);
-			
-			reg = (String) consultElement.getElementAnswer().subSequence(inicio + init.length(), fim);
-			
-			break;
+			for (ConsultElement consultElement : super.consultarElemento(instancia, linha)) {
+				
+				String init = "<IMSUSERST>";
+				String finit = "</IMSUSERST>";
+				
+				int inicio = consultElement.getElementAnswer().indexOf(init);
+				int fim = consultElement.getElementAnswer().indexOf(finit);
+				
+				reg = (String) consultElement.getElementAnswer().subSequence(inicio + init.length(), fim);
+				
+				break;
+			}
+		} catch (RemoteException e) {
+			return null;
 		}
-		
+
 		return new Parametro("Registro IMS", resolverStatusRegCentral(reg));
 	}
 	
