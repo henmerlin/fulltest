@@ -73,9 +73,7 @@ public class OperacionalServico{
 	public Cliente realizarCorrecoesLinha(Cliente cliente) throws Exception{
 
 		// Realiza as Correções			
-		this.servicoVoz.realizarCorrecoes(cliente);
-
-		return cliente;
+		return this.servicoVoz.realizarCorrecoes(cliente);
 	}
 	
 	

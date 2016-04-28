@@ -38,9 +38,9 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public void realizarCorrecoes(Cliente cliente) {
+	public Cliente realizarCorrecoes(Cliente cliente) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

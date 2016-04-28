@@ -30,45 +30,49 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 		List<Parametro> listServico = new ArrayList<Parametro>();
 
 		for (ConsultElement consultElement : super.consultarElemento(cliente.getInstancia(), cliente.getLinha())) {
+			try {
+				
+				String retorno = consultElement.getElementAnswer();
 
-			String retorno = consultElement.getElementAnswer();
-
-			String custgroup = tratamentoElementAnswer("CUSTGRP:", "SUBGRP", retorno);
-			String ncos = tratamentoElementAnswer("NCOS:", "CARDCODE", retorno);
-			String len = tratamentoElementAnswer("LINE EQUIPMENT NUMBER:", "LINE CLASS CODE:", retorno);
+				String custgroup = tratamentoElementAnswer("CUSTGRP:", "SUBGRP", retorno);
+				String ncos = tratamentoElementAnswer("NCOS:", "CARDCODE", retorno);
+				String len = tratamentoElementAnswer("LINE EQUIPMENT NUMBER:", "LINE CLASS CODE:", retorno);
 
 
-			config.setCustgroup(new Parametro("Custgroup", custgroup));
-			config.setNcos(new Parametro("Ncos", ncos));
-			config.setLen(new Parametro("Len", len));
+				config.setCustgroup(new Parametro("Custgroup", custgroup));
+				config.setNcos(new Parametro("Ncos", ncos));
+				config.setLen(new Parametro("Len", len));
 
-			String option = "OPTIONS:";
+				String option = "OPTIONS:";
 
-			String servicos = (String) retorno.subSequence(retorno.indexOf(option) + option.length(), retorno.lastIndexOf("-------------------------------------------------------------------------------"));
+				String servicos = (String) retorno.subSequence(retorno.indexOf(option) + option.length(), retorno.lastIndexOf("-------------------------------------------------------------------------------"));
 
-			if(servicos.contains("DGT")){
-				listServico.add(new Parametro("Digital", "Ativo"));
+				if(servicos.contains("DGT")){
+					listServico.add(new Parametro("Digital", "Ativo"));
+				}
+				
+				if(servicos.contains("CWT")){
+					listServico.add(new Parametro("Ligação Simultânea", "Ativo"));
+				}
+							
+				if(servicos.contains("3WC")){
+					listServico.add(new Parametro("Conversa a Três", "Ativo"));
+				}			
+
+				if( ( servicos.contains("DDN") && servicos.contains("NOAMA"))){
+					listServico.add(new Parametro("Identificador de Chamadas (DDN)", "Ativo"));
+				}	
+				
+				if( ( servicos.contains("CND") && servicos.contains("NOAMA"))){
+					listServico.add(new Parametro("Identificador de Chamadas (CND)", "Ativo"));
+				}	
+				
+				config.setServicos(listServico);
+			} catch (Exception e) {
+				throw new Exception("Erro ao obter resposta do WS - consultarConfiguracoes");
 			}
-			
-			if(servicos.contains("CWT")){
-				listServico.add(new Parametro("Ligação Simultânea", "Ativo"));
-			}
-						
-			if(servicos.contains("3WC")){
-				listServico.add(new Parametro("Conversa a Três", "Ativo"));
-			}			
-
-			if( ( servicos.contains("DDN") && servicos.contains("NOAMA"))){
-				listServico.add(new Parametro("Identificador de Chamadas (DDN)", "Ativo"));
-			}	
-			
-			if( ( servicos.contains("CND") && servicos.contains("NOAMA"))){
-				listServico.add(new Parametro("Identificador de Chamadas (CND)", "Ativo"));
-			}	
 		}
 
-		config.setServicos(listServico);
-		
 		cliente.getLinha().setConfiguracao(config);
 
 		return cliente;
@@ -173,8 +177,7 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 	}
 
 	@Override
-	public void realizarCorrecoes(Cliente cliente) {
-		// TODO Auto-generated method stub
-		
+	public Cliente realizarCorrecoes(Cliente cliente) {
+		return null;
 	}
 }

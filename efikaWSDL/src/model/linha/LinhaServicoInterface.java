@@ -10,6 +10,6 @@ public interface LinhaServicoInterface{
 	
 	public List<String> validarConfiguracoes(Cliente cliente);
 	
-	public void realizarCorrecoes(Cliente cliente) throws Exception;
+	public Cliente realizarCorrecoes(Cliente cliente) throws Exception;
 	
 }

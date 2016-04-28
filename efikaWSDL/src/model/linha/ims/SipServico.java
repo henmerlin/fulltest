@@ -11,6 +11,7 @@ import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoIn;
 import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoOut;
 import com.gvt.www.services.model.portaFXS.PortaFXSWS;
 import com.gvt.www.services.model.recursoLogico.RecursoLogicoWS;
+import com.gvt.www.ws.eai.configuradoronline.devicemanagement.services.ConfigurarLinhaSIPnoCPEIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
@@ -74,8 +75,11 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			ConfiguracaoSip config = new ConfiguracaoSip();
 
 			config.setTipo(new Parametro("Tipo", device.getTipo()));
+			
 			config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
+			
 			config.setMac(new Parametro("Mac Address", device.getMacAddress()));
+			
 			config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
 
 			if(diag.getCodigo() == 0){
@@ -162,6 +166,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			cliente.getLinha().setConfiguracao(config);
 
 			return cliente;
+			
 		} catch (Exception e) {
 			throw new Exception("Erro ao Consultar Configuracoes!" + e.getMessage());
 		}
@@ -223,20 +228,21 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public void realizarCorrecoes(Cliente cliente) throws Exception {
+	public Cliente realizarCorrecoes(Cliente cliente) throws Exception {
 
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-		if(config.getStatus().getValor().equalsIgnoreCase("Disabled") 
-				|| config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
+		if(config.getStatus().getValor().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
 			this.resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
 		}
 
 		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
 			// Reenviar FXS 
+			System.out.println(config.getStatus().getValor());
 			this.reenviarFxs(cliente.getDesignador());
 		}
-
+		
+		return cliente;
 	}
 
 	public ResetSIPAgentOut resetarSipProfile(String designador, String instancia) throws RemoteException{
@@ -287,14 +293,13 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		return fxs;		
 	}	
 
-	public ResendFxsOut reenviarFxs(String designador) throws RemoteException{
+	public void reenviarFxs(String designador) throws RemoteException{
 
 		ResendFxsIn in = new ResendFxsIn();
-
 		in.setDesignator(designador);
 		in.setIsGpon("false");
-
-		return this.sip.resendFxs(in);
+		ResendFxsOut oi = this.sip.resendFxs(in);
+		System.out.println(oi.getIsResendFxsOK());
 	}
 
 
