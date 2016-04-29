@@ -1,9 +1,10 @@
-package controllers;
+package controllers.operacional;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import controllers.LoginBean;
 import entidades.cliente.Cliente;
 import model.modulos.OperacionalServico;
 import util.JSFUtil;

@@ -61,7 +61,6 @@ public class ClienteServico{
 			cliente.setInventario(inventario);
 			cliente.setDesignador(designador);
 			cliente.setDesignadorAcesso(designadorAcesso);
-
 			cliente.setCadastro(this.consultarCadastroTbs(cliente));
 
 			return cliente;

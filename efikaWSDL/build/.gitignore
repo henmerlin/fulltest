@@ -1,11 +1,10 @@
-/META-INF/
-/bean/
-/br/
-/com/
-/controllers/
 /entidades/
 /exception/
 /model/
 /rpc/
 /util/
 /webservices/
+/bean/
+/br/
+/com/
+/controllers/

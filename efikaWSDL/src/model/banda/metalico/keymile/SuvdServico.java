@@ -6,11 +6,15 @@ import entidades.banda.BandaInterface;
 import entidades.banda.parametros.TabelaParametrosInter;
 import entidades.banda.parametros.TabelaParametrosMetalico;
 import entidades.banda.parametros.TabelaParametrosMetalicoVdsl;
-import entidades.cadastro.Cadastro;
 import model.banda.BandaServicoInterface;
 import model.telnet.ComandoTelnet;
 import util.TelnetUtil;
 
+/**
+ * @Teste 4131534108 (Linha Centro de Operações)
+ * @author G0042204
+ *
+ */
 public class SuvdServico extends KeymileServico implements BandaServicoInterface{
 
 	public SuvdServico() {

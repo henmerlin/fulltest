@@ -36,11 +36,16 @@ public class OperacionalServico{
 	 */
 	public Cliente consultar(Cliente cliente) throws Exception{
 
+		// Consultas de Cadastro
+		try {
+			cliente = this.servicoCadastro.consultarCadastro(cliente);	
+		} catch (Exception e) {
+			throw new Exception("Falha ao consultar cadastro!");
+		}
+		
+		
 		// Inicializa objetos
 		cliente = this.initObjects(cliente);
-
-		// Consultas de Cadastro
-		cliente = this.servicoCadastro.consultarCadastro(cliente);	
 
 		// Inicializa objetos v2
 		cliente = this.initObjects_2(cliente);
