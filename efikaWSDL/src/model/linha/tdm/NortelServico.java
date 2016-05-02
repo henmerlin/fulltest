@@ -7,6 +7,7 @@ import java.util.List;
 import br.com.gvt.www.oss.necservice.ConsultElement;
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoNortel;
+import entidades.correcao.AcaoCorretiva;
 import entidades.parametros.Parametro;
 import model.linha.LinhaServicoInterface;
 import model.telnet.Telnet;
@@ -177,7 +178,8 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 	}
 
 	@Override
-	public Cliente realizarCorrecoes(Cliente cliente) {
-		return null;
+	public void realizarCorrecoes(Cliente cliente) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

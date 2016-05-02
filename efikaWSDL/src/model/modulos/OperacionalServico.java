@@ -1,6 +1,7 @@
 package model.modulos;
 
 import entidades.cliente.Cliente;
+
 import model.banda.BandaServico;
 import model.banda.BandaServicoInterface;
 import model.cliente.ClienteServico;
@@ -10,7 +11,9 @@ import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
 
 public class OperacionalServico{
-	
+
+	private Cliente cliente;
+
 	private LinhaServico servicoLinha;
 
 	private BandaServico servicoBanda;
@@ -36,35 +39,45 @@ public class OperacionalServico{
 	 */
 	public Cliente consultar(Cliente cliente) throws Exception{
 
-		// Consultas de Cadastro
+		// Consulta Serviço Contratado
 		try {
-			cliente = this.servicoCadastro.consultarCadastro(cliente);	
+			cliente.setInventario(this.servicoCadastro.consultarProdutos(cliente.getInstancia()));
+
+			// Consultas de Cadastro
+			try {
+				cliente = this.servicoCadastro.consultarCadastro(cliente);	
+
+				// Inicializa objetos
+				cliente = this.initObjects(cliente);
+
+				// Inicializa objetos v2
+				cliente = this.initObjects_2(cliente);
+
+				// Consulta Configurações Linha
+				cliente = this.servicoVoz.consultarConfiguracoes(cliente);
+
+				// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
+				this.servicoBandaEsp.setCadastro(cliente.getCadastro());
+
+				//this.servicoBandaEsp.connect();
+
+				// Consultar Tabela de Parâmetros (polimorfico)
+				//cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
+
+				//this.servicoBandaEsp.disconnect();
+
+				// Sets nos erros de configuração encontrados
+				cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new Exception("Falha ao consultar cadastro!");			
+			}
+
 		} catch (Exception e) {
-			throw new Exception("Falha ao consultar cadastro!");
-		}
-		
-		
-		// Inicializa objetos
-		cliente = this.initObjects(cliente);
-
-		// Inicializa objetos v2
-		cliente = this.initObjects_2(cliente);
-
-		// Consulta Configurações Linha
-		cliente = this.servicoVoz.consultarConfiguracoes(cliente);
-
-		// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
-		this.servicoBandaEsp.setCadastro(cliente.getCadastro());
-			
-		//this.servicoBandaEsp.connect();
-		
-		// Consultar Tabela de Parâmetros (polimorfico)
-		//cliente.getBanda().setParametros(this.servicoBandaEsp.consultarTabelaParametros());
-		
-		//this.servicoBandaEsp.disconnect();
-
-		// Sets nos erros de configuração encontrados
-		cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+			e.printStackTrace();
+			throw new Exception("Falha ao consultar produtos contratados!");			
+		}	
 
 		return cliente;
 	}
@@ -75,13 +88,17 @@ public class OperacionalServico{
 	 * @return
 	 * @throws Exception
 	 */
-	public Cliente realizarCorrecoesLinha(Cliente cliente) throws Exception{
+	public void realizarCorrecoesLinha(Cliente cliente) throws Exception{
 
-		// Realiza as Correções			
-		return this.servicoVoz.realizarCorrecoes(cliente);
+		try {
+			// Realiza as Correções			
+			this.servicoVoz.realizarCorrecoes(cliente);
+		} catch (Exception e) {
+			throw new Exception("[Linha] Erro ao realizar correções lógicas.");
+		}
 	}
-	
-	
+
+
 	public Cliente consultarCadastro(Cliente cliente) throws Exception{
 		return this.servicoCadastro.consultarCadastro(cliente);
 	}
@@ -112,5 +129,13 @@ public class OperacionalServico{
 		this.servicoBandaEsp = BandaFactory.criarServico(cliente.getCadastro().getCadastro().getInfoTBS().getDslamVendor());
 
 		return cliente;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

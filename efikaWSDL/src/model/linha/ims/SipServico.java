@@ -228,7 +228,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public Cliente realizarCorrecoes(Cliente cliente) throws Exception {
+	public void realizarCorrecoes(Cliente cliente) throws Exception {
 
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
@@ -241,8 +241,6 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			System.out.println(config.getStatus().getValor());
 			this.reenviarFxs(cliente.getDesignador());
 		}
-		
-		return cliente;
 	}
 
 	public ResetSIPAgentOut resetarSipProfile(String designador, String instancia) throws RemoteException{

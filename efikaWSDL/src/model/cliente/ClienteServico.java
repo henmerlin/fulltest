@@ -38,7 +38,6 @@ public class ClienteServico{
 	/**
 	 * Método responsável por buscar o cadastro do cliente utilizando WebServices de IT
 	 * Consultas:
-	 *  - Produtos contratados (parcial);
 	 *  - Designador;
 	 *  - Designador de Acesso;
 	 * @return Cliente
@@ -48,9 +47,6 @@ public class ClienteServico{
 	public Cliente consultarCadastro(Cliente cliente) throws Exception{
 		
 		try {
-			// Consulta Produtos Contratados
-			InventarioProdutos inventario = this.getProdutosContratados(cliente.getInstancia());
-
 			// Aciona método para obter designador
 			String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
 
@@ -58,7 +54,6 @@ public class ClienteServico{
 			String designadorAcesso = this.getAccessDesignator(designador);
 
 			// Sets
-			cliente.setInventario(inventario);
 			cliente.setDesignador(designador);
 			cliente.setDesignadorAcesso(designadorAcesso);
 			cliente.setCadastro(this.consultarCadastroTbs(cliente));
@@ -66,9 +61,14 @@ public class ClienteServico{
 			return cliente;
 			
 		} catch (Exception e) {
-			throw new Exception("Erro ao consultar cadastro: " + e.getMessage());
+			throw new Exception("Erro ao consultar cadastro!");
 		}
 		
+	}
+	
+	public InventarioProdutos consultarProdutos(String instancia) throws RemoteException{
+		
+		return  this.getProdutosContratados(instancia);
 	}
 
 	/**

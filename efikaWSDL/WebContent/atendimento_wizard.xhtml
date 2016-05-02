@@ -125,7 +125,7 @@
 							action="#{operacionalBean.realizarCorrecoesLinha()}"
 							value="Realizar Correções!"
 							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
-							style="margin-top: 15px;" update="@all"/>
+							style="margin-top: 15px;" update="@this"/>
 
 						<h:panelGroup layout="block"
 							rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}">

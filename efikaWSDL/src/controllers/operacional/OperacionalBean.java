@@ -33,13 +33,8 @@ public class OperacionalBean {
 		}
 	}
 
-	public void realizarCorrecoesLinha(){
-
-		try {
-			this.cliente = this.operacional.realizarCorrecoesLinha(this.cliente);
-		} catch (Exception e) {
-			JSFUtil.addErrorMessage(e.getMessage());
-		}
+	public void realizarCorrecoesLinha() throws Exception{
+		this.operacional.realizarCorrecoesLinha(this.cliente);
 	}
 
 

@@ -6,6 +6,8 @@ import java.util.List;
 
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoV52;
+import entidades.correcao.AcaoCorretiva;
+import entidades.linha.LinhaInterface;
 import model.linha.LinhaServicoInterface;
 
 public class V52Servico extends ImsServico implements LinhaServicoInterface {
@@ -38,9 +40,10 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 	}
 
 	@Override
-	public Cliente realizarCorrecoes(Cliente cliente) {
+	public void realizarCorrecoes(Cliente cliente) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
+
 
 }

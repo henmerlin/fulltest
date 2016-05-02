@@ -2,8 +2,7 @@ package entidades.correcao;
 
 public enum AcaoCorretiva{
 
-	ASSUMIR("ASSUMIR"), 
-	ENCERRAR("ENCERRAR");
+	FXS("FXS");
 
 	private String nome;
 

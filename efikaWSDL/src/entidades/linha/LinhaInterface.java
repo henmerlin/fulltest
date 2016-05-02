@@ -7,6 +7,7 @@ import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformac
 
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
 import entidades.configuracoes.ConfiguracaoLinha;
+import entidades.correcao.AcaoCorretiva;
 
 public interface LinhaInterface {
 	
@@ -35,5 +36,7 @@ public interface LinhaInterface {
 	public List<String> getConfigErrors();
 	
 	public void setConfigErrors(List<String> erros);
+	
+	public List<AcaoCorretiva> getCorrecoes();
 
 }
