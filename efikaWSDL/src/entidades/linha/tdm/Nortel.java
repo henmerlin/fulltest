@@ -1,5 +1,8 @@
 package entidades.linha.tdm;
 
+import java.util.List;
+
+import entidades.correcao.AcaoCorretiva;
 import entidades.linha.Linha;
 import entidades.linha.LinhaInterface;
 
@@ -26,7 +29,5 @@ public class Nortel extends Linha implements LinhaInterface{
 	public String toString() {
 		return "Nortel [getNome()=" + getNome() + "]";
 	}
-	
-	
 	
 }

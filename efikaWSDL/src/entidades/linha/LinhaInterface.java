@@ -2,12 +2,9 @@ package entidades.linha;
 
 
 import java.util.List;
-
 import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformacoesInstanciaOut;
-
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
 import entidades.configuracoes.ConfiguracaoLinha;
-import entidades.correcao.AcaoCorretiva;
 
 public interface LinhaInterface {
 	
@@ -37,6 +34,7 @@ public interface LinhaInterface {
 	
 	public void setConfigErrors(List<String> erros);
 	
-	public List<AcaoCorretiva> getCorrecoes();
+	public List<String> getErrors();
 
+	public void setErrors(List<String> errors);
 }

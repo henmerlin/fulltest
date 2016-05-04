@@ -8,7 +8,6 @@ import com.gvt.www.ws.business.portabilidade.getInformacoesInstancia.GetInformac
 
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
 import entidades.configuracoes.ConfiguracaoLinha;
-import entidades.correcao.AcaoCorretiva;
 
 public class Linha{
 	
@@ -23,9 +22,9 @@ public class Linha{
 	
 	private GetInformacoesInstanciaOut infoInstancia;
 	
-	private List<String> configErrors;
+	private List<String> errors;
 	
-	private List<AcaoCorretiva> correcoes;
+	private List<String> configErrors;
 
 		
 	public Linha() {
@@ -80,11 +79,11 @@ public class Linha{
 		this.configErrors = configErrors;
 	}
 
-	public List<AcaoCorretiva> getCorrecoes() {
-		return correcoes;
+	public List<String> getErrors() {
+		return errors;
 	}
 
-	public void setCorrecoes(List<AcaoCorretiva> correcoes) {
-		this.correcoes = correcoes;
-	}	
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
 }

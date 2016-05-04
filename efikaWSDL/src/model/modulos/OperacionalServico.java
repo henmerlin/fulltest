@@ -1,5 +1,7 @@
 package model.modulos;
 
+import javax.ejb.Stateless;
+
 import entidades.cliente.Cliente;
 
 import model.banda.BandaServico;
@@ -10,6 +12,7 @@ import model.factory.LinhaFactory;
 import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
 
+@Stateless
 public class OperacionalServico{
 
 	private Cliente cliente;
@@ -90,6 +93,8 @@ public class OperacionalServico{
 	 */
 	public void realizarCorrecoesLinha(Cliente cliente) throws Exception{
 
+		System.out.println(cliente.getDesignador());
+		
 		try {
 			// Realiza as Correções			
 			this.servicoVoz.realizarCorrecoes(cliente);

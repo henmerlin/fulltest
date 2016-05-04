@@ -120,12 +120,6 @@
 							</p:column>
 
 						</p:dataTable>
-						
-						<p:commandButton
-							action="#{operacionalBean.realizarCorrecoesLinha()}"
-							value="Realizar Correções!"
-							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
-							style="margin-top: 15px;" update="@this"/>
 
 						<h:panelGroup layout="block"
 							rendered="#{operacionalBean.cliente.linha.configErrors.size() == 0}">
@@ -134,8 +128,13 @@
 							</div>
 						</h:panelGroup>
 
-
-
+						<h:commandButton styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c" value="Realizar Correções!"
+							action="#{operacionalBean.realizarCorrecoesLinha()}"
+							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
+							style="margin-top: 15px; padding: 5px;">
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						
 					</p:panel>
 				</p:tab>
 

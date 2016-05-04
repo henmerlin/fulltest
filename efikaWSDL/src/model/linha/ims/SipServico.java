@@ -180,7 +180,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
 		if(config.getStatusCpe() != null){
-			if (config.getStatusCpe().getValor().contains("Inativo")) {
+			if (!(config.getStatusCpe().getValor().contains("Ativo"))){
 				erros.add(new String("CPE inativo."));
 			}			
 		}
