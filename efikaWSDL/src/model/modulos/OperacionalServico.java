@@ -70,7 +70,7 @@ public class OperacionalServico{
 				//this.servicoBandaEsp.disconnect();
 
 				// Sets nos erros de configuração encontrados
-				cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoes(cliente));
+				cliente.getLinha().setErrors(this.servicoVoz.validarConfiguracoes(cliente));
 
 			} catch (Exception e) {
 				e.printStackTrace();

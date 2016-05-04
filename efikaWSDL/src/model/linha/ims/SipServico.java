@@ -11,7 +11,6 @@ import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoIn;
 import com.gvt.www.services.consultarEquipamento.ConsultarEquipamentoOut;
 import com.gvt.www.services.model.portaFXS.PortaFXSWS;
 import com.gvt.www.services.model.recursoLogico.RecursoLogicoWS;
-import com.gvt.www.ws.eai.configuradoronline.devicemanagement.services.ConfigurarLinhaSIPnoCPEIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIP;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPIn;
 import com.gvt.www.ws.eai.configuradoronline.devicemanagement.sipdomain.DiagnosticoSIPOut;
