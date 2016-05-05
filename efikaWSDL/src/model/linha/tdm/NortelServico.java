@@ -182,4 +182,10 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<String> validarConfiguracoesLogicas(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

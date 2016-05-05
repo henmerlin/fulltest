@@ -11,7 +11,7 @@
 		 Início
 	</ui:define>
 	<ui:define name="tituloPrincipal">
-		<i class="fa fa-wrench"> </i> Atendimento</ui:define>
+		<i class="fa fa-list-alt"> </i> Atendimento</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
 
 	<ui:define name="botoesAcao"></ui:define>
@@ -58,10 +58,9 @@
 				rendered="#{not empty operacionalBean.cliente.linha.instancia}"
 				style="margin-top: 15px;" nextLabel="Próximo" backLabel="Voltar">
 
-				<p:tab id="linha" title="Linha" disabled="false">
-					<p:panel header="Configurações Linha" style="margin-top: 15px;"
-						rendered="#{not empty operacionalBean.cliente.linha.instancia}">
-
+				<p:tab id="linha" title="Linha" disabled="false"
+					rendered="#{not empty operacionalBean.cliente.linha.instancia}">
+					<p:panel header="Configurações Linha" style="margin-top: 15px;">
 						<div class="ui-grid ui-grid-responsive">
 							<div class="ui-grid-row">
 								<div class="ui-grid-col-3">
@@ -108,40 +107,73 @@
 							</div>
 						</div>
 
+						<h:panelGroup layout="block"
+							rendered="#{operacionalBean.cliente.linha.errors.size() > 0}">
+							<div class="alert alert-danger" style="margin-top: 15px;">
+								<h3>
+									<i class="fa fa-exclamation-triangle" /> Atenção: Existem
+									erros de configuração que podem impactar a qualidade do
+									serviço!
+								</h3>
+							</div>
+						</h:panelGroup>
 
 						<p:dataTable var="error" type="unordered"
 							style="margin-top: 15px;"
 							rendered="#{operacionalBean.cliente.linha.errors.size() > 0}"
 							value="#{operacionalBean.cliente.linha.errors}"
-							emptyMessage="NÃ£o foram encontrados erros de Configuração.">
-
+							emptyMessage="Não foram encontrados erros de Configuração.">
 							<p:column headerText="Erros de Configuração">
 								<h:outputText value="#{error}" />
 							</p:column>
-
 						</p:dataTable>
 
 						<h:panelGroup layout="block"
 							rendered="#{operacionalBean.cliente.linha.errors.size() == 0}">
 							<div class="alert alert-success" style="margin-top: 15px;">
-								<h3>Não foram encontrados erros de configuração!</h3>
+								<h3>
+									<i class="fa fa-thumbs-o-up" /> Serviço configurado
+									corretamente!
+								</h3>
 							</div>
 						</h:panelGroup>
 
-						<h:commandButton styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c" 
-							value="Realizar Correções Lógicas!"
-							action="#{operacionalBean.realizarCorrecoesLinha()}"
+						<p:dataTable var="error" type="unordered"
+							style="margin-top: 15px;"
 							rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
-							style="margin-top: 15px; padding: 5px;">
-							<f:ajax execute="@form" render="@form" />
-						</h:commandButton>
-						
+							value="#{operacionalBean.cliente.linha.configErrors}"
+							emptyMessage="Não foram encontrados erros lógicos de Configuração ">
+							<p:column headerText="Correções Lógicas">
+								<h:outputText value="#{error}" />
+							</p:column>
+						</p:dataTable>
+
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-4"></div>
+								<div class="ui-grid-col-6"></div>
+								<div class="ui-grid-col-2">
+
+									<h:commandButton
+										styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c"
+										value="Realizar Correções Lógicas!"
+										action="#{operacionalBean.realizarCorrecoesLinha()}"
+										rendered="#{operacionalBean.cliente.linha.configErrors.size() > 0}"
+										style="margin-top: 15px; padding: 5px;">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+
+								</div>
+							</div>
+						</div>
+
+
+
 					</p:panel>
 				</p:tab>
 
-				<!-- 
-				<p:tab id="banda" title="Banda">
 
+				<p:tab id="banda" title="Banda">
 					<p:panel header="Configurações Banda" style="margin-top: 15px;">
 
 						<div class="ui-grid ui-grid-responsive">
@@ -324,7 +356,7 @@
 							</div>
 						</div>
 					</p:panel>
-				</p:tab> -->
+				</p:tab>
 
 
 				<p:tab id="confirm" title="Confirmation">

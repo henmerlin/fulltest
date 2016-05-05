@@ -237,11 +237,12 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-		if(config.getStatus().getValor().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
-			this.resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
+		if(config.getStatus().getValor().trim().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().trim().equalsIgnoreCase("Quiescent")){
+			ResetSIPAgentOut retorno = this.resetarSipProfile(cliente.getDesignador(), cliente.getLinha().getInstancia());
+			System.out.println(retorno.getDescricao());
 		}
 
-		if(config.getStatus().getValor().equalsIgnoreCase("Error")){
+		if(config.getStatus().getValor().trim().equalsIgnoreCase("Error")){
 			// Reenviar FXS 
 			System.out.println(config.getStatus().getValor());
 			this.reenviarFxs(cliente.getDesignador());
@@ -303,6 +304,24 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		in.setIsGpon("false");
 		ResendFxsOut oi = this.sip.resendFxs(in);
 		System.out.println(oi.getIsResendFxsOK());
+	}
+
+	@Override
+	public List<String> validarConfiguracoesLogicas(Cliente cliente) {
+		
+		List<String> erros = new ArrayList<String>();
+		
+		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+
+		if(config.getStatus().getValor().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
+			erros.add(new String("Error"));
+		}
+		
+		if(config.getStatus().getValor().trim().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().trim().equalsIgnoreCase("Quiescent")){
+			erros.add(new String("Resetar Profile SIP"));
+		}
+		
+		return erros;
 	}
 
 

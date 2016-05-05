@@ -45,5 +45,11 @@ public class V52Servico extends ImsServico implements LinhaServicoInterface {
 		
 	}
 
+	@Override
+	public List<String> validarConfiguracoesLogicas(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

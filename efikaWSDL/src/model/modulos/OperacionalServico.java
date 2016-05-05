@@ -72,6 +72,8 @@ public class OperacionalServico{
 
 				// Sets nos erros de configuração encontrados
 				cliente.getLinha().setErrors(this.servicoVoz.validarConfiguracoes(cliente));
+				
+				cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoesLogicas(cliente));
 
 			} catch (Exception e) {
 				e.printStackTrace();

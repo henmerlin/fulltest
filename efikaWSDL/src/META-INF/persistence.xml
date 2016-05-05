@@ -5,6 +5,9 @@
 	<persistence-unit name="vu">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/hsqldbCO</jta-data-source>
+		<class>entidades.log.Consulta</class>
+		<class>entidades.log.ErroConsulta</class>
+		<class>entidades.log.LogConsulta</class>
 		<class>entidades.massivo.Lote</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
