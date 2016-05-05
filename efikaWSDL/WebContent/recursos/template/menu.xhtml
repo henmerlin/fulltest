@@ -6,23 +6,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-
 	<ul id="menu">
 		<li><a href="index.jsf"> <i class="fa fa-home" /> Início
 		</a></li>
-		<li><a href="atendimento_wizard.jsf"> <i class="fa fa-wrench" />
+		<li><a href="atendimento_wizard.jsf"> <i class="fa fa-list-alt" />
 				Atendimento
 		</a></li>
-		<li><a href="dev.jsf"> <i class="fa fa-wrench" />
-				Atendimento Dev
-		</a></li>
 		<h:panelGroup layout="block" rendered="#{loginBean.usuario.nivel > 7}">
-			<li><a href="massivo.jsf"> <i class="fa fa-list-ul" />
+			<li><a href="massivo.jsf"> <i class="fa fa-upload" />
 					Massivo
 			</a></li>
 		</h:panelGroup>
 
 	</ul>
-
 </ui:composition>
 </html>

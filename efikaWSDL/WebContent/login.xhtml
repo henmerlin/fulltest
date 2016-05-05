@@ -11,7 +11,7 @@
 		 Início
 	</ui:define>
 	<ui:define name="tituloPrincipal">
-		<i class="fa fa-home"> </i> Início</ui:define>
+		<i class="fa fa-lock"> </i> Login</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
 
 	<ui:define name="botoesAcao"></ui:define>
@@ -19,9 +19,8 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<p:outputPanel rendered="#{!loginBean.logado}">
-				<p:panel>
+				<p:panel header="Autenticação">
 					<h:panelGrid columns="3">
-
 						<label for="login">Login: </label>
 						<p:inputText id="login" value="#{loginBean.usuario.login}" />
 						<p:message for="login" />
@@ -32,11 +31,9 @@
 
 						<p:commandButton value="Entrar" action="#{loginBean.logar()}"
 							update="@form" />
-
 					</h:panelGrid>
 				</p:panel>
 			</p:outputPanel>
-
 		</h:form>
 	</ui:define>
 </ui:composition>

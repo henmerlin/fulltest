@@ -26,6 +26,7 @@ public class OperacionalServico{
 	// Serviço FullTest
 	private LinhaServicoInterface servicoVoz;
 
+	@SuppressWarnings("unused")
 	private BandaServicoInterface servicoBandaEsp;
 
 	public OperacionalServico() {
@@ -60,7 +61,7 @@ public class OperacionalServico{
 				cliente = this.servicoVoz.consultarConfiguracoes(cliente);
 
 				// Repassa cadastro para atributo do ServicoBanda (diminuição de depedencia)
-				this.servicoBandaEsp.setCadastro(cliente.getCadastro());
+				//this.servicoBandaEsp.setCadastro(cliente.getCadastro());
 
 				//this.servicoBandaEsp.connect();
 

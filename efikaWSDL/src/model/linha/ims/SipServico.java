@@ -183,6 +183,12 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 				erros.add(new String("CPE inativo."));
 			}			
 		}
+		
+		if(config.getRegistro() != null){
+			if (!(config.getRegistro().getValor().contains("Registrado"))){
+				erros.add(new String("Instância não registrada na central."));
+			}			
+		}
 
 		if(config.getDn() != null){
 			if (!config.getDn().getValor().trim().equalsIgnoreCase(cliente.getLinha().getInstancia().trim())) {
