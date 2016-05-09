@@ -87,7 +87,15 @@ public class OperacionalServico{
 
 		return cliente;
 	}
-
+	
+	public Cliente consultarInstancia(String instancia) throws Exception{
+		
+			Cliente cliente = new Cliente();
+			
+			cliente.setInstancia(instancia);
+		
+			return this.consultar(cliente);
+	}
 	/**
 	 * Correção do fluxo FullTest 2/X
 	 * @param cliente
