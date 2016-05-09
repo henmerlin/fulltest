@@ -11,7 +11,6 @@ public class Teste {
 		
 		try {
 			Cliente oi = fullteste.consultarInstancia("4130222839");
-
 			
 			System.out.println(oi.getLinha().getInfoInstancia().getOperadora());
 		} catch (Exception e) {

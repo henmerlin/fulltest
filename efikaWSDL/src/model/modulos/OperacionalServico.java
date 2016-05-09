@@ -91,7 +91,6 @@ public class OperacionalServico{
 	public Cliente consultarInstancia(String instancia) throws Exception{
 		
 			Cliente cliente = new Cliente();
-			
 			cliente.setInstancia(instancia);
 		
 			return this.consultar(cliente);
