@@ -55,7 +55,7 @@ public class OperacionalServico{
 				cliente = this.initObjects(cliente);
 
 				// Inicializa objetos v2
-				cliente = this.initObjects_2(cliente);
+				//cliente = this.initObjects_2(cliente);
 
 				// Consulta Configurações Linha
 				cliente = this.servicoVoz.consultarConfiguracoes(cliente);
