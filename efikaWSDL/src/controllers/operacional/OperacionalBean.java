@@ -18,17 +18,17 @@ import util.JSFUtil;
 
 @Named("operacionalBean")
 @ViewScoped
-public class OperacionalBean implements Serializable{
+public class OperacionalBean implements Serializable {
 
 	private static final long serialVersionUID = 8013724459314458226L;
 
-	private Cliente cliente;	
+	private Cliente cliente;
 
 	private OperacionalServico operacional;
-	
+
 	@EJB
 	private LogServico log;
-	
+
 	@Inject
 	private LoginBean sessao;
 
@@ -38,20 +38,25 @@ public class OperacionalBean implements Serializable{
 		this.log = new LogServico();
 	}
 
-	public void consultar(){
+	public void consultar() {
+		
+		this.cliente.setLinha(null);
+		this.cliente.setBanda(null);
+		
 		try {
 			// Log
 			this.log.log(new Consulta(this.cliente.getInstancia(), this.sessao.getUsuario().getLogin()));
 			// Inicio do fluxo de consulta
 			this.cliente = this.operacional.consultar(this.cliente);
-			
+
 		} catch (Exception e) {
 			JSFUtil.addErrorMessage(e.getMessage());
-			this.log.log(new ErroConsulta(this.cliente.getInstancia(), this.sessao.getUsuario().getLogin(), e.getMessage()));
+			this.log.log(
+					new ErroConsulta(this.cliente.getInstancia(), this.sessao.getUsuario().getLogin(), e.getMessage()));
 		}
 	}
 
-	public void realizarCorrecoesLinha(){
+	public void realizarCorrecoesLinha() {
 		try {
 			this.operacional.realizarCorrecoesLinha(this.cliente);
 		} catch (Exception e) {
@@ -81,5 +86,5 @@ public class OperacionalBean implements Serializable{
 
 	public void setSessao(LoginBean sessao) {
 		this.sessao = sessao;
-	}	
+	}
 }

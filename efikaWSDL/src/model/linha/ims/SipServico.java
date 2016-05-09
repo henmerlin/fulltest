@@ -74,11 +74,11 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			ConfiguracaoSip config = new ConfiguracaoSip();
 
 			config.setTipo(new Parametro("Tipo", device.getTipo()));
-			
+
 			config.setSerialNumber(new Parametro("Serial Number", device.getSerialNumber()));
-			
+
 			config.setMac(new Parametro("Mac Address", device.getMacAddress()));
-			
+
 			config.setStatusCpe(new Parametro("CPE Status", device.getStatusCPE()));
 
 			if(diag.getCodigo() == 0){
@@ -165,7 +165,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 			cliente.getLinha().setConfiguracao(config);
 
 			return cliente;
-			
+
 		} catch (Exception e) {
 			throw new Exception("Erro ao Consultar Configuracoes!" + e.getMessage());
 		}
@@ -181,9 +181,13 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 		if(config.getStatusCpe() != null){
 			if (!(config.getStatusCpe().getValor().contains("Ativo"))){
 				erros.add(new String("CPE inativo."));
-			}			
+			}else{
+				if(config.getIpAddress() == null){
+					erros.add(new String("Verifique a bridge de VOIP."));
+				}
+			}		
 		}
-		
+
 		if(config.getRegistro() != null){
 			if (!(config.getRegistro().getValor().contains("Registrado"))){
 				erros.add(new String("Instância não registrada na central."));
@@ -308,19 +312,20 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 	@Override
 	public List<String> validarConfiguracoesLogicas(Cliente cliente) {
-		
+
 		List<String> erros = new ArrayList<String>();
-		
+
 		ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-		if(config.getStatus().getValor().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().equalsIgnoreCase("Quiescent")){
-			erros.add(new String("Error"));
+		if(config.getStatus().getValor().trim().equalsIgnoreCase("Error")){
+			erros.add(new String("Reenviar FXS"));
 		}
-		
+
+
 		if(config.getStatus().getValor().trim().equalsIgnoreCase("Disabled")  || config.getStatus().getValor().trim().equalsIgnoreCase("Quiescent")){
 			erros.add(new String("Resetar Profile SIP"));
 		}
-		
+
 		return erros;
 	}
 

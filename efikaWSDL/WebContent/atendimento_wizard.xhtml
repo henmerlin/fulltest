@@ -53,6 +53,14 @@
 
 
 		<h:form>
+			<p:panel header="Informações do Cliente" style="margin-top: 15px;" rendered="#{not empty operacionalBean.cliente.linha.instancia}">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-3"></div>
+					</div>
+				</div>
+			</p:panel>
+
 
 			<p:wizard flowListener="#{atendimentoWizard.onFlowProcess}"
 				rendered="#{not empty operacionalBean.cliente.linha.instancia}"
@@ -81,6 +89,10 @@
 										<h:outputText value="Central:" />
 										<h:outputText
 											value="#{operacionalBean.cliente.linha.infoSwitch.switchName}" />
+
+										<h:outputText value="Cidade:" />
+										<h:outputText
+											value="#{operacionalBean.cliente.linha.infoSwitch.city}" />
 									</p:panelGrid>
 
 
@@ -173,7 +185,8 @@
 				</p:tab>
 
 
-				<p:tab id="banda" title="Banda">
+				<p:tab id="banda" title="Banda"
+					rendered="#{not empty operacionalBean.cliente.banda}">
 					<p:panel header="Configurações Banda" style="margin-top: 15px;">
 
 						<div class="ui-grid ui-grid-responsive">
