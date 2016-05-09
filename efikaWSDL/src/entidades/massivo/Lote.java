@@ -1,29 +1,32 @@
 package entidades.massivo;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity
 public class Lote {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
 	private String nome;
 	
-	@Transient
-	private List<String> instancias;
-		
-	private Date dataUpload;
+	private Date horaIntegracao;
 	
 	public Lote() {
+		
+	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -34,20 +37,12 @@ public class Lote {
 		this.nome = nome;
 	}
 
-	public Date getDataUpload() {
-		return dataUpload;
+	public Date getHoraIntegracao() {
+		return horaIntegracao;
 	}
 
-	public void setDataUpload(Date dataUpload) {
-		this.dataUpload = dataUpload;
-	}
-
-	public List<String> getInstancias() {
-		return instancias;
-	}
-
-	public void setInstancias(List<String> instancias) {
-		this.instancias = instancias;
-	}
+	public void setHoraIntegracao(Date horaIntegracao) {
+		this.horaIntegracao = horaIntegracao;
+	}	
 
 }
