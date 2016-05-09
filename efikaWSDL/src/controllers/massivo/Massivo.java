@@ -24,8 +24,7 @@ public class Massivo {
 
 	public Massivo() {
 
-	}
-	
+	}	
 	
 	public void uploadFile(FileUploadEvent event) {
 		
@@ -43,6 +42,12 @@ public class Massivo {
 		
 	}
 	
+	public LoginBean getSessao() {
+		return sessao;
+	}
 	
+	public void setSessao(LoginBean sessao) {
+		this.sessao = sessao;
+	}
 
 }

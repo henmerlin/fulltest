@@ -89,11 +89,15 @@ public class MassivoServico {
 				
 				Cliente cliente = fullteste.consultarInstancia(row[0]);				
 							
-				this.salvaLog(cliente.getInstancia(), true);				
+				this.salvaLog(cliente.getInstancia(), true);	
+				
+				System.out.println(cliente.getLinha().getInstancia());
 								
 			} catch (Exception e) {
 				
 				this.salvaLog(row[0], false);
+				
+				System.out.println("Erro");
 				
 			}			
 			
@@ -114,6 +118,7 @@ public class MassivoServico {
 		this.entityManager.persist(log);
 				
 	}
+	
 	
 
 }
