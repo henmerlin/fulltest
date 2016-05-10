@@ -8,7 +8,6 @@
 		<class>entidades.log.Consulta</class>
 		<class>entidades.log.ErroConsulta</class>
 		<class>entidades.log.LogConsulta</class>
-		<class>entidades.massivo.LogInstancia</class>
 		<class>entidades.massivo.Lote</class>
 		<class>entidades.massivo.Teste</class>
 		<class>entidades.validacao.Resolucao</class>

@@ -16,6 +16,8 @@ public class Teste {
 	
 	private String instancia;
 	
+	private Boolean status;
+		
 	@ManyToOne
 	private Lote lote;
 	
@@ -45,6 +47,14 @@ public class Teste {
 
 	public void setLote(Lote lote) {
 		this.lote = lote;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

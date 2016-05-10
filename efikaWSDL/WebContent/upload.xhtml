@@ -17,6 +17,12 @@
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="conteudo">
+	
+		<f:metadata>
+		
+			<f:event listener="#{taskMassivo.iniciaBean()}" type="preRenderView"/>
+		
+		</f:metadata>
 
 		<p:panel header="Observações">
 
@@ -32,8 +38,6 @@
 					cancelLabel="Cancelar" />
 				<p:growl id="messages" showDetail="true" />
 			</h:form>			
-
-			<p:poll update="relatorioLotes" interval="10" />
 		</p:panel>
 
 	</ui:define>
