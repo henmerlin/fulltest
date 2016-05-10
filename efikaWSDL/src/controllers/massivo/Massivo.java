@@ -1,9 +1,11 @@
 package controllers.massivo;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -14,9 +16,11 @@ import util.JSFUtil;
 
 @ManagedBean
 @ViewScoped
-public class Massivo {
+public class Massivo implements Serializable{
 	
-	@ManagedProperty(value="#{loginBean}")
+	private static final long serialVersionUID = 1790902486343207456L;
+
+	@Inject
 	private LoginBean sessao;
 	
 	@EJB

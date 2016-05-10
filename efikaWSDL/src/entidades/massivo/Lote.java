@@ -1,12 +1,17 @@
 package entidades.massivo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="FULLTEST_LOTE")
 public class Lote {
 
 	@Id
@@ -17,6 +22,9 @@ public class Lote {
 	
 	private Date horaIntegracao;
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="lote")
+	private List<Teste> testes;
+
 	public Lote() {
 		
 	}
@@ -43,6 +51,14 @@ public class Lote {
 
 	public void setHoraIntegracao(Date horaIntegracao) {
 		this.horaIntegracao = horaIntegracao;
-	}	
+	}
+	
+	public List<Teste> getTestes() {
+		return testes;
+	}
+
+	public void setTestes(List<Teste> testes) {
+		this.testes = testes;
+	}
 
 }

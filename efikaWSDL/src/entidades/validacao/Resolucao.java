@@ -23,8 +23,8 @@ public class Resolucao {
 	@NotEmpty
 	private String nome;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="resolucao")
-	private List<Validacao> validacoes;
+//	@OneToMany(fetch=FetchType.EAGER, mappedBy="resolucao")
+//	private List<Validacao> validacoes;
 	
 	public Resolucao() {
 
@@ -46,11 +46,11 @@ public class Resolucao {
 		this.nome = nome;
 	}
 
-	public List<Validacao> getValidacoes() {
-		return validacoes;
-	}
-
-	public void setValidacoes(List<Validacao> validacoes) {
-		this.validacoes = validacoes;
-	}
+//	public List<Validacao> getValidacoes() {
+//		return validacoes;
+//	}
+//
+//	public void setValidacoes(List<Validacao> validacoes) {
+//		this.validacoes = validacoes;
+//	}
 }

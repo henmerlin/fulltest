@@ -3,8 +3,11 @@ package entidades.massivo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="FULLTEST_TESTE")
 public class Teste {
 	
 	@Id
@@ -13,6 +16,7 @@ public class Teste {
 	
 	private String instancia;
 	
+	@ManyToOne
 	private Lote lote;
 	
 	public Teste() {
