@@ -1,8 +1,13 @@
 package entidades.validacao;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,6 +22,9 @@ public class Resolucao {
 	
 	@NotEmpty
 	private String nome;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="resolucao")
+	private List<Validacao> validacoes;
 	
 	public Resolucao() {
 
@@ -36,5 +44,13 @@ public class Resolucao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Validacao> getValidacoes() {
+		return validacoes;
+	}
+
+	public void setValidacoes(List<Validacao> validacoes) {
+		this.validacoes = validacoes;
 	}
 }
