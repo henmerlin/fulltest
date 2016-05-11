@@ -23,8 +23,8 @@
 		</f:metadata>
 
 		<div class="alert alert-info" style="margin-top: 15px;">
-				<i class="fa fa-info" /> Ao fazer o Upload do arquivo CSV
-				certifique-se de que o arquivo está no modelo correto.
+			<i class="fa fa-info" /> Ao fazer o Upload do arquivo CSV
+			certifique-se de que o arquivo está no modelo correto.
 		</div>
 		<h:form>
 			<p:fileUpload fileUploadListener="#{massivo.uploadFile}"
@@ -34,6 +34,26 @@
 				cancelLabel="Cancelar" />
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
+
+		<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}" style="margin-top: 20px;">
+
+			<p:column headerText="Lote">
+				<h:outputText value="#{lote.nome}" />
+			</p:column>
+			
+			<p:column headerText="Status">
+				<h:outputText value="#{lote.status}" />
+			</p:column>
+			
+			<p:column headerText="Processo">
+				<h:outputText value="#{relatorioLotesBean.buscaStatusLote(lote, true)}" />
+			</p:column>
+
+			<p:column headerText="Falta">
+				<h:outputText value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
+			</p:column>
+
+		</p:dataTable>
 
 	</ui:define>
 
