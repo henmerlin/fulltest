@@ -42,32 +42,29 @@ public class ClienteServico{
 	 *  - Designador de Acesso;
 	 * @return Cliente
 	 * @author G0042204
+	 * @throws RemoteException 
+	 * @throws OSSTurbonetException 
+	 * @throws DataNotFoundException 
 	 * @throws Exception 
 	 */
-	public Cliente consultarCadastro(Cliente cliente) throws Exception{
-		
-		try {
-			// Aciona método para obter designador
-			String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
+	public Cliente consultarCadastro(Cliente cliente) throws DataNotFoundException, OSSTurbonetException, RemoteException{
 
-			// Consulta Designador de Acesso
-			String designadorAcesso = this.getAccessDesignator(designador);
+		// Aciona método para obter designador
+		String designador = this.getDesignatorByAccessDesignator(cliente.getInstancia()).trim();	
 
-			// Sets
-			cliente.setDesignador(designador);
-			cliente.setDesignadorAcesso(designadorAcesso);
-			cliente.setCadastro(this.consultarCadastroTbs(cliente));
+		// Consulta Designador de Acesso
+		String designadorAcesso = this.getAccessDesignator(designador);
 
-			return cliente;
-			
-		} catch (Exception e) {
-			throw new Exception("Erro ao consultar cadastro!");
-		}
-		
+		// Sets
+		cliente.setDesignador(designador);
+		cliente.setDesignadorAcesso(designadorAcesso);
+		//cliente.setCadastro(this.consultarCadastroTbs(cliente));
+
+		return cliente;
 	}
-	
+
 	public InventarioProdutos consultarProdutos(String instancia) throws RemoteException{
-		
+
 		return  this.getProdutosContratados(instancia);
 	}
 

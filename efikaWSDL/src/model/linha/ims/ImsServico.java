@@ -59,7 +59,7 @@ public class ImsServico extends LinhaServico implements MassivoLinhaInterface{
 	@Override
 	public Resolucao validarRegistroCentral(Cliente cliente) {
 		
-		ConfiguracaolIms config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+		ConfiguracaolIms config = (ConfiguracaolIms) cliente.getLinha().getConfiguracao();
 		
 		if(config.getRegistro() != null){
 			if (!(config.getRegistro().getValor().contains("Registrado"))){

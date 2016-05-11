@@ -1,5 +1,6 @@
 package entidades.massivo;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,8 +30,10 @@ public class Teste {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="teste")
 	private List<ParecerTeste> pareceres;
 	
+	private Date dataEntrada;
+	
 	public Teste() {
-		
+		this.dataEntrada = new Date();
 	}
 
 	public Integer getId() {
@@ -71,5 +74,13 @@ public class Teste {
 
 	public void setProcessado(Boolean processado) {
 		this.processado = processado;
+	}
+
+	public Date getDataEntrada() {
+		return dataEntrada;
+	}
+
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
 	}
 }

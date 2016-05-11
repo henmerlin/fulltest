@@ -51,7 +51,8 @@ public class OperacionalServico{
 
 		// Consulta Serviço Contratado
 		try {
-			cliente.setInventario(this.servicoCadastro.consultarProdutos(cliente.getInstancia()));
+			
+			//cliente.setInventario(this.servicoCadastro.consultarProdutos(cliente.getInstancia()));
 
 			// Consultas de Cadastro
 			try {
@@ -77,7 +78,7 @@ public class OperacionalServico{
 				//this.servicoBandaEsp.disconnect();
 
 				// Sets nos erros de configuração encontrados
-				//this.servicoVoz.validarConfiguracoes(cliente);
+				this.servicoVoz.validarConfiguracoes(cliente);
 
 
 			} catch (Exception e) {
@@ -98,7 +99,6 @@ public class OperacionalServico{
 	}
 	
 	public Cliente consultarInstancia(String instancia) throws Exception{
-		
 			Cliente cliente = new Cliente();
 			cliente.setInstancia(instancia);
 			return this.consultar(cliente);

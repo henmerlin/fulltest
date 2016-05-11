@@ -32,8 +32,10 @@ public class MassivoServico {
 	@PersistenceContext(unitName="vu")  
 	private EntityManager entityManager;
 
-	public MassivoServico() {
+	private CSVReader csvReader;
 
+	public MassivoServico() {
+		
 	}
 
 	public void salvaLote(UploadedFile file, Usuario usuario) {
@@ -58,22 +60,24 @@ public class MassivoServico {
 			this.importCSV(nome);
 
 		} catch (Exception e) {
-
 			JSFUtil.addErrorMessage(e.getMessage());
-
 		}
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "resource"})
+	/**
+	 * 
+	 * @param nomeArquivo
+	 * @throws Exception
+	 */
 	public void importCSV(String nomeArquivo) throws Exception {
 
 		String[] row = null;
 		String csvFilename = "C:\\UploadedFiles\\MassivoVoz\\" + nomeArquivo + ".csv";
 
-		CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';');
+		csvReader = new CSVReader(new FileReader(csvFilename), ';');
 
-		List content = csvReader.readAll();
+		List<?> content = csvReader.readAll();
 
 		Lote lote = new Lote();
 		lote.setStatus(new Status(1));
@@ -85,9 +89,7 @@ public class MassivoServico {
 		for (Object object : content) {
 
 			row = (String[]) object;
-
-			//OperacionalServico fullteste = new OperacionalServico();
-
+			
 			try {
 
 				Teste teste = new Teste();
@@ -95,20 +97,13 @@ public class MassivoServico {
 				teste.setLote(lote);
 				this.entityManager.persist(teste);
 
-				//Cliente cliente = fullteste.consultarInstancia(row[0]);				
-
-				//System.out.println(cliente.getLinha().getTecnologia());
-
 			} catch (Exception e) {
-
-				System.out.println("Erro ao inserir linha no banco.");
-
+				System.out.println(e.getMessage());
 			}			
 
 		}
 		
 		lote.setStatus(new Status(3));
-		
 		this.entityManager.flush();
 	}
 
@@ -131,29 +126,42 @@ public class MassivoServico {
 	}
 
 	public void fazTeste(Teste teste) {
-
-		OperacionalServico fullteste = new OperacionalServico();
 		
+		this.entityManager.persist(teste);
+	
+		
+		OperacionalServico ft = new OperacionalServico();
+
+		ParecerTeste parecer = new ParecerTeste();
+		this.entityManager.persist(parecer);
+		
+		
+		//parecer.setTeste(this.entityManager.merge(teste));
+		//parecer.setVerificacao(new Verificacao(1));
+		
+		
+
 		try {
-			this.entityManager.merge(teste);
-			Cliente cliente = fullteste.consultarInstancia(teste.getInstancia());
-			Resolucao central = fullteste.validarRegistroCentral(cliente);
 			
-			ParecerTeste parecer = new ParecerTeste();
-			parecer.setTeste(teste);
-			parecer.setVerificacao(new Verificacao(1));
-			parecer.setResolucao(central);
-			teste.setProcessado(true);
+			Cliente cliente = ft.consultarInstancia(teste.getInstancia());
 			
-			this.entityManager.merge(teste);
+			System.out.println(cliente.getLinha().getTecnologia());
+			Resolucao central = ft.validarRegistroCentral(cliente);			
 			
-			this.entityManager.merge(parecer);
+			System.out.println(central.getId());
 			
-		} catch (Exception e) {
-			//System.out.println("Erro ao realizar teste da instancia.");
-		}
+			//parecer.setResolucao(central);
 
+		} catch (Exception e) {
+//					
+//			parecer.setVerificacao(new Verificacao(1));
+//			parecer.setResolucao(new Resolucao(5));
 		
+		}finally{
+			
+//			teste.setProcessado(true);
+//			this.entityManager.flush();					
+		}		
 	}
 
 }

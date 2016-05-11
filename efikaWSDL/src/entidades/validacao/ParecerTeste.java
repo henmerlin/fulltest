@@ -1,5 +1,7 @@
 package entidades.validacao;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,8 +31,10 @@ public class ParecerTeste {
 	@ManyToOne
 	private Resolucao resolucao;	
 	
+	private Date data;
+	
 	public ParecerTeste() {
-
+		this.data = new Date();
 	}
 
 	public Integer getId() {
@@ -65,5 +69,12 @@ public class ParecerTeste {
 		this.resolucao = resolucao;
 	}
 
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
 }
 

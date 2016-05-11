@@ -59,12 +59,13 @@ public class TaskMassivo {
 
 		try {
 			Teste teste = new Teste();
+			
 			teste = this.massivoServico.listaLinhas().get(0);
+			
 			this.massivoServico.fazTeste(teste);
+			
 		} catch (Exception e) {
-			
-			//System.out.println(e.getMessage());
-			
+			System.out.println(e.getMessage());
 		}
 
 	}

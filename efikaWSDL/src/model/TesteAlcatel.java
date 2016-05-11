@@ -1,29 +1,26 @@
 package model;
 
-import entidades.banda.parametros.TabelaParametrosGpon;
-import model.banda.gpon.alcatel.AlcatelServico;
-
+import entidades.massivo.Teste;
+import model.massivo.MassivoServico;
 
 public class TesteAlcatel {
 
 	public static void main(String[] args) throws Exception {
-		
-		
-//		try {
-//			
-//			AlcatelServico alcatel = new AlcatelServico();			
-//			//TabelaParametrosGpon tabela = alcatel.consultarTabelaParametros();			
-//
-//			System.out.println("Sinc Status -> " + tabela.getPortaAdmStatus());
-//			System.out.println("Profile -> " + tabela.getProfile());
-//			System.out.println("Potência OLT -> " + tabela.getPotenciaOLT());
-//			System.out.println("Potência ONT -> " + tabela.getPotenciaONT());
-//			
-//
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//	
+
+		try {
+
+			MassivoServico massivo = new MassivoServico();
+
+			Teste teste = new Teste();
+			teste.setInstancia("4135853980");
+			//teste.setInstancia("4130222839");
+			massivo.fazTeste(teste);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+
 	}
 }
 
