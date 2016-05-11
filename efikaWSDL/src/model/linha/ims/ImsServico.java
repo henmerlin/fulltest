@@ -4,11 +4,16 @@ package model.linha.ims;
 import java.rmi.RemoteException;
 
 import br.com.gvt.www.oss.necservice.ConsultElement;
+import entidades.cliente.Cliente;
+import entidades.configuracoes.ConfiguracaoSip;
+import entidades.configuracoes.ConfiguracaolIms;
 import entidades.linha.LinhaInterface;
 import entidades.parametros.Parametro;
+import entidades.validacao.Resolucao;
 import model.linha.LinhaServico;
+import model.linha.MassivoLinhaInterface;
 
-public class ImsServico extends LinhaServico{
+public class ImsServico extends LinhaServico implements MassivoLinhaInterface{
 	
 
 	public ImsServico() {
@@ -50,5 +55,22 @@ public class ImsServico extends LinhaServico{
 			return "Perdeu o registro recentemente";
 		}
 	}
+	
+	@Override
+	public Resolucao validarRegistroCentral(Cliente cliente) {
+		
+		ConfiguracaolIms config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+		
+		if(config.getRegistro() != null){
+			if (!(config.getRegistro().getValor().contains("Registrado"))){
+				return new Resolucao(2);
+			}else{
+				return new Resolucao(1);
+			}
+		}
+		
+		return new Resolucao(5);
+	}
+
 	
 }

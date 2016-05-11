@@ -1,9 +1,11 @@
 package model.modulos;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entidades.cliente.Cliente;
-
+import entidades.validacao.Resolucao;
 import model.banda.BandaServico;
 import model.banda.BandaServicoInterface;
 import model.cliente.ClienteServico;
@@ -11,6 +13,7 @@ import model.factory.BandaFactory;
 import model.factory.LinhaFactory;
 import model.linha.LinhaServico;
 import model.linha.LinhaServicoInterface;
+import model.linha.MassivoLinhaInterface;
 
 @Stateless
 public class OperacionalServico{
@@ -28,6 +31,9 @@ public class OperacionalServico{
 
 	@SuppressWarnings("unused")
 	private BandaServicoInterface servicoBandaEsp;
+	
+	@PersistenceContext(unitName="vu")  
+	private EntityManager em;
 
 	public OperacionalServico() {
 		this.servicoCadastro = new ClienteServico();
@@ -71,9 +77,8 @@ public class OperacionalServico{
 				//this.servicoBandaEsp.disconnect();
 
 				// Sets nos erros de configuração encontrados
-				cliente.getLinha().setErrors(this.servicoVoz.validarConfiguracoes(cliente));
-				
-				cliente.getLinha().setConfigErrors(this.servicoVoz.validarConfiguracoesLogicas(cliente));
+				//this.servicoVoz.validarConfiguracoes(cliente);
+
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -86,6 +91,10 @@ public class OperacionalServico{
 		}	
 
 		return cliente;
+	}
+	
+	public Resolucao validarRegistroCentral(Cliente cliente){
+		return ((MassivoLinhaInterface) this.servicoVoz).validarRegistroCentral(cliente);
 	}
 	
 	public Cliente consultarInstancia(String instancia) throws Exception{
@@ -139,7 +148,6 @@ public class OperacionalServico{
 
 		// Constroí Objeto Banda de acordo com cadastro
 		cliente.setBanda(this.servicoBanda.construirBanda(cliente.getCadastro()));
-
 		this.servicoBandaEsp = BandaFactory.criarServico(cliente.getCadastro().getCadastro().getInfoTBS().getDslamVendor());
 
 		return cliente;

@@ -9,10 +9,12 @@ import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoNortel;
 import entidades.correcao.AcaoCorretiva;
 import entidades.parametros.Parametro;
+import entidades.validacao.Resolucao;
 import model.linha.LinhaServicoInterface;
+import model.linha.MassivoLinhaInterface;
 import model.telnet.Telnet;
 
-public class NortelServico extends TdmServico implements LinhaServicoInterface{
+public class NortelServico extends TdmServico implements LinhaServicoInterface , MassivoLinhaInterface{
 
 	private Telnet telnet;
 
@@ -187,5 +189,11 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface{
 	public List<String> validarConfiguracoesLogicas(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Resolucao validarRegistroCentral(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return new Resolucao(5);
 	}
 }

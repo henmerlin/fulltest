@@ -16,11 +16,12 @@ import org.primefaces.model.UploadedFile;
 import com.opencsv.CSVReader;
 
 import entidades.cliente.Cliente;
-import entidades.log.Consulta;
-import entidades.log.ErroConsulta;
 import entidades.massivo.Lote;
 import entidades.massivo.Status;
 import entidades.massivo.Teste;
+import entidades.validacao.ParecerTeste;
+import entidades.validacao.Resolucao;
+import entidades.validacao.Verificacao;
 import model.modulos.OperacionalServico;
 import util.JSFUtil;
 import webservices.Usuario;
@@ -80,7 +81,7 @@ public class MassivoServico {
 		lote.setHoraIntegracao(new Date());
 
 		this.entityManager.persist(lote);
-
+		
 		for (Object object : content) {
 
 			row = (String[]) object;
@@ -90,10 +91,8 @@ public class MassivoServico {
 			try {
 
 				Teste teste = new Teste();
-
 				teste.setInstancia(row[0]);
 				teste.setLote(lote);
-
 				this.entityManager.persist(teste);
 
 				//Cliente cliente = fullteste.consultarInstancia(row[0]);				
@@ -106,8 +105,11 @@ public class MassivoServico {
 
 			}			
 
-		}		
-
+		}
+		
+		lote.setStatus(new Status(3));
+		
+		this.entityManager.flush();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -115,8 +117,8 @@ public class MassivoServico {
 
 		try {
 			
-			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.status =:param1");
-			query.setParameter("param1", true);
+			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.processado =:param1");
+			query.setParameter("param1", false);
 			query.setMaxResults(1);
 			return (List<Teste>) query.getResultList();	
 			
@@ -128,20 +130,27 @@ public class MassivoServico {
 
 	}
 
-	@SuppressWarnings("unused")
 	public void fazTeste(Teste teste) {
 
 		OperacionalServico fullteste = new OperacionalServico();
 		
-		
 		try {
 			this.entityManager.merge(teste);
 			Cliente cliente = fullteste.consultarInstancia(teste.getInstancia());
-									
+			Resolucao central = fullteste.validarRegistroCentral(cliente);
+			
+			ParecerTeste parecer = new ParecerTeste();
+			parecer.setTeste(teste);
+			parecer.setVerificacao(new Verificacao(1));
+			parecer.setResolucao(central);
+			teste.setProcessado(true);
+			
+			this.entityManager.merge(teste);
+			
+			this.entityManager.merge(parecer);
+			
 		} catch (Exception e) {
-			
 			//System.out.println("Erro ao realizar teste da instancia.");
-			
 		}
 
 		

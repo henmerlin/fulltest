@@ -42,9 +42,7 @@ public class TaskMassivo {
 
 	@PostConstruct
 	public void init() {
-
 		timerMassivoLinha.scheduleAtFixedRate(MassivoLinha, 1000, 1000);
-
 	}
 
 	public TaskMassivo() {
@@ -61,9 +59,7 @@ public class TaskMassivo {
 
 		try {
 			Teste teste = new Teste();
-
 			teste = this.massivoServico.listaLinhas().get(0);
-
 			this.massivoServico.fazTeste(teste);
 		} catch (Exception e) {
 			

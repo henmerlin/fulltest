@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import entidades.validacao.Validacao;
+import entidades.validacao.Verificacao;
 
 @Stateless
 public class ValidacaoServico {
@@ -16,12 +16,12 @@ public class ValidacaoServico {
 		
 	}
 	
-	public Validacao consultarPorId(Integer id){
+	public Verificacao consultarPorId(Integer id){
 		
 		try {
 			Query query = this.entityManager.createQuery("FROM Validacao v WHERE v.id =:param1");
 			query.setParameter("param1", id);
-			return (Validacao) query.getSingleResult();
+			return (Verificacao) query.getSingleResult();
 		} catch (Exception e) {
 			return null;
 		}

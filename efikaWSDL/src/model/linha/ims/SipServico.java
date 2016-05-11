@@ -25,7 +25,9 @@ import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoSip;
 import entidades.configuracoes.PortaFxs;
 import entidades.parametros.Parametro;
+import entidades.validacao.Resolucao;
 import model.linha.LinhaServicoInterface;
+import model.linha.MassivoLinhaInterface;
 
 /**
  * Instância de exemplo:
@@ -33,7 +35,7 @@ import model.linha.LinhaServicoInterface;
  * @author G0042204
  *
  */
-public class SipServico extends ImsServico implements LinhaServicoInterface {
+public class SipServico extends ImsServico implements LinhaServicoInterface, MassivoLinhaInterface {
 
 	private ConfiguradorOnlineDeviceManagementProxy codService;
 
@@ -328,6 +330,4 @@ public class SipServico extends ImsServico implements LinhaServicoInterface {
 
 		return erros;
 	}
-
-
 }

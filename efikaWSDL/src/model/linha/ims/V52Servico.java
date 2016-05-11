@@ -6,11 +6,10 @@ import java.util.List;
 
 import entidades.cliente.Cliente;
 import entidades.configuracoes.ConfiguracaoV52;
-import entidades.correcao.AcaoCorretiva;
-import entidades.linha.LinhaInterface;
 import model.linha.LinhaServicoInterface;
+import model.linha.MassivoLinhaInterface;
 
-public class V52Servico extends ImsServico implements LinhaServicoInterface {
+public class V52Servico extends ImsServico implements LinhaServicoInterface, MassivoLinhaInterface{
 	
 	//private ConfiguradorOnlineDeviceManagementProxy codService;
 	
