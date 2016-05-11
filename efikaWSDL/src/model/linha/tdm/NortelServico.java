@@ -193,6 +193,15 @@ public class NortelServico extends TdmServico implements LinhaServicoInterface ,
 
 	@Override
 	public Resolucao validarRegistroCentral(Cliente cliente) {
+		
+		
+		ConfiguracaoNortel config = (ConfiguracaoNortel) cliente.getLinha().getConfiguracao();
+		
+		if(config.getLen().getValor().isEmpty()){
+			return new Resolucao(1);
+		}
+		
+		
 		// TODO Auto-generated method stub
 		return new Resolucao(5);
 	}

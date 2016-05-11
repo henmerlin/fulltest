@@ -109,7 +109,7 @@ public class MassivoServico {
 
 		try {
 
-			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.processado =:param1");
+			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.processado =:param1 ORDER BY t.dataEntrada ASC");
 			query.setParameter("param1", false);
 			query.setMaxResults(1);
 			return (List<Teste>) query.getResultList();	
