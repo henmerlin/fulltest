@@ -42,7 +42,7 @@ public class RelatorioLotesServico {
 		
 		try {
 			
-			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.lote =:param1 AND t.processado");
+			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.lote =:param1 AND t.processado =:param2");
 			query.setParameter("param1", lote);
 			query.setParameter("param2", acao);			
 			return query.getResultList();
@@ -52,6 +52,12 @@ public class RelatorioLotesServico {
 			return new ArrayList<Teste>();
 			
 		}
+		
+	}
+	
+	public void listaTestesLote() {
+		
+		Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste.");
 		
 	}
 

@@ -35,14 +35,14 @@
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
 
-		<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}" style="margin-top: 20px;">
+		<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}" style="margin-top: 20px;" id="relatorioLotes">
 
 			<p:column headerText="Lote">
 				<h:outputText value="#{lote.nome}" />
 			</p:column>
 			
 			<p:column headerText="Status">
-				<h:outputText value="#{lote.status}" />
+				<h:outputText value="#{lote.status.nome}" />
 			</p:column>
 			
 			<p:column headerText="Processo">
@@ -53,7 +53,9 @@
 				<h:outputText value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
 			</p:column>
 
-		</p:dataTable>
+		</p:dataTable>	
+		
+		<p:poll interval="5" update="relatorioLotes"/>
 
 	</ui:define>
 
