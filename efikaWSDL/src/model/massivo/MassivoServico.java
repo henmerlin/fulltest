@@ -16,7 +16,10 @@ import org.primefaces.model.UploadedFile;
 import com.opencsv.CSVReader;
 
 import entidades.cliente.Cliente;
+import entidades.log.Consulta;
+import entidades.log.ErroConsulta;
 import entidades.massivo.Lote;
+import entidades.massivo.Status;
 import entidades.massivo.Teste;
 import model.modulos.OperacionalServico;
 import util.JSFUtil;
@@ -72,11 +75,9 @@ public class MassivoServico {
 		List content = csvReader.readAll();
 
 		Lote lote = new Lote();
-
-		Date date = new Date();
-
+		lote.setStatus(new Status(1));
 		lote.setNome(nomeArquivo);
-		lote.setHoraIntegracao(date);
+		lote.setHoraIntegracao(new Date());
 
 		this.entityManager.persist(lote);
 
@@ -92,7 +93,6 @@ public class MassivoServico {
 
 				teste.setInstancia(row[0]);
 				teste.setLote(lote);
-				teste.setStatus(true);
 
 				this.entityManager.persist(teste);
 
@@ -133,12 +133,9 @@ public class MassivoServico {
 
 		OperacionalServico fullteste = new OperacionalServico();
 		
+		
 		try {
-			
-			teste.setStatus(false);
-			
 			this.entityManager.merge(teste);
-			
 			Cliente cliente = fullteste.consultarInstancia(teste.getInstancia());
 									
 		} catch (Exception e) {

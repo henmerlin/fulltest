@@ -3,10 +3,12 @@ package entidades.massivo;
 import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,11 +24,22 @@ public class Lote {
 	
 	private Date horaIntegracao;
 	
+	@ManyToOne
+	private Status status;
+	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="lote")
 	private List<Teste> testes;
 
 	public Lote() {
 		
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Integer getId() {

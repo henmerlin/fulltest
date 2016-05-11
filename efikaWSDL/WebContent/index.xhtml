@@ -10,6 +10,13 @@
 	<ui:define name="tituloPagina">
 		 Início
 	</ui:define>
+
+	<ui:define name="eventos">
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
 	<ui:define name="tituloPrincipal">
 		<i class="fa fa-home"> </i> Início</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
@@ -17,9 +24,9 @@
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="conteudo">
-		<h:form>
-		
-		
+		<h:form>		
+
+
 		</h:form>
 	</ui:define>
 </ui:composition>

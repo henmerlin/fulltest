@@ -92,7 +92,6 @@ public class OperacionalServico{
 		
 			Cliente cliente = new Cliente();
 			cliente.setInstancia(instancia);
-		
 			return this.consultar(cliente);
 	}
 	/**

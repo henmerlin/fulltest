@@ -3,12 +3,13 @@ package entidades.validacao;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="FULLTEST_TESTE_VALIDACAO")
+@Table(name="FULLTEST_VALIDACAO")
 public class Validacao {
 	
 	@Id
@@ -18,14 +19,9 @@ public class Validacao {
 	@NotEmpty
 	private String nome;
 	
-	@NotEmpty
-	private String tecnologia;
+	@ManyToOne
+	private Resolucao resolucao;
 	
-//	@NotNull
-//	@ManyToOne
-//	private Resolucao resolucao;
-//	
-
 	public Validacao() {
 
 	}
@@ -46,20 +42,11 @@ public class Validacao {
 		this.nome = nome;
 	}
 
-	public String getTecnologia() {
-		return tecnologia;
+	public Resolucao getResolucao() {
+		return resolucao;
 	}
 
-	public void setTecnologia(String tecnologia) {
-		this.tecnologia = tecnologia;
+	public void setResolucao(Resolucao resolucao) {
+		this.resolucao = resolucao;
 	}
-	
-//	public Resolucao getResolucao() {
-//		return resolucao;
-//	}
-//
-//	public void setResolucao(Resolucao resolucao) {
-//		this.resolucao = resolucao;
-//	}
-
 }
