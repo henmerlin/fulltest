@@ -64,8 +64,10 @@ public class TaskMassivo {
 			
 			this.massivoServico.fazTeste(teste);
 			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {			
+			
+			//System.out.println(e.getMessage());			
+			
 		}
 
 	}
