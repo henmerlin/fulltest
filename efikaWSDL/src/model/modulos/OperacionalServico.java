@@ -78,7 +78,7 @@ public class OperacionalServico{
 				//this.servicoBandaEsp.disconnect();
 
 				// Sets nos erros de configuração encontrados
-				this.servicoVoz.validarConfiguracoes(cliente);
+				// this.servicoVoz.validarConfiguracoes(cliente);
 
 
 			} catch (Exception e) {

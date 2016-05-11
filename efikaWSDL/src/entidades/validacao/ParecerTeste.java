@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import entidades.massivo.Teste;
 
 @Entity
@@ -19,15 +17,12 @@ public class ParecerTeste {
 	@GeneratedValue
 	private Integer id;
 	
-	@NotNull
 	@ManyToOne
 	private Teste teste;
 
-	@NotEmpty
 	@ManyToOne
 	private Verificacao verificacao;
 	
-	@NotEmpty
 	@ManyToOne
 	private Resolucao resolucao;	
 	

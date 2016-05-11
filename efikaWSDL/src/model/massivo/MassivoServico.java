@@ -35,7 +35,7 @@ public class MassivoServico {
 	private CSVReader csvReader;
 
 	public MassivoServico() {
-		
+
 	}
 
 	public void salvaLote(UploadedFile file, Usuario usuario) {
@@ -85,11 +85,11 @@ public class MassivoServico {
 		lote.setHoraIntegracao(new Date());
 
 		this.entityManager.persist(lote);
-		
+
 		for (Object object : content) {
 
 			row = (String[]) object;
-			
+
 			try {
 
 				Teste teste = new Teste();
@@ -102,23 +102,20 @@ public class MassivoServico {
 			}			
 
 		}
-		
-		lote.setStatus(new Status(3));
-		this.entityManager.flush();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Teste> listaLinhas() throws Exception {
 
 		try {
-			
+
 			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.processado =:param1");
 			query.setParameter("param1", false);
 			query.setMaxResults(1);
 			return (List<Teste>) query.getResultList();	
-			
+
 		} catch (Exception e) {
-			
+
 			throw new Exception("Não possui linhas para serem testadas!");
 
 		}	
@@ -127,40 +124,31 @@ public class MassivoServico {
 
 	public void fazTeste(Teste teste) {
 		
-		this.entityManager.persist(teste);
-	
-		
+		Teste t = new Teste();
+		t = entityManager.merge(teste);
+		t.setProcessado(true);
+
 		OperacionalServico ft = new OperacionalServico();
 
 		ParecerTeste parecer = new ParecerTeste();
-		this.entityManager.persist(parecer);
 		
-		
-		//parecer.setTeste(this.entityManager.merge(teste));
-		//parecer.setVerificacao(new Verificacao(1));
-		
-		
+		parecer.setTeste(teste);
+		parecer.setVerificacao(new Verificacao(1));
 
 		try {
-			
+
 			Cliente cliente = ft.consultarInstancia(teste.getInstancia());
+
+			Resolucao central = ft.validarRegistroCentral(cliente);		
 			
-			System.out.println(cliente.getLinha().getTecnologia());
-			Resolucao central = ft.validarRegistroCentral(cliente);			
-			
-			System.out.println(central.getId());
-			
-			//parecer.setResolucao(central);
+			parecer.setResolucao(central);
 
 		} catch (Exception e) {
-//					
-//			parecer.setVerificacao(new Verificacao(1));
-//			parecer.setResolucao(new Resolucao(5));
-		
+			parecer.setResolucao(new Resolucao(5));
+
 		}finally{
-			
-//			teste.setProcessado(true);
-//			this.entityManager.flush();					
+			//			teste.setProcessado(true);
+			this.entityManager.persist(parecer);
 		}		
 	}
 
