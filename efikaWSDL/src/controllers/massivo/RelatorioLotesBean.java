@@ -7,14 +7,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import entidades.massivo.Lote;
+import entidades.validacao.ParecerTeste;
 import model.massivo.RelatorioLotesServico;
 
 @ManagedBean
 @ViewScoped
 public class RelatorioLotesBean {
 	
+	private Lote lote;
+			
 	@EJB
-	private RelatorioLotesServico relatorioLotesServico;
+	private RelatorioLotesServico relatorioLotesServico;	
 
 	public RelatorioLotesBean() {
 		
@@ -33,6 +36,19 @@ public class RelatorioLotesBean {
 		
 	}
 	
-	
+	public List<ParecerTeste> listaTestesLoteEspecifico() {
+		
+		return this.relatorioLotesServico.listaTestesLoteEspecifico(this.lote);
+		
+	}
+
+	public Lote getLote() {
+		return lote;
+	}
+
+
+	public void setLote(Lote lote) {
+		this.lote = lote;
+	}	
 
 }

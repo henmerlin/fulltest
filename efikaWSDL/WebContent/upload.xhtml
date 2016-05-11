@@ -35,28 +35,68 @@
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
 
-		<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}" style="margin-top: 20px;" id="relatorioLotes">
+		<h:form>
 
-			<p:column headerText="Lote">
-				<h:outputText value="#{lote.nome}" />
-			</p:column>
-			
-			<p:column headerText="Status">
-				<h:outputText value="#{lote.status.nome}" />
-			</p:column>
-			
-			<p:column headerText="Processo">
-				<h:outputText value="#{relatorioLotesBean.buscaStatusLote(lote, true)}" />
-			</p:column>
+			<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}"
+				style="margin-top: 20px;" id="relatorioLotes" selectionMode="single"
+				selection="#{relatorioLotesBean.lote}" rowKey="#{lote}">
 
-			<p:column headerText="Falta">
-				<h:outputText value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
-			</p:column>
+				<p:ajax event="rowSelect" update="@form:id_LoteEspecifico" />
 
-		</p:dataTable>	
+				<p:column headerText="Lote">
+					<h:outputText value="#{lote.nome}" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="#{lote.status.nome}" />
+				</p:column>
+
+				<p:column headerText="Processo">
+					<h:outputText
+						value="#{relatorioLotesBean.buscaStatusLote(lote, true)}" />
+				</p:column>
+
+				<p:column headerText="Falta">
+					<h:outputText
+						value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:dataTable var="loteEspecifico"
+				value="#{relatorioLotesBean.listaTestesLoteEspecifico()}"
+				id="id_LoteEspecifico" style="margin-top: 20px;">
+
+				<p:column headerText="Instancia">
+					<h:outputText value="#{loteEspecifico.teste.instancia}" />
+				</p:column>
+
+				<p:column headerText="Data Ação">
+					<h:outputText value="#{loteEspecifico.data}" />
+				</p:column>
+
+				<p:column headerText="Data Integração">
+					<h:outputText value="#{loteEspecifico.teste.dataEntrada}" />
+				</p:column>
+
+				<p:column headerText="Resolução nome">
+					<h:outputText value="#{loteEspecifico.resolucao.nome}" />
+				</p:column>
+
+				<p:column headerText="Teste Processado">
+					<h:outputText value="#{loteEspecifico.teste.processado}" />
+				</p:column>
+
+				<p:column headerText="Verificação Nome">
+					<h:outputText value="#{loteEspecifico.verificacao.nome}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:poll interval="5" update="relatorioLotes" />
+
+		</h:form>
 		
-		<p:poll interval="5" update="relatorioLotes"/>
-
 	</ui:define>
 
 </ui:composition>

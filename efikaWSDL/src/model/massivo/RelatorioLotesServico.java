@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import entidades.massivo.Lote;
 import entidades.massivo.Teste;
+import entidades.validacao.ParecerTeste;
 
 @Stateless
 public class RelatorioLotesServico {
@@ -55,9 +56,20 @@ public class RelatorioLotesServico {
 		
 	}
 	
-	public void listaTestesLote() {
+	@SuppressWarnings("unchecked")
+	public List<ParecerTeste> listaTestesLoteEspecifico(Lote lote) {
 		
-		Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste.");
+		try {
+			
+			Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste.lote =:param1");
+			query.setParameter("param1", lote);
+			return query.getResultList();
+			
+		} catch (Exception e) {
+			
+			return new ArrayList<ParecerTeste>();
+			
+		}
 		
 	}
 
