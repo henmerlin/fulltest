@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import entidades.massivo.Lote;
 import entidades.validacao.ParecerTeste;
+import entidades.validacao.Verificacao;
 import model.massivo.RelatorioLotesServico;
 
 @ManagedBean
@@ -19,8 +20,8 @@ public class RelatorioLotesBean {
 	private Lote lote;
 
 	@EJB
-	private RelatorioLotesServico relatorioLotesServico;	
-
+	private RelatorioLotesServico relatorioLotesServico;
+	
 	public RelatorioLotesBean() {
 
 	}
@@ -44,7 +45,9 @@ public class RelatorioLotesBean {
 				
 	}
 	
-	public String tabelaRelatorio2(ParecerTeste parecerTeste, Boolean acao) {
+	/*public String tabelaRelatorio2(ParecerTeste parecerTeste, Boolean acao) {
+		
+		
 		
 		ParecerTeste parecerTeste2 = new ParecerTeste();
 		
@@ -70,6 +73,32 @@ public class RelatorioLotesBean {
 			return "Não testado";
 
 		}		
+		
+	}*/	
+		
+	public List<Verificacao> testa() {
+		
+		return this.relatorioLotesServico.listarVerificacoes();
+		
+	}
+	
+	public String testa2(ParecerTeste parecerTeste, Verificacao verificacao) {
+		
+		String dados;
+		
+		try {		
+			
+			dados = this.relatorioLotesServico.listarParecer(parecerTeste, verificacao).getResolucao().getNome();
+			
+			return dados;
+			
+		} catch (Exception e) {
+			
+			dados = e.getMessage();
+			
+			return dados;
+			
+		}
 		
 	}
 	

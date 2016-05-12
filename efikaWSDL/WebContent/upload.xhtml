@@ -49,7 +49,7 @@
 			<!-- <p:column headerText="Status">
 				<h:outputText value="#{lote.status.nome}" />
 			</p:column> -->
-			
+
 			<p:column headerText="Nome do Lote">
 				<h:outputText value="#{lote.horaIntegracao}" />
 			</p:column>
@@ -91,14 +91,11 @@
 				<h:outputText value="#{loteEspecifico.data}" />
 			</p:column>
 
-			<p:column headerText="Registro Central">
-				<h:outputText value="#{loteEspecifico.resolucao.nome}" />
-			</p:column>
-
-			<p:column headerText="Conectividade">
-				<h:outputText
-					value="#{relatorioLotesBean.tabelaRelatorio2(loteEspecifico, true)}" />
-			</p:column>
+			<p:columns value="#{relatorioLotesBean.testa()}" var="nomeVerificacao" headerText="#{nomeVerificacao.nome}">
+				
+				<h:outputText value="#{relatorioLotesBean.testa2(loteEspecifico, nomeVerificacao)}" />
+			
+			</p:columns>
 
 		</p:dataTable>
 

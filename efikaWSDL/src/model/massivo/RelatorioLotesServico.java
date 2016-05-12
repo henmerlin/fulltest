@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import entidades.massivo.Lote;
 import entidades.massivo.Teste;
 import entidades.validacao.ParecerTeste;
+import entidades.validacao.Verificacao;
 
 @Stateless
 public class RelatorioLotesServico {
@@ -86,6 +87,38 @@ public class RelatorioLotesServico {
 			
 			throw new Exception("Cód. erro Parecer: 2.");
 			
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Verificacao> listarVerificacoes() {
+		
+		try {
+			
+			Query query = this.entityManager.createQuery("FROM Verificacao v");
+			 return query.getResultList();
+			
+		} catch (Exception e) {
+			
+			return new ArrayList<Verificacao>();
+			
+		}
+		
+	}
+	
+	public ParecerTeste listarParecer(ParecerTeste parecerTeste, Verificacao verificacao) throws Exception {
+		
+		try {
+			
+			Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste =:param1 AND p.verificacao =:param2");
+			query.setParameter("param1", parecerTeste.getTeste());
+			query.setParameter("param2", verificacao);
+			
+			return (ParecerTeste) query.getSingleResult();
+			
+		} catch (Exception e) {
+			throw new Exception("Não testado");
 		}
 		
 	}
