@@ -35,66 +35,72 @@
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
 
-		<h:form id="form">
+		<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}"
+			style="margin-top: 20px;" id="relatorioLotes" selectionMode="single"
+			selection="#{relatorioLotesBean.lote}" rowKey="#{lote.id}">
 
-			<p:dataTable var="lote" value="#{relatorioLotesBean.listarLotes()}"
-				style="margin-top: 20px;" id="relatorioLotes" selectionMode="single"
-				selection="#{relatorioLotesBean.lote}" rowKey="#{lote.id}">
+			<p:ajax event="rowSelect" update="@all"
+				listener="#{relatorioLotesBean.tabelaRelatorio()}" />
 
-				<p:ajax event="rowSelect" update="@form:id_LoteEspecifico" listener="#{relatorioLotesBean.tabelaRelatorio()}"/>
+			<p:column headerText="Nome do Lote">
+				<h:outputText value="#{lote.nome}" />
+			</p:column>
 
-				<p:column headerText="Lote">
-					<h:outputText value="#{lote.nome}" />
-				</p:column>
-
-				<p:column headerText="Status">
-					<h:outputText value="#{lote.status.nome}" />
-				</p:column>
-
-				<p:column headerText="Processo">
-					<h:outputText
-						value="#{relatorioLotesBean.buscaStatusLote(lote, true)}" />
-				</p:column>
-
-				<p:column headerText="Falta">
-					<h:outputText
-						value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
-				</p:column>
-
-			</p:dataTable>
-
-			<p:dataTable id="id_LoteEspecifico" var="loteEspecifico"
-				value="#{relatorioLotesBean.parecer}"
-				 style="margin-top: 20px;">
-
-				<p:column headerText="Instancia">
-					<h:outputText value="#{loteEspecifico.teste.instancia}" />
-				</p:column>
-
-				<p:column headerText="Data Ação">
-					<h:outputText value="#{loteEspecifico.data}" />
-				</p:column>
-
-				<p:column headerText="Data Integração">
-					<h:outputText value="#{loteEspecifico.teste.dataEntrada}" />
-				</p:column>
-
-				<p:column headerText="Registro Central">
-					<h:outputText value="Resolução: #{loteEspecifico.resolucao.nome}/" />
-					<h:outputText value="Processado: #{loteEspecifico.teste.processado}" />
-				</p:column>
-				
-				<p:column headerText="Registro Central">
-					<h:outputText value="Resolução: #{relatorioLotesBean.tabelaRelatorio2(loteEspecifico, true)}/" />
-					<h:outputText value="Processado: #{relatorioLotesBean.tabelaRelatorio2(loteEspecifico, false)}" />
-				</p:column>
-											
-
-			</p:dataTable>	
-
-			<p:poll interval="5" update="relatorioLotes" />
+			<!-- <p:column headerText="Status">
+				<h:outputText value="#{lote.status.nome}" />
+			</p:column> -->
 			
-		</h:form>
+			<p:column headerText="Nome do Lote">
+				<h:outputText value="#{lote.horaIntegracao}" />
+			</p:column>
+
+			<p:column headerText="Processado">
+				<h:outputText
+					value="#{relatorioLotesBean.buscaStatusLote(lote, true)}" />
+			</p:column>
+
+			<p:column headerText="Em espera">
+				<h:outputText
+					value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:poll interval="5" update="relatorioLotes" />
+
+		<p:dataTable id="id_LoteEspecifico" var="loteEspecifico"
+			value="#{relatorioLotesBean.parecer}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+			paginator="true" style="margin-top:20px;" rows="10"
+			currentPageReportTemplate="[{startRecord} de {endRecord}]">
+
+			<f:facet name="{Exporters}">
+				<h:commandLink immediate="false">
+					<i class="fa fa-download"></i> 
+						Exportar
+						<p:dataExporter type="xls" target="id_LoteEspecifico"
+						fileName="rel" />
+				</h:commandLink>
+			</f:facet>
+
+			<p:column headerText="Instancia">
+				<h:outputText value="#{loteEspecifico.teste.instancia}" />
+			</p:column>
+
+			<p:column headerText="Data Execução">
+				<h:outputText value="#{loteEspecifico.data}" />
+			</p:column>
+
+			<p:column headerText="Registro Central">
+				<h:outputText value="#{loteEspecifico.resolucao.nome}" />
+			</p:column>
+
+			<p:column headerText="Conectividade">
+				<h:outputText
+					value="#{relatorioLotesBean.tabelaRelatorio2(loteEspecifico, true)}" />
+			</p:column>
+
+		</p:dataTable>
 
 	</ui:define>
 
