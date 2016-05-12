@@ -330,4 +330,22 @@ public class SipServico extends ImsServico implements LinhaServicoInterface, Mas
 
 		return erros;
 	}
+
+	@Override
+	public Resolucao validarConectividade(Cliente cliente) {
+
+		try {
+			ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
+
+			if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
+				return new Resolucao(2);
+			}else{
+				return new Resolucao(1);
+			}
+
+		} catch (Exception e) {
+			return new Resolucao(5);
+		}
+	}
+
 }

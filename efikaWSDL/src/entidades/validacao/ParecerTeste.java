@@ -31,6 +31,12 @@ public class ParecerTeste {
 	public ParecerTeste() {
 		this.data = new Date();
 	}
+	
+	public ParecerTeste(Teste teste, Verificacao verificacao){
+		this.teste = teste;
+		this.verificacao = verificacao;
+		this.data = new Date();
+	}
 
 	public Integer getId() {
 		return id;

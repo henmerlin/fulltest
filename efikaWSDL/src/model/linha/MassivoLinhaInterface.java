@@ -7,4 +7,7 @@ public interface MassivoLinhaInterface{
 
 	public Resolucao validarRegistroCentral(Cliente cliente);
 	
+	public Resolucao validarConectividade(Cliente cliente);
+
+	
 }

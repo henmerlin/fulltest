@@ -72,5 +72,11 @@ public class ImsServico extends LinhaServico implements MassivoLinhaInterface{
 		return new Resolucao(5);
 	}
 
+	@Override
+	public Resolucao validarConectividade(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return new Resolucao(5);
+	}
+
 	
 }

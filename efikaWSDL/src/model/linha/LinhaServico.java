@@ -51,7 +51,7 @@ public class LinhaServico{
 	 */
 	public ConsultElement[] consultarElemento(String instancia, LinhaInterface linha) throws RemoteException{
 		
-		ConsultaElementoIn consulta = new ConsultaElementoIn(linha.getInstancia(), linha.getInstancia(), linha.getInfoSwitch().getSwitchName(), linha.getInfoSwitch().getCity(), linha.getInfoSwitch().getState());
+		ConsultaElementoIn consulta = new ConsultaElementoIn(instancia, linha.getInstancia(), linha.getInfoSwitch().getSwitchName(), linha.getInfoSwitch().getCity(), linha.getInfoSwitch().getState());
 
 		return this.coService.consultaElemento(consulta);
 	}

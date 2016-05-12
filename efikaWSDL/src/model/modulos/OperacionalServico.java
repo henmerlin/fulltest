@@ -98,6 +98,10 @@ public class OperacionalServico{
 		return ((MassivoLinhaInterface) this.servicoVoz).validarRegistroCentral(cliente);
 	}
 	
+	public Resolucao validarConectividade(Cliente cliente){
+		return ((MassivoLinhaInterface) this.servicoVoz).validarConectividade(cliente);
+	}
+	
 	public Cliente consultarInstancia(String instancia) throws Exception{
 			Cliente cliente = new Cliente();
 			cliente.setInstancia(instancia);

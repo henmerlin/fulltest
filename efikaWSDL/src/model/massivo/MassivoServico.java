@@ -3,9 +3,11 @@ package model.massivo;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,9 +35,8 @@ public class MassivoServico {
 	private EntityManager entityManager;
 
 	private CSVReader csvReader;
-
+	
 	public MassivoServico() {
-
 	}
 
 	public void salvaLote(UploadedFile file, Usuario usuario) {
@@ -128,27 +129,37 @@ public class MassivoServico {
 		t = entityManager.merge(teste);
 		t.setProcessado(true);
 
-		OperacionalServico ft = new OperacionalServico();
-
-		ParecerTeste parecer = new ParecerTeste();
 		
-		parecer.setTeste(teste);
-		parecer.setVerificacao(new Verificacao(1));
+		List<ParecerTeste> pareceres = new ArrayList<ParecerTeste>();
+		
+		ParecerTeste parecerCentral = new ParecerTeste(teste, new Verificacao(1));
+		ParecerTeste parecerConect =  new ParecerTeste(teste, new Verificacao(2));
+		
+		OperacionalServico ft = new OperacionalServico();
 
 		try {
 
 			Cliente cliente = ft.consultarInstancia(teste.getInstancia());
-
-			Resolucao central = ft.validarRegistroCentral(cliente);		
 			
-			parecer.setResolucao(central);
+			Resolucao central = ft.validarRegistroCentral(cliente);		
+			Resolucao conectividade = ft.validarConectividade(cliente);		
+			
+			parecerCentral.setResolucao(central);
+			parecerConect.setResolucao(conectividade);
 
 		} catch (Exception e) {
-			parecer.setResolucao(new Resolucao(5));
+			
+			parecerCentral.setResolucao(new Resolucao(5));
+			parecerConect.setResolucao(new Resolucao(5));
+			
 
 		}finally{
-			//			teste.setProcessado(true);
-			this.entityManager.persist(parecer);
+			
+			pareceres.add(parecerCentral);
+			pareceres.add(parecerConect);
+			t.setPareceres(pareceres);
+			
+			this.entityManager.persist(parecerCentral);
 		}		
 	}
 

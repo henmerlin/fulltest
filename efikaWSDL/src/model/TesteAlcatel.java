@@ -1,7 +1,7 @@
 package model;
 
-import entidades.massivo.Teste;
-import model.massivo.MassivoServico;
+import entidades.cliente.Cliente;
+import model.modulos.OperacionalServico;
 
 public class TesteAlcatel {
 
@@ -9,13 +9,11 @@ public class TesteAlcatel {
 
 		try {
 
-			MassivoServico massivo = new MassivoServico();
-
-			Teste teste = new Teste();
-			teste.setInstancia("4135853980");
-			//teste.setInstancia("4130222839");
-			massivo.fazTeste(teste);
-
+			OperacionalServico ft = new OperacionalServico();
+			
+			Cliente cliente = ft.consultarInstancia("4133280564");
+			System.out.println(ft.validarConectividade(cliente).getNome());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
