@@ -61,13 +61,30 @@ public class RelatorioLotesServico {
 		
 		try {
 			
-			Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste.lote =:param1");
+			Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste.lote =:param1 AND p.verificacao.id = 1");
 			query.setParameter("param1", lote);
 			return query.getResultList();
 			
 		} catch (Exception e) {
 			
 			return new ArrayList<ParecerTeste>();
+			
+		}
+		
+	}
+	
+	public ParecerTeste listaTesteEspecifico(ParecerTeste parecerTeste) throws Exception {
+		
+		try {
+			
+			Query query = this.entityManager.createQuery("FROM ParecerTeste p WHERE p.teste =:param1 AND p.verificacao.id = 2");
+			query.setParameter("param1", parecerTeste.getTeste());
+			
+			return (ParecerTeste) query.getSingleResult();
+			
+		} catch (Exception e) {
+			
+			throw new Exception("Cód. erro Parecer: 2.");
 			
 		}
 		
