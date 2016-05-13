@@ -69,7 +69,7 @@ public class SipServico extends ImsServico implements LinhaServicoInterface, Mas
 		try {
 			cliente = super.consultarConfiguracoes(cliente);
 
-			DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getInstancia(), cliente.getDesignador());
+			DiagnosticoSIPOut diag = this.executarDiagnosticoSIP(cliente.getLinha().getInstancia(), cliente.getDesignador());
 
 			ElementoDiagnosticoSIP device = diag.getHomegateway();
 
@@ -335,12 +335,13 @@ public class SipServico extends ImsServico implements LinhaServicoInterface, Mas
 	public Resolucao validarConectividade(Cliente cliente) {
 
 		try {
+		
 			ConfiguracaoSip config = (ConfiguracaoSip) cliente.getLinha().getConfiguracao();
 
-			if(!config.getStatus().getValor().equalsIgnoreCase("Up")){
-				return new Resolucao(2);
-			}else{
+			if(config.getStatus().getValor().equalsIgnoreCase("Up")){
 				return new Resolucao(1);
+			}else{
+				return new Resolucao(2);
 			}
 
 		} catch (Exception e) {

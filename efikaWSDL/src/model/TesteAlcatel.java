@@ -11,8 +11,8 @@ public class TesteAlcatel {
 
 			OperacionalServico ft = new OperacionalServico();
 			
-			Cliente cliente = ft.consultarInstancia("4133280564");
-			System.out.println(ft.validarConectividade(cliente).getNome());
+			Cliente cliente = ft.consultarInstancia("7130436364");
+			System.out.println(ft.validarConectividade(cliente).getId());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

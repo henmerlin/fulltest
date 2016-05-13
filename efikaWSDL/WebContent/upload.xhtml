@@ -86,15 +86,17 @@
 			<p:column headerText="Instancia">
 				<h:outputText value="#{loteEspecifico.teste.instancia}" />
 			</p:column>
+			
+			<p:column headerText="Tecnologia">
+				<h:outputText value="#{loteEspecifico.teste.tecnologia}" />
+			</p:column>			
 
-			<p:column headerText="Data Execução">
+			<p:column headerText="Data Execução" sortBy="#{loteEspecifico.data}">
 				<h:outputText value="#{loteEspecifico.data}" />
 			</p:column>
 
 			<p:columns value="#{relatorioLotesBean.testa()}" var="nomeVerificacao" headerText="#{nomeVerificacao.nome}">
-				
-				<h:outputText value="#{relatorioLotesBean.testa2(loteEspecifico, nomeVerificacao)}" />
-			
+				<h:outputText value="#{relatorioLotesBean.testa2(loteEspecifico, nomeVerificacao)}" style="text-align: center;"/>
 			</p:columns>
 
 		</p:dataTable>

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -132,8 +131,8 @@ public class MassivoServico {
 		
 		List<ParecerTeste> pareceres = new ArrayList<ParecerTeste>();
 		
-		ParecerTeste parecerCentral = new ParecerTeste(teste, new Verificacao(1));
-		ParecerTeste parecerConect =  new ParecerTeste(teste, new Verificacao(2));
+		ParecerTeste parecerCentral = new ParecerTeste(t, new Verificacao(1));
+		ParecerTeste parecerConect =  new ParecerTeste(t, new Verificacao(2));
 		
 		OperacionalServico ft = new OperacionalServico();
 
@@ -144,9 +143,11 @@ public class MassivoServico {
 			Resolucao central = ft.validarRegistroCentral(cliente);		
 			Resolucao conectividade = ft.validarConectividade(cliente);		
 			
+			t.setTecnologia(cliente.getLinha().getTecnologia());
+			
 			parecerCentral.setResolucao(central);
 			parecerConect.setResolucao(conectividade);
-
+			
 		} catch (Exception e) {
 			
 			parecerCentral.setResolucao(new Resolucao(5));
@@ -157,9 +158,11 @@ public class MassivoServico {
 			
 			pareceres.add(parecerCentral);
 			pareceres.add(parecerConect);
+			
 			t.setPareceres(pareceres);
 			
 			this.entityManager.persist(parecerCentral);
+			this.entityManager.persist(parecerConect);
 		}		
 	}
 

@@ -22,6 +22,8 @@ public class Teste {
 	
 	private String instancia;
 	
+	private String tecnologia;
+	
 	private Boolean processado = false;
 	
 	@ManyToOne
@@ -82,6 +84,14 @@ public class Teste {
 
 	public void setDataEntrada(Date dataEntrada) {
 		this.dataEntrada = dataEntrada;
+	}
+	
+	public String getTecnologia() {
+		return tecnologia;
+	}
+
+	public void setTecnologia(String tecnologia) {
+		this.tecnologia = tecnologia;
 	}
 
 	@Override
