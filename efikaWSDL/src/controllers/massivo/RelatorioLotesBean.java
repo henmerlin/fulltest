@@ -10,6 +10,7 @@ import entidades.massivo.Lote;
 import entidades.validacao.ParecerTeste;
 import entidades.validacao.Verificacao;
 import model.massivo.RelatorioLotesServico;
+import util.JSFUtil;
 
 @ManagedBean
 @ViewScoped
@@ -102,6 +103,13 @@ public class RelatorioLotesBean {
 		
 	}
 	
+	public void pararLote(Lote lote) {
+		
+		this.relatorioLotesServico.pararLote(this.relatorioLotesServico.listarLotes(lote));
+		
+		JSFUtil.addInfoMessage("Lote parado com sucesso.");
+		
+	}
 	
 
 	public List<ParecerTeste> getParecer() {
