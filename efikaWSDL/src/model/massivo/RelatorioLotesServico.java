@@ -122,5 +122,40 @@ public class RelatorioLotesServico {
 		}
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Teste> listarLotes(Lote lote) {
+		
+		try {
+			
+			Query query = this.entityManager.createQuery("FROM Teste t WHERE t.lote =:param1");
+			query.setParameter("param1", lote);
+			return query.getResultList();
+			
+		} catch (Exception e) {
+			
+			return new ArrayList<Teste>();
+			
+		}
+		
+	}
+	
+	public void pararLote(List<Teste> testes) {
+		
+		for (Teste teste : testes) {
+			
+			teste.setProcessado(true);
+			
+			this.entityManager.merge(teste);
+			
+		}
+		
+		/**
+		 * 
+		 * Lote ainda nao está trocando de status
+		 * 
+		 * */
+		
+	}
 
 }
