@@ -24,7 +24,7 @@
 
 		<div class="alert alert-info" style="margin-top: 15px;">
 			<i class="fa fa-info" /> Ao fazer o Upload do arquivo CSV
-			certifique-se de que o arquivo estÃ¡ no modelo correto.
+			certifique-se de que o arquivo está no modelo correto.
 		</div>
 		<h:form>
 			<p:fileUpload fileUploadListener="#{massivo.uploadFile}"
@@ -50,7 +50,7 @@
 				<h:outputText value="#{lote.status.nome}" />
 			</p:column> -->
 
-			<p:column headerText="Data integraÃ§Ã£o" style="text-align: center;">
+			<p:column headerText="Data integração" style="text-align: center;">
 				<h:outputText value="#{lote.horaIntegracao}" />
 			</p:column>
 
@@ -64,7 +64,7 @@
 					value="#{relatorioLotesBean.buscaStatusLote(lote, false)}" />
 			</p:column>
 
-			<p:column headerText="AÃ§Ã£o" style="text-align: center;">
+			<p:column headerText="Ação" style="text-align: center;">
 
 				<p:commandLink
 					action="#{relatorioLotesBean.pararLote(lote)}">
@@ -96,7 +96,7 @@
 				<h:outputText value="#{loteEspecifico.teste.instancia}" />
 			</p:column>
 
-			<p:column headerText="Data ExecuÃ§Ã£o" style="text-align: center;">
+			<p:column headerText="Data Execução" style="text-align: center;">
 				<h:outputText value="#{loteEspecifico.data}" />
 			</p:column>
 
